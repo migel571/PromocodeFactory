@@ -12,6 +12,7 @@ namespace PromocodeFactory.Domain.PromocodeManagement
         public string Name { get; set; }
         public PromoCode PromoCode { get; set; }
         public List<Customer> Customers { get; set; }
+        public Guid PromoCodeId { get; set; }   
     }
 
 }

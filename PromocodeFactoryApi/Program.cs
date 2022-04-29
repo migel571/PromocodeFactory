@@ -4,7 +4,7 @@ using PromocodeFactory.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<PromocodeContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Data:PromocodDB:ConnectionString")));
+builder.Services.AddDbContext<PromocodeContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("PromocodeFactoryDB")));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
