@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace PromocodeFactory.Infrastructure.Interfaces
 {
-    internal interface IRepositoryBase
+    public interface IRepositoryBase<T>
     {
+
     }
 }

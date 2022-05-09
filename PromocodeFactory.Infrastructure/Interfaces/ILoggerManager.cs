@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace PromocodeFactory.Infrastructure.Interfaces
 {
-    internal interface ILoggerManager
+    public interface ILoggerManager
     {
+        void LogInfo(string message);
+        void LogWarning(string message);
+        void LogDebug(string message);
+        void LogError(string message);
     }
 }

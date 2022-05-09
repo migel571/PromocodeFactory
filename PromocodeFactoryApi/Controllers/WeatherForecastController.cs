@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using PromocodeFactory.Contracts;
+using PromocodeFactory.Infrastructure.Interfaces;
 
 namespace PromocodeFactoryApi.Controllers
 {

@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using NLog;
-using PromocodeFactory.Contracts;
 using PromocodeFactory.Infrastructure;
+using PromocodeFactory.Infrastructure.Interfaces;
 using PromocodeFactory.LoggerService;
 using PromocodeFactoryApi.Extensions;
 

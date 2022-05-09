@@ -30,11 +30,12 @@ namespace PromocodeFactory.Infrastructure
             modelBuilder.Entity<Employee>().Property(p => p.Email).HasMaxLength(20);
             modelBuilder.Entity<Employee>().Property(p => p.FirstName).HasMaxLength(20);
             modelBuilder.Entity<Employee>().Property(p => p.LastName).HasMaxLength(20);
-            modelBuilder.Entity<Employee>().HasOne(p=>p.Role);
+            //modelBuilder.Entity<Employee>();
             
             //Конфигурация сущности Role
             modelBuilder.Entity<Role>().ToTable("Role");
             modelBuilder.Entity<Role>().Property(p => p.RoleName).HasMaxLength(15);
+            modelBuilder.Entity<Role>().HasMany(p=>p.Employees).WithOne(p=>p.Role);
 
             //Конфигурация сущности Customer
             modelBuilder.Entity<Customer>().ToTable("Customer");
