@@ -1,7 +1,12 @@
+using Microsoft.AspNetCore.Mvc;
+using PromocodeFactory.Contracts;
+
 namespace PromocodeFactoryApi
 {
     public class WeatherForecast
     {
+        
+
         public DateTime Date { get; set; }
 
         public int TemperatureC { get; set; }
