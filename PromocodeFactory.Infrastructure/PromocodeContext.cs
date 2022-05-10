@@ -30,20 +30,22 @@ namespace PromocodeFactory.Infrastructure
             modelBuilder.Entity<Employee>().Property(p => p.Email).HasMaxLength(20);
             modelBuilder.Entity<Employee>().Property(p => p.FirstName).HasMaxLength(20);
             modelBuilder.Entity<Employee>().Property(p => p.LastName).HasMaxLength(20);
-            //modelBuilder.Entity<Employee>();
+            modelBuilder.Entity<Employee>().HasOne<Role>(p=>p.Role).
+                                            WithMany(p=>p.Employees).
+                                            HasForeignKey(p=>p.RoleId);
             
             //Конфигурация сущности Role
             modelBuilder.Entity<Role>().ToTable("Role");
             modelBuilder.Entity<Role>().Property(p => p.RoleName).HasMaxLength(15);
-            modelBuilder.Entity<Role>().HasMany(p=>p.Employees).WithOne(p=>p.Role);
+            
 
             //Конфигурация сущности Customer
             modelBuilder.Entity<Customer>().ToTable("Customer");
             modelBuilder.Entity<Customer>().Property(p => p.FirstName).HasMaxLength(20);
             modelBuilder.Entity<Customer>().Property(p => p.LastName).HasMaxLength(20);
             modelBuilder.Entity<Customer>().Property(p => p.Email).HasMaxLength(20);
-            modelBuilder.Entity<Customer>().HasMany(p => p.Preferences).WithMany(p=>p.Customers);
-            modelBuilder.Entity<Customer>().HasOne(p => p.PromoCode).WithMany(p => p.Customers);
+            
+            
 
             //Конфигурация сущности Preference
             modelBuilder.Entity<Preference>().ToTable("Preference");
@@ -53,9 +55,20 @@ namespace PromocodeFactory.Infrastructure
             modelBuilder.Entity<PromoCode>().ToTable("PromoCode");
             modelBuilder.Entity<PromoCode>().Property(p=>p.Code).HasMaxLength(100);
             modelBuilder.Entity<PromoCode>().Property(p => p.PartnerName).HasMaxLength(20);
-            modelBuilder.Entity<PromoCode>().HasOne(p=>p.Preference);
+            modelBuilder.Entity<PromoCode>().HasOne<Preference>(p=>p.Preference).
+                                             WithMany(p=>p.PromoCodes).
+                                             HasForeignKey(p=>p.PreferenceId);
+            modelBuilder.Entity<PromoCode>().HasOne<Customer>(p => p.Customer).
+                WithMany(p => p.PromoCodes).
+                HasForeignKey(p => p.CustomerId);
 
 
+            modelBuilder.Entity<CustomerPreference>().ToTable("CustomerPreference");
+            modelBuilder.Entity<CustomerPreference>().HasKey(p=> new {p.PreferenceId, p.CustomerId});
+            modelBuilder.Entity<CustomerPreference>().HasOne<Customer>(p => p.Customer)
+                .WithMany(p => p.CustomerPreferences).HasForeignKey(p => p.CustomerId);
+            modelBuilder.Entity<CustomerPreference>().HasOne<Preference>(p => p.Preference)
+                .WithMany(p => p.CustomerPreferences).HasForeignKey(p => p.PreferenceId);
         }
     }
 

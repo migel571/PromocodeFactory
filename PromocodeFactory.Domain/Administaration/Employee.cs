@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PromocodeFactory.Domain.Administaration
+﻿namespace PromocodeFactory.Domain.Administaration
 {   
     /// <summary>
     /// Связь один(Role) ко многим(Employee) (у одной роли много сотрудников)
@@ -15,7 +9,7 @@ namespace PromocodeFactory.Domain.Administaration
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public int PromocodeCount { get; set; }
+        
 
         public Guid RoleId { get; set; }
         public Role Role { get; set; }

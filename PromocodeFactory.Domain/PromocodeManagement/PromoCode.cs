@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PromocodeFactory.Domain.PromocodeManagement
-{
+﻿namespace PromocodeFactory.Domain.PromocodeManagement
+{   /// <summary>
+    /// Связь один(Preference) ко многим(PromoCode) (у одного предпочтения много промокодов)
+    ///
+    /// Связь один(Customer) ко многим(PromoCode) (у одного клиента много промокодов)
+    /// </summary>
     public class PromoCode
     {
         public Guid PromoCodeId { get; set; }
@@ -14,8 +12,12 @@ namespace PromocodeFactory.Domain.PromocodeManagement
         public DateTime BeginDate { get; set; }
         public DateTime EndDate { get; set; }
         public string PartnerName { get; set; }
+
+        public Guid PreferenceId { get; set; }  
         public Preference Preference { get; set; }
-        public List<Customer> Customers { get; set; }
+
+        public Guid CustomerId { get; set; }
+        public Customer Customer { get; set; }
     }
 
 }
