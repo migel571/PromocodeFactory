@@ -4,6 +4,7 @@
     /// </summary>
     public class Partner
     {
+        public Guid PartnerId { get; set; }
         public string Name { get; set; } 
         
         public  int NumberIssuedPromoCode { get; set; } 

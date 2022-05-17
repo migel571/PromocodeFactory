@@ -4,7 +4,7 @@
     /// </summary>
     public class PartnerPromoCodeLimit
     {
-        public Guid Id { get; set; }
+        public Guid PartnerPromoCodeLimitId { get; set; }
 
         public DateTime CreateDate { get; set; }
 
