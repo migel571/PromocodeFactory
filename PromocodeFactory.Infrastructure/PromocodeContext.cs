@@ -44,6 +44,7 @@ namespace PromocodeFactory.Infrastructure
             modelBuilder.Entity<Customer>().Property(p => p.FirstName).HasMaxLength(20);
             modelBuilder.Entity<Customer>().Property(p => p.LastName).HasMaxLength(20);
             modelBuilder.Entity<Customer>().Property(p => p.Email).HasMaxLength(20);
+            modelBuilder.Entity<Customer>().HasMany<Preference>(p => p.Preferences).WithMany(p => p.Customers);
 
 
 
@@ -62,15 +63,7 @@ namespace PromocodeFactory.Infrastructure
                                              WithMany(p => p.PromoCodes).
                                              HasForeignKey(p => p.CustomerId);
 
-            //Конфигурация сущности CustomerPreference - сводная таблица для связи многие ко многим
-            modelBuilder.Entity<CustomerPreference>().ToTable("CustomerPreference");
-            modelBuilder.Entity<CustomerPreference>().HasKey(p => new { p.PreferenceId, p.CustomerId });
-            modelBuilder.Entity<CustomerPreference>().HasOne<Customer>(p => p.Customer).
-                                                      WithMany(p => p.CustomerPreferences).
-                                                      HasForeignKey(p => p.CustomerId);
-            modelBuilder.Entity<CustomerPreference>().HasOne<Preference>(p => p.Preference).
-                                                      WithMany(p => p.CustomerPreferences).
-                                                      HasForeignKey(p => p.PreferenceId);
+            
 
             //Конфигурация сущности Partner 
             modelBuilder.Entity<Partner>().ToTable("Partner");

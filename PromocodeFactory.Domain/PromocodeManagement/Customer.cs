@@ -12,7 +12,7 @@
         public string LastName { get; set; }
         public string Email { get; set; }
 
-        public ICollection<CustomerPreference> CustomerPreferences { get; set; }
+        public ICollection<Preference> Preferences { get; set; }
 
         public ICollection<PromoCode> PromoCodes { get; set; }
     }

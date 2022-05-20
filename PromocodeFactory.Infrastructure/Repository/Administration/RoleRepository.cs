@@ -16,7 +16,7 @@ namespace PromocodeFactory.Infrastructure.Repository.Administration
 
         public async Task<IEnumerable<Role>> GetAllAsync()
         {
-            return await _dbSet.OrderBy(o=>o.RoleName).ToListAsync();
+            return await _dbSet.OrderBy(o => o.RoleName).ToListAsync();
         }
 
         public async Task<Role> GetAsync(string roleName)
@@ -27,7 +27,7 @@ namespace PromocodeFactory.Infrastructure.Repository.Administration
 
         public async Task CreateAsync(Role role)
         {
-            _dbSet.AddAsync(role);
+            await _dbSet.AddAsync(role);
             await _context.SaveChangesAsync();
         }
 
@@ -42,8 +42,8 @@ namespace PromocodeFactory.Infrastructure.Repository.Administration
             var role = await _dbSet.FindAsync(roleId);
             if (role == null)
             {
-               return;
-               
+                return;
+
             }
 
             _dbSet.Remove(role);

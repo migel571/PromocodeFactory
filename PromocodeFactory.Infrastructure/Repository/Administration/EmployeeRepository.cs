@@ -28,7 +28,7 @@ namespace PromocodeFactory.Infrastructure.Repository.Administration
 
         public async Task CreateAsync(Employee employee)
         {
-            _dbSet.AddAsync(employee);
+            await _dbSet.AddAsync(employee);
             await _dbContext.SaveChangesAsync();
         }
 

@@ -3,6 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using NLog;
 using PromocodeFactory.Infrastructure;
 using PromocodeFactory.Infrastructure.Interfaces;
+using PromocodeFactory.Infrastructure.Interfaces.AdministrationRep;
+using PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment;
+using PromocodeFactory.Infrastructure.Repository.Administration;
+using PromocodeFactory.Infrastructure.Repository.PromocodeManagment;
 using PromocodeFactory.LoggerService;
 using PromocodeFactoryApi.Extensions;
 
@@ -13,6 +17,10 @@ LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/NL
 // Add services to the container.
 builder.Services.AddDbContext<PromocodeContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("PromocodeFactoryDB")));
 builder.Services.AddSingleton<ILoggerManager, LoggerManager>();
+builder.Services.AddScoped<IRepositoryEmployee, EmployeeRepository>();
+builder.Services.AddScoped<IRepositoryRole, RoleRepository>();
+builder.Services.AddScoped<IRepositoryCustomer, CustomerRepository>();
+builder.Services.AddScoped<IRepositoryPreference, PreferenceRepository>();
 builder.Services.AddControllers();
 // Добавляем наши методы расширения из Extension
 builder.Services.ConfigureCors();

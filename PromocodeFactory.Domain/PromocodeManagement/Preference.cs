@@ -13,7 +13,7 @@
 
         public ICollection<PromoCode> PromoCodes { get; set; }
 
-        public ICollection<CustomerPreference> CustomerPreferences { get; set; }
+        public ICollection<Customer> Customers { get; set; }
 
     }
 
