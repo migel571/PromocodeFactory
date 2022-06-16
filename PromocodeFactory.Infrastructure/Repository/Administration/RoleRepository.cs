@@ -21,7 +21,7 @@ namespace PromocodeFactory.Infrastructure.Repository.Administration
 
         public async Task<Role> GetAsync(string roleName)
         {
-            return await _dbSet.Where(w => w.RoleName == roleName).FirstOrDefaultAsync();
+            return await _dbSet.Include(i=>i.Employees).FirstOrDefaultAsync(w => w.RoleName == roleName);
 
         }
 
@@ -47,7 +47,7 @@ namespace PromocodeFactory.Infrastructure.Repository.Administration
             }
 
             _dbSet.Remove(role);
-            _context.SaveChangesAsync();
+         await _context.SaveChangesAsync();
         }
     }
 }

@@ -11,7 +11,6 @@ namespace PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment
     {
         Task<IEnumerable<Preference>> GetAllAsync();
         Task<Preference> GetAsync(string name);
-        Task<IList<Preference>> GetListAsync(string name);   
         Task CreateAsync(Preference preference);
         Task UpdateAsync(Preference preference);
         Task DeleteAsync(Guid preferenceId);

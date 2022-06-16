@@ -28,11 +28,6 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
             return await _dbSet.FirstOrDefaultAsync(x => x.Name == name);
         }
 
-        public async Task<IList<Preference>> GetListAsync(string name)
-        {
-            return await _dbSet.Where(p => p.Name == name).ToListAsync();
-        }
-
         public async Task CreateAsync(Preference preference)
         {
             await _dbSet.AddAsync(preference);

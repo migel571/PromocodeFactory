@@ -7,7 +7,7 @@ using PromocodeFactory.Infrastructure.Interfaces.AdministrationRep;
 using PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment;
 using PromocodeFactory.Infrastructure.Repository.Administration;
 using PromocodeFactory.Infrastructure.Repository.PromocodeManagment;
-using PromocodeFactory.LoggerService;
+using PromocodeFactory.Service;
 using PromocodeFactoryApi.Extensions;
 
 
@@ -21,6 +21,7 @@ builder.Services.AddScoped<IRepositoryEmployee, EmployeeRepository>();
 builder.Services.AddScoped<IRepositoryRole, RoleRepository>();
 builder.Services.AddScoped<IRepositoryCustomer, CustomerRepository>();
 builder.Services.AddScoped<IRepositoryPreference, PreferenceRepository>();
+builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers();
 // Добавляем наши методы расширения из Extension
 builder.Services.ConfigureCors();

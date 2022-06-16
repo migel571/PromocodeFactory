@@ -12,14 +12,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="NLog.Extensions.Logging" Version="1.7.4" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PromocodeFactory.Infrastructure\PromocodeFactory.Infrastructure.csproj" />
-    <ProjectReference Include="..\PromocodeFactory.LoggerService\PromocodeFactory.LoggerService.csproj" />
+    <ProjectReference Include="..\PromocodeFactory.Service\PromocodeFactory.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>
