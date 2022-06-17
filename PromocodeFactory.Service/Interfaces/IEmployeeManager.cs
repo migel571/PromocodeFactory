@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PromocodeFactory.Service.DTO.Administration;
 
 namespace PromocodeFactory.Service.Interfaces
 {
-    internal interface IEmployeeManager
+    public interface IEmployeeManager
     {
+        Task<IEnumerable<EmployeeDTO>> GetAllAsync();
+        Task<IEnumerable<EmployeeDTO>> GetAsync(string lastName);
+        Task CreateAsync(EmployeeDTO employee);
+        Task UpdateAsync(EmployeeDTO employee);
+        Task DeleteAsync(Guid eployeeId);
     }
 }

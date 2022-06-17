@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PromocodeFactory.Domain.Administaration;
 using PromocodeFactory.Infrastructure.Interfaces.AdministrationRep;
+using System.Linq.Expressions;
 
 namespace PromocodeFactory.Infrastructure.Repository.Administration
 {
@@ -21,7 +22,7 @@ namespace PromocodeFactory.Infrastructure.Repository.Administration
 
         public async Task<Role> GetAsync(string roleName)
         {
-            return await _dbSet.Include(i=>i.Employees).FirstOrDefaultAsync(w => w.RoleName == roleName);
+            return await _dbSet.Include(i => i.Employees).FirstOrDefaultAsync(w => w.RoleName == roleName);
 
         }
 
@@ -47,7 +48,12 @@ namespace PromocodeFactory.Infrastructure.Repository.Administration
             }
 
             _dbSet.Remove(role);
-         await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> ExistAsync(Expression<Func<Role, bool>> expression)
+        {
+            return await _dbSet.AnyAsync(expression);
         }
     }
 }

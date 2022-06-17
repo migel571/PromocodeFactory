@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PromocodeFactory.Domain.PromocodeManagement;
 using PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment;
+using System.Linq.Expressions;
 
 namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
 {
-    public class PartnerPromoCodeLimitRepository : IRepositoryPromoCodePartnerLimit
+    public class PartnerPromoCodeLimitRepository : IRepositoryPartnerPromoCodeLimit
     {
         private PromocodeContext _context;
         private DbSet<PartnerPromoCodeLimit> _dbSet;
@@ -40,9 +41,12 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
             _dbSet.Remove(limit);
             await _context.SaveChangesAsync();
         }
+        public async Task<bool> ExistAsync(Expression<Func<PartnerPromoCodeLimit, bool>> expression)
+        {
+            return await _dbSet.AnyAsync(expression);
+        }
 
 
 
-        
     }
 }

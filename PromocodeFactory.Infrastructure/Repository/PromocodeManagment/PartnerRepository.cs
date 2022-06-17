@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PromocodeFactory.Domain.PromocodeManagement;
 using PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment;
+using System.Linq.Expressions;
 
 namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
 {
@@ -42,6 +43,10 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
         {
             _dbSet.Update(partner);
             await _context.SaveChangesAsync();
+        }
+        public async Task<bool> ExistAsync(Expression<Func<Partner, bool>> expression)
+        {
+            return await _dbSet.AnyAsync(expression);
         }
     }
 }

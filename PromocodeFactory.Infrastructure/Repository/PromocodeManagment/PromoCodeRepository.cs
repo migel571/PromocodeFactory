@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PromocodeFactory.Domain.PromocodeManagement;
 using PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment;
+using System.Linq.Expressions;
 
 namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
 {
@@ -18,9 +19,9 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
             return await _dbSet.ToListAsync();
         }
 
-        public async Task<PromoCode> GetAsync(Guid promoCodeId)
+        public async Task<PromoCode> GetAsync(string code)
         {
-            return await _dbSet.FindAsync(promoCodeId);
+            return await _dbSet.FirstOrDefaultAsync(t=>t.Code == code);
         }
 
         public async Task CreateAsync(PromoCode promoCode)
@@ -39,6 +40,10 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
             if (promoCode == null) return;
             _dbSet.Remove(promoCode);
             await _context.SaveChangesAsync();
+        }
+        public async Task<bool> ExistAsync(Expression<Func<PromoCode, bool>> expression)
+        {
+            return await _dbSet.AnyAsync(expression);
         }
 
     }

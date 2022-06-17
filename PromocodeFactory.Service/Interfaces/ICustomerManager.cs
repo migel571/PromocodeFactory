@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PromocodeFactory.Service.DTO.PromocodeManagment;
 
 namespace PromocodeFactory.Service.Interfaces
 {
-    internal interface ICustomerManager
+    public interface ICustomerManager
     {
+       Task<IEnumerable<CustomerDTO>> GetAllAsync();
+        Task<IEnumerable<CustomerDTO>> GetAsync(string lastName);
+        Task CreateAsync(CustomerDTO customer);
+        Task UpdateAsync(CustomerDTO customer);
+        Task DeleteAsync(Guid customerId);
     }
 }

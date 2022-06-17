@@ -1,9 +1,5 @@
 ﻿using PromocodeFactory.Domain.PromocodeManagement;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment
 {
@@ -14,5 +10,6 @@ namespace PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment
         Task CreateAsync(Preference preference);
         Task UpdateAsync(Preference preference);
         Task DeleteAsync(Guid preferenceId);
+        Task<bool> ExistAsync(Expression<Func<Preference, bool>> expression);
     }
 }

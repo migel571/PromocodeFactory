@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PromocodeFactory.Service.DTO.Administration;
 
 namespace PromocodeFactory.Service.Interfaces
 {
-    internal interface IRoleManager
+    public interface IRoleManager
     {
+        Task<IEnumerable<RoleDTO>> GetAllAsync();
+        Task<RoleDTO> GetAsync(string roleName);
+        Task<bool> CreateAsync(RoleDTO role);
+        Task UpdateAsync(RoleDTO role);
+        Task DeleteAsync(Guid roleId);
     }
 }

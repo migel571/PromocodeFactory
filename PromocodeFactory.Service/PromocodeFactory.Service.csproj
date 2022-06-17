@@ -15,8 +15,4 @@
     <ProjectReference Include="..\PromocodeFactory.Infrastructure\PromocodeFactory.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Manager\" />
-  </ItemGroup>
-
 </Project>

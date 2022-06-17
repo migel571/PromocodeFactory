@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PromocodeFactory.Service.DTO.PromocodeManagment;
 
 namespace PromocodeFactory.Service.Interfaces
 {
-    internal interface IPreferenceManager
+    public interface IPreferenceManager
     {
+        Task<IEnumerable<PreferenceDTO>> GetAllAsync();
+        Task<PreferenceDTO> GetAsync(string Name);
+        Task CreateAsync(PreferenceDTO preference);
+        Task UpdateAsync(PreferenceDTO preference);
+        Task DeleteAsync(Guid preferenceId);
     }
 }

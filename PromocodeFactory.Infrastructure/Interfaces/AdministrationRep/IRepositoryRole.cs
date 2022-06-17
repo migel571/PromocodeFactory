@@ -1,4 +1,5 @@
 ﻿using PromocodeFactory.Domain.Administaration;
+using System.Linq.Expressions;
 
 namespace PromocodeFactory.Infrastructure.Interfaces.AdministrationRep
 {
@@ -9,5 +10,6 @@ namespace PromocodeFactory.Infrastructure.Interfaces.AdministrationRep
         Task CreateAsync(Role role);
         Task UpdateAsync(Role role);
         Task DeleteAsync(Guid roleId);
+        Task<bool> ExistAsync(Expression<Func<Role,bool>> expression);
     }
 }

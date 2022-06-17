@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PromocodeFactory.Service.DTO.PromocodeManagment;
 
 namespace PromocodeFactory.Service.Interfaces
 {
-    internal class IPartnerManager
+    public interface IPartnerManager
     {
+        Task<IEnumerable<PartnerDTO>> GetAllAsync();
+        Task<PartnerDTO> GetAsync(string Name);
+        Task CreateAsync(PartnerDTO partner);
+        Task UpdateAsync(PartnerDTO partner);
+        Task DeleteAsync(Guid partnerId);
     }
 }

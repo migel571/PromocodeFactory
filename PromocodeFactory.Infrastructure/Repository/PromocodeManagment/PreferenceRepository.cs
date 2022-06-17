@@ -1,11 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PromocodeFactory.Domain.PromocodeManagement;
 using PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
+
 
 namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
 {
@@ -44,6 +41,10 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
             if (preference == null) return;
             _dbSet.Remove(preference);
             await _context.SaveChangesAsync();
+        }
+        public async Task<bool> ExistAsync(Expression<Func<Preference, bool>> expression)
+        {
+            return await _dbSet.AnyAsync(expression);
         }
 
 
