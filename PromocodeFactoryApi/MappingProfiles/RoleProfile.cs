@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PromocodeFactory.Domain.Administaration;
 using PromocodeFactory.Service.DTO.Administration;
+using PromocodeFactoryApi.Commands;
 
 namespace PromocodeFactoryApi.MappingProfiles
 {
@@ -8,7 +9,8 @@ namespace PromocodeFactoryApi.MappingProfiles
     {
         public RoleProfile()
         {
-            CreateMap<Role, RoleDTO>();
+            CreateMap<Role, RoleDTO>().ReverseMap();
+            CreateMap<RoleDTO, CreateRoleCommand>().ReverseMap();
         }
        
     }

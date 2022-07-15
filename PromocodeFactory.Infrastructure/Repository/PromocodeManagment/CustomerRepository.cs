@@ -8,42 +8,42 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
     public class CustomerRepository : IRepositoryCustomer
     {
         private readonly PromocodeContext _context;
-        private readonly DbSet<Customer> _dbSet;
+        
         public CustomerRepository(PromocodeContext context)
         {
             _context = context;
-            _dbSet = context.Set<Customer>();
+            
         }
         public async Task<IEnumerable<Customer>> GetAllAsync()
         {
-            return await _dbSet.ToListAsync();
+            return await _context.Customers.ToListAsync();
         }
 
         public async Task<Customer> GetAsync(string firstname)
         {
-            return await _dbSet.Include(p => p.Preferences).FirstOrDefaultAsync(x => x.FirstName == firstname);
+            return await _context.Customers.Include(p => p.Preferences).FirstOrDefaultAsync(x => x.FirstName == firstname);
         }
         public async Task CreateAsync(Customer customer)
         {
-            await _dbSet.AddAsync(customer);
+            await _context.Customers.AddAsync(customer);
             await _context.SaveChangesAsync();
         }
         public async Task UpdateAsync(Customer customer)
         {
-            _dbSet.Update(customer);
+            _context.Customers.Update(customer);
             await _context.SaveChangesAsync();
         }
         public async Task DeleteAsync(Guid customerId)
         {
-            var customer = await _dbSet.FindAsync(customerId);
+            var customer = await _context.Customers.FindAsync(customerId);
             if (customer == null) return;
-            _dbSet.Remove(customer);
+            _context.Customers.Remove(customer);
             await _context.SaveChangesAsync();
 
         }
         public async Task<bool> ExistAsync(Expression<Func<Customer, bool>> expression)
         {
-            return await _dbSet.AnyAsync(expression);
+            return await _context.Customers.AnyAsync(expression);
         }
 
     }

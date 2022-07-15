@@ -6,7 +6,7 @@ namespace PromocodeFactory.Service.Interfaces
     {
         Task<IEnumerable<RoleDTO>> GetAllAsync();
         Task<RoleDTO> GetAsync(string roleName);
-        Task<bool> CreateAsync(RoleDTO role);
+        Task CreateAsync(RoleDTO role);
         Task UpdateAsync(RoleDTO role);
         Task DeleteAsync(Guid roleId);
     }

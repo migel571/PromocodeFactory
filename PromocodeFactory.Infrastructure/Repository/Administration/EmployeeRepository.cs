@@ -7,53 +7,53 @@ namespace PromocodeFactory.Infrastructure.Repository.Administration
 {
     public class EmployeeRepository : IRepositoryEmployee
     {
-        private readonly PromocodeContext _dbContext;
-        private readonly DbSet<Employee> _dbSet;
-        public EmployeeRepository(PromocodeContext dbContext)
+        private readonly PromocodeContext _context;
+        
+        public EmployeeRepository(PromocodeContext context)
         {
-            _dbContext = dbContext;
-            _dbSet = dbContext.Set<Employee>();
-
+            _context = context;
+            
         }
 
 
         public async Task<IEnumerable<Employee>> GetAllAsync()
         {
-            return await _dbSet.OrderBy(r => r.FirstName).ToListAsync();
+            return await _context.Employees.OrderBy(r => r.FirstName).ToListAsync();
         }
 
         public async Task<IEnumerable<Employee>> GetAsync(string lastName)
         {
-            return await _dbSet.Where(t=>t.LastName == lastName).ToListAsync();
+            return await _context.Employees.Where(t=>t.LastName == lastName).ToListAsync();
         }
 
         public async Task CreateAsync(Employee employee)
         {
-            await _dbSet.AddAsync(employee);
-            await _dbContext.SaveChangesAsync();
+           
+            await _context.Employees.AddAsync(employee);
+            await _context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(Employee employee)
         {
-            _dbSet.Update(employee);
-            await _dbContext.SaveChangesAsync();
+            _context.Employees.Update(employee);
+            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(Guid id)
         {
-            var employee = await _dbSet.FindAsync(id);
+            var employee = await _context.Employees.FindAsync(id);
             if (employee == null)
             {
                 return;
             }
 
-            _dbSet.Remove(employee);
-            await _dbContext.SaveChangesAsync();
+            _context.Employees.Remove(employee);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<bool> ExistAsync(Expression<Func<Employee, bool>> expression)
         {
-           return await _dbSet.AnyAsync(expression);
+           return await _context.Employees.AnyAsync(expression);
         }
     }
 }

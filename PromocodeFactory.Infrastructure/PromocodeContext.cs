@@ -16,6 +16,8 @@ namespace PromocodeFactory.Infrastructure
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Preference> Preferences { get; set; }
         public DbSet<PromoCode> PromoCodes { get; set; }
+        public DbSet<Partner> Partners { get; set; }
+        public DbSet<PartnerPromoCodeLimit> PartnerPromoCodeLimits { get; set; }
 
         /// <summary>
         /// Fluent API

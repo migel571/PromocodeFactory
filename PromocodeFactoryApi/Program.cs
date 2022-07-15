@@ -32,7 +32,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
+//Обработчик ошибок 
+if (app.Environment.IsDevelopment())
+    app.UseDeveloperExceptionPage();
+else
+    app.UseCustomExceptionHandler();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
