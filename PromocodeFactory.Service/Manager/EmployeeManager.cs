@@ -26,27 +26,27 @@ namespace PromocodeFactory.Service.Manager
             return _mapper.Map<IEnumerable<EmployeeDTO>>(employees);
         }
 
-        public async Task<IEnumerable<EmployeeDTO>> GetAsync(string lastName)
+        public async Task<EmployeeDTO> GetAsync(Guid employeeId)
         {
-            return _mapper.Map<IEnumerable<EmployeeDTO>>(await _repository.GetAsync(lastName));
+            return _mapper.Map<EmployeeDTO>(await _repository.GetAsync(employeeId));
         }
 
         public async Task CreateAsync(EmployeeDTO employee)
         {
             if (await _repository.ExistAsync(filter => filter.Email == employee.Email && filter.LastName == employee.LastName))
             {
-                _logger.LogInfo($"Employee with name={employee.Email} and LastName={employee.LastName} already exist.");
-                throw new EmployeeAlreadyExistException($"Employee with name={employee.Email} and LastName={employee.LastName} already exist.");
+                _logger.LogInfo($"Employee with email={employee.Email} and LastName={employee.LastName} already exist.");
+                throw new EmployeeException($"Employee already exist.");
             }
             await _repository.CreateAsync(_mapper.Map<Employee>(employee));
 
         }
         public async Task UpdateAsync(EmployeeDTO employee)
         {
-            if (await _repository.ExistAsync(filter => filter.Email == employee.Email && filter.LastName == employee.LastName))
+            if (!(await _repository.ExistAsync(filter => filter.EmployeeId == employee.EmployeeId)))
             {
-                _logger.LogInfo($"Employee with name={employee.Email} and LastName={employee.LastName} already exist.");
-                throw new EmployeeAlreadyExistException($"Employee with name={employee.Email} and LastName={employee.LastName} already exist.");
+                _logger.LogInfo($"Employee does not exist.");
+                throw new EmployeeException($"Employee does not exist.");
             }
             await _repository.UpdateAsync(_mapper.Map<Employee>(employee));
         }

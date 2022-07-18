@@ -6,7 +6,7 @@ namespace PromocodeFactory.Infrastructure.Interfaces.AdministrationRep
     public interface IRepositoryEmployee
     {
         Task<IEnumerable<Employee>> GetAllAsync();
-        Task<IEnumerable<Employee>> GetAsync(string lastName);
+        Task<Employee> GetAsync(Guid employeeId);
         Task UpdateAsync(Employee employee);
         Task CreateAsync(Employee employee);
         Task DeleteAsync(Guid id);

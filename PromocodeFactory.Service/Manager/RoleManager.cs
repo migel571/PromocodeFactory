@@ -39,9 +39,9 @@ namespace PromocodeFactory.Service.Manager
             if (await _repository.ExistAsync(filter => filter.RoleName == role.RoleName))
             {
                 _logger.LogInfo($"Role with name={role.RoleName} already exist.");
-                throw new RoleAlreadyExistException($"Role with name={role.RoleName} already exist.");
+                throw new Exceptions.RoleException($"Role already exist.");
             }
-            await _repository.CreateAsync(_mapper.Map<Role>(role));
+            await _repository.CreateAsync(_mapper.Map<Domain.Administaration.Role>(role));
 
         }
         public async Task UpdateAsync(RoleDTO role)
@@ -49,13 +49,24 @@ namespace PromocodeFactory.Service.Manager
             if (await _repository.ExistAsync(filter => filter.RoleName == role.RoleName))
             {
                 _logger.LogInfo($"Role with name={role.RoleName} already exist.");
-                throw new RoleAlreadyExistException($"Role with name={role.RoleName} already exist.");
+                throw new Exceptions.RoleException($"Role already exist.");
             }
-            await _repository.UpdateAsync(_mapper.Map<Role>(role));
+            if (!(await _repository.ExistAsync(filter => filter.RoleId == role.RoleId)))
+            {
+                _logger.LogInfo($"Role does not exist.");
+                throw new Exceptions.RoleException($"Role does not exist.");
+            }
+            await _repository.UpdateAsync(_mapper.Map<Domain.Administaration.Role>(role));
         }
         public async Task DeleteAsync(Guid roleId)
         {
-            await _repository.DeleteAsync(roleId);
+            var role = await _repository.FindRoleAsync(roleId);
+            if (role == null)
+            {
+                _logger.LogInfo($"Failed to delete role with id={roleId}");
+                throw new Exceptions.RoleException($"Failed to delete role.");
+            }
+            await _repository.DeleteAsync(role);
 
         }
 

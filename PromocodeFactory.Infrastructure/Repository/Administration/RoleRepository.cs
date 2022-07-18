@@ -37,15 +37,8 @@ namespace PromocodeFactory.Infrastructure.Repository.Administration
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Guid roleId)
+        public async Task DeleteAsync(Role role)
         {
-            var role = await _context.Roles.FindAsync(roleId);
-            if (role == null)
-            {
-                return;
-
-            }
-
             _context.Roles.Remove(role);
             await _context.SaveChangesAsync();
         }
@@ -54,5 +47,11 @@ namespace PromocodeFactory.Infrastructure.Repository.Administration
         {
             return await _context.Roles.AnyAsync(expression);
         }
+        public async Task<Role> FindRoleAsync(Guid roleId)
+        {
+            return await _context.Roles.FindAsync(roleId);
+            
+        }
+
     }
 }

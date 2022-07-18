@@ -15,7 +15,9 @@ namespace PromocodeFactoryApi.Extensions
                   var exception = feature.Error;
                   context.Response.StatusCode = exception switch
                   {
-                      RoleAlreadyExistException _ => Status400BadRequest,
+                      RoleException _ => Status400BadRequest,
+                      EmployeeException _ => Status400BadRequest,
+                      CustomerException _ => Status400BadRequest,
                       _ => context.Response.StatusCode
                   };
                   var result = JsonConvert.SerializeObject(new { error = exception.Message });

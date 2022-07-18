@@ -11,5 +11,6 @@ namespace PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment
         Task UpdateAsync(Preference preference);
         Task DeleteAsync(Guid preferenceId);
         Task<bool> ExistAsync(Expression<Func<Preference, bool>> expression);
+        Task<List<Preference>> GetPreferencesByIdsAsync(List<Guid> preferenceIds);
     }
 }

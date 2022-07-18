@@ -28,6 +28,12 @@ namespace PromocodeFactoryApi.Controllers
             var employees = await _manager.GetAllAsync();
             return Ok(employees);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetEmployee(Guid employeeId)
+        {
+            var employee = await _manager.GetAsync(employeeId);
+            return Ok(employee);
+        }
 
         [HttpPost]
         public async Task<IActionResult> CreateEmployee([FromBody] CreateEmployeeCommand employeeBody)

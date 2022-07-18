@@ -9,7 +9,8 @@ namespace PromocodeFactory.Infrastructure.Interfaces.AdministrationRep
         Task<Role> GetAsync(string roleName);
         Task CreateAsync(Role role);
         Task UpdateAsync(Role role);
-        Task DeleteAsync(Guid roleId);
+        Task DeleteAsync(Role role);
         Task<bool> ExistAsync(Expression<Func<Role,bool>> expression);
+        Task<Role> FindRoleAsync(Guid roleId);
     }
 }

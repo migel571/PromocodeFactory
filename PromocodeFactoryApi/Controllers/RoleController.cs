@@ -28,6 +28,12 @@ namespace PromocodeFactoryApi.Controllers
             var roles = await _manager.GetAllAsync();
             return Ok(roles);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetRole(string roleName)
+        {
+            var role = await _manager.GetAsync(roleName);
+            return Ok(role);
+        }
 
         [HttpPost]
         public async Task<IActionResult> CreateRole([FromBody] CreateRoleCommand roleBody)
@@ -48,7 +54,7 @@ namespace PromocodeFactoryApi.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteRole(Guid id )
+        public async Task<IActionResult> DeleteRole(Guid id)
         {
             await _manager.DeleteAsync(id);
             return NoContent();

@@ -18,12 +18,12 @@ namespace PromocodeFactory.Infrastructure.Repository.Administration
 
         public async Task<IEnumerable<Employee>> GetAllAsync()
         {
-            return await _context.Employees.OrderBy(r => r.FirstName).ToListAsync();
+            return await _context.Employees.AsNoTracking().OrderBy(r => r.FirstName).ToListAsync();
         }
 
-        public async Task<IEnumerable<Employee>> GetAsync(string lastName)
+        public async Task<Employee> GetAsync(Guid employeeId)
         {
-            return await _context.Employees.Where(t=>t.LastName == lastName).ToListAsync();
+            return await _context.Employees.AsNoTracking().FirstOrDefaultAsync(t=>t.EmployeeId == employeeId);
         }
 
         public async Task CreateAsync(Employee employee)

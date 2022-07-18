@@ -45,6 +45,10 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
         {
             return await _context.Preferences.AnyAsync(expression);
         }
+        public async Task<List<Preference>> GetPreferencesByIdsAsync(List<Guid> preferenceIds)
+        {
+           return await _context.Preferences.Where(p => preferenceIds.Contains(p.PreferenceId)).ToListAsync();
+        }
 
 
     }

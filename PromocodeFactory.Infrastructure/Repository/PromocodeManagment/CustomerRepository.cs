@@ -16,12 +16,12 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
         }
         public async Task<IEnumerable<Customer>> GetAllAsync()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.Customers.AsNoTracking().ToListAsync();
         }
 
-        public async Task<Customer> GetAsync(string firstname)
+        public async Task<Customer> GetAsync(Guid customerId)
         {
-            return await _context.Customers.Include(p => p.Preferences).FirstOrDefaultAsync(x => x.FirstName == firstname);
+            return await _context.Customers.Include(p => p.Preferences). Include(p=>p.PromoCodes).FirstOrDefaultAsync(x =>x.CustomerId == customerId);
         }
         public async Task CreateAsync(Customer customer)
         {
@@ -30,6 +30,7 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
         }
         public async Task UpdateAsync(Customer customer)
         {
+           //var customerUp = await GetAsync(customer.LastName, customer.Email);
             _context.Customers.Update(customer);
             await _context.SaveChangesAsync();
         }
@@ -44,6 +45,12 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
         public async Task<bool> ExistAsync(Expression<Func<Customer, bool>> expression)
         {
             return await _context.Customers.AnyAsync(expression);
+        }
+        public async Task<Customer> FindCustomerAsync(Guid customerId)
+        {
+            return await _context.Customers.FindAsync(customerId);
+            
+
         }
 
     }

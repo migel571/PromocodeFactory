@@ -45,5 +45,9 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
             return await _context.PromoCodes.AnyAsync(expression);
         }
 
+        public async Task<List<PromoCode>> GetPromoCodesByIdsAsync(List<Guid> promocodeIds)
+        {
+            return await _context.PromoCodes.Where(p => promocodeIds.Contains(p.PromoCodeId)).ToListAsync();
+        }
     }
 }

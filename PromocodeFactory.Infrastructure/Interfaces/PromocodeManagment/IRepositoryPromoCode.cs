@@ -11,5 +11,6 @@ namespace PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment
         Task UpdateAsync(PromoCode promoCode);
         Task DeleteAsync(Guid promoCodeId);
         Task<bool> ExistAsync(Expression<Func<PromoCode, bool>> expression);
+        Task<List<PromoCode>> GetPromoCodesByIdsAsync(List<Guid> promocodeIds);
     }
 }
