@@ -52,10 +52,16 @@ namespace PromocodeFactory.Service.Manager
         }
         public async Task DeleteAsync(Guid employeeId)
         {
-            if (await _repository.ExistAsync(filter => filter.EmployeeId == employeeId))
-                return;
-            await _repository.DeleteAsync(employeeId);
+            var employee = await _repository.FindEmployeeAsync(employeeId);
+            if (employee == null)
+            {
+                _logger.LogInfo($"Employee does not exist.");
+                throw new EmployeeException($"Employee does not exist.");
+            }
+                
+            await _repository.DeleteAsync(employee);
         }
+        
 
 
 

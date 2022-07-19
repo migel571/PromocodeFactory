@@ -6,7 +6,7 @@ namespace PromocodeFactory.Service.Interfaces
     {
         Task<IEnumerable<CustomerDTO>> GetAllAsync();
         Task<CustomerDTO> GetAsync(Guid customerId);
-        Task CreateAsync(CustomerDTO customer, List<Guid> preferensIds);
+        Task CreateAsync(CustomerDTO customer, List<Guid> preferensIds, List<Guid> promoCodeIds);
         Task UpdateAsync(CustomerDTO customer, List<Guid> preferensIds, List<Guid> promoCodeIds);
         Task DeleteAsync(Guid customerId);
     }

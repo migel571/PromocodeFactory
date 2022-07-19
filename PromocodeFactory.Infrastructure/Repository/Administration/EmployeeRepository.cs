@@ -8,11 +8,11 @@ namespace PromocodeFactory.Infrastructure.Repository.Administration
     public class EmployeeRepository : IRepositoryEmployee
     {
         private readonly PromocodeContext _context;
-        
+
         public EmployeeRepository(PromocodeContext context)
         {
             _context = context;
-            
+
         }
 
 
@@ -23,12 +23,12 @@ namespace PromocodeFactory.Infrastructure.Repository.Administration
 
         public async Task<Employee> GetAsync(Guid employeeId)
         {
-            return await _context.Employees.AsNoTracking().FirstOrDefaultAsync(t=>t.EmployeeId == employeeId);
+            return await _context.Employees.AsNoTracking().FirstOrDefaultAsync(t => t.EmployeeId == employeeId);
         }
 
         public async Task CreateAsync(Employee employee)
         {
-           
+
             await _context.Employees.AddAsync(employee);
             await _context.SaveChangesAsync();
         }
@@ -39,21 +39,20 @@ namespace PromocodeFactory.Infrastructure.Repository.Administration
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Employee employee)
         {
-            var employee = await _context.Employees.FindAsync(id);
-            if (employee == null)
-            {
-                return;
-            }
-
             _context.Employees.Remove(employee);
             await _context.SaveChangesAsync();
         }
-
+       
         public async Task<bool> ExistAsync(Expression<Func<Employee, bool>> expression)
         {
-           return await _context.Employees.AnyAsync(expression);
+            return await _context.Employees.AnyAsync(expression);
+        }
+        public async Task<Employee> FindEmployeeAsync(Guid employeeId)
+        {
+            var employee = await _context.Employees.FindAsync(employeeId);
+            return employee;
         }
     }
 }

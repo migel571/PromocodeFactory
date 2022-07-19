@@ -11,6 +11,7 @@ namespace PromocodeFactoryApi.MappingProfiles
         {
             CreateMap<Employee,EmployeeDTO>().ReverseMap();
             CreateMap<EmployeeDTO, CreateEmployeeCommand>().ReverseMap();
+            CreateMap<EmployeeDTO, UpdateEmployeeCommand>().ReverseMap();
         }
     }
 }

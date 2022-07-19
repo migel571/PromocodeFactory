@@ -23,7 +23,7 @@ namespace PromocodeFactoryApi.Controllers
 
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllEmployee()
+        public async Task<IActionResult> GetAllEmployees()
         {
             var employees = await _manager.GetAllAsync();
             return Ok(employees);
@@ -51,9 +51,9 @@ namespace PromocodeFactoryApi.Controllers
             return NoContent();
         }
         [HttpDelete]
-        public async Task<IActionResult> DeleteEmployee(Guid id)
+        public async Task<IActionResult> DeleteEmployee(Guid employeeId)
         {
-            await _manager.DeleteAsync(id);
+            await _manager.DeleteAsync(employeeId);
             return NoContent();
         }
     }

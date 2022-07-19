@@ -8,11 +8,11 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
     public class CustomerRepository : IRepositoryCustomer
     {
         private readonly PromocodeContext _context;
-        
+
         public CustomerRepository(PromocodeContext context)
         {
             _context = context;
-            
+
         }
         public async Task<IEnumerable<Customer>> GetAllAsync()
         {
@@ -21,7 +21,7 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
 
         public async Task<Customer> GetAsync(Guid customerId)
         {
-            return await _context.Customers.Include(p => p.Preferences). Include(p=>p.PromoCodes).FirstOrDefaultAsync(x =>x.CustomerId == customerId);
+            return await _context.Customers.Include(p => p.Preferences).Include(p => p.PromoCodes).FirstOrDefaultAsync(x => x.CustomerId == customerId);
         }
         public async Task CreateAsync(Customer customer)
         {
@@ -30,7 +30,7 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
         }
         public async Task UpdateAsync(Customer customer)
         {
-           //var customerUp = await GetAsync(customer.LastName, customer.Email);
+            //var customerUp = await GetAsync(customer.LastName, customer.Email);
             _context.Customers.Update(customer);
             await _context.SaveChangesAsync();
         }
@@ -49,8 +49,11 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
         public async Task<Customer> FindCustomerAsync(Guid customerId)
         {
             return await _context.Customers.FindAsync(customerId);
-            
-
+        }
+        public async Task<List<Customer>> GetCustomersByIdsAsync(List<Guid> customersIds)
+        {
+            var customers = await _context.Customers.Where(c=>customersIds.Contains(c.CustomerId)).ToListAsync();
+            return customers;
         }
 
     }

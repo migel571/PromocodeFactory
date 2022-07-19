@@ -16,12 +16,16 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
         }
         public async Task<IEnumerable<Preference>> GetAllAsync()
         {
-            return await _context.Preferences.ToListAsync();
+            return await _context.Preferences.AsNoTracking().ToListAsync();
         }
 
-        public async Task<Preference> GetAsync(string name)
+        public async Task<Preference> GetAsyncById(Guid preferenceId)
         {
-            return await _context.Preferences.FirstOrDefaultAsync(x => x.Name == name);
+            return await _context.Preferences.Include(p => p.Customers).Include(p => p.PromoCodes).FirstOrDefaultAsync(p => p.PreferenceId == preferenceId);
+        }
+        public async Task<Preference> GetAsyncByName(string name)
+        {
+            return await _context.Preferences.Include(p => p.Customers).Include(p => p.PromoCodes).FirstOrDefaultAsync(p => p.Name == name);
         }
 
         public async Task CreateAsync(Preference preference)
@@ -34,10 +38,8 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
             _context.Preferences.Update(preference);
             await _context.SaveChangesAsync();
         }
-        public async Task DeleteAsync(Guid preferenceId)
+        public async Task DeleteAsync(Preference preference)
         {
-            var preference = await _context.Preferences.FindAsync(preferenceId);
-            if (preference == null) return;
             _context.Preferences.Remove(preference);
             await _context.SaveChangesAsync();
         }
@@ -47,9 +49,14 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
         }
         public async Task<List<Preference>> GetPreferencesByIdsAsync(List<Guid> preferenceIds)
         {
-           return await _context.Preferences.Where(p => preferenceIds.Contains(p.PreferenceId)).ToListAsync();
+            return await _context.Preferences.Where(p => preferenceIds.Contains(p.PreferenceId)).ToListAsync();
         }
+        public async Task<Preference> FindPreferenceAsync(Guid preferenceId)
+        {
+            var preference = await _context.Preferences.FindAsync(preferenceId);
+            return preference;
 
+        }
 
     }
 }

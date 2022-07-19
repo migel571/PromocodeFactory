@@ -12,5 +12,6 @@ namespace PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment
         Task DeleteAsync(Guid customerId);
         Task<bool> ExistAsync(Expression<Func<Customer, bool>> expression);
         Task<Customer> FindCustomerAsync(Guid id);
+        Task<List<Customer>> GetCustomersByIdsAsync(List<Guid> customerIds);
     }
 }

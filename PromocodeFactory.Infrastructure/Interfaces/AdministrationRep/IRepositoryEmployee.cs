@@ -9,9 +9,9 @@ namespace PromocodeFactory.Infrastructure.Interfaces.AdministrationRep
         Task<Employee> GetAsync(Guid employeeId);
         Task UpdateAsync(Employee employee);
         Task CreateAsync(Employee employee);
-        Task DeleteAsync(Guid id);
+        Task DeleteAsync(Employee employee);
         Task<bool> ExistAsync(Expression<Func<Employee,bool>> expression);
-
+        Task<Employee> FindEmployeeAsync(Guid employeeId);
 
     }
 }

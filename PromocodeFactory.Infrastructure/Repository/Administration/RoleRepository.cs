@@ -21,7 +21,7 @@ namespace PromocodeFactory.Infrastructure.Repository.Administration
 
         public async Task<Role> GetAsync(string roleName)
         {
-            return await _context.Roles.Include(i => i.Employees).FirstOrDefaultAsync(w => w.RoleName == roleName);
+            return await _context.Roles.Include(i => i.Employees).AsNoTracking().FirstOrDefaultAsync(w => w.RoleName == roleName);
 
         }
 

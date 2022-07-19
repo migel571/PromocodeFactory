@@ -8,7 +8,10 @@ namespace PromocodeFactoryApi.MappingProfiles
     {
         public PromoCodeProfile()
         {
-            CreateMap<PromoCode, PromoCodeDTO>();  
+            CreateMap<PromoCode, PromoCodeDTO>().ReverseMap();
+            CreateMap<PromoCodeDTO, CreatePromoCodeCommand>().ReverseMap();
+            CreateMap<PromoCodeDTO, UpdatePromoCodeCommand>().ReverseMap();
+
         }
     }
 }

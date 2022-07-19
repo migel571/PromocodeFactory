@@ -2,7 +2,7 @@
 using HybridModelBinding;
 using Microsoft.AspNetCore.Mvc;
 using PromocodeFactory.Service.DTO.PromocodeManagment;
-using PromocodeFactory.Service.Manager;
+using PromocodeFactory.Service.Interfaces;
 using PromocodeFactoryApi.Commands;
 
 namespace PromocodeFactoryApi.Controllers
@@ -11,16 +11,16 @@ namespace PromocodeFactoryApi.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly CustomerManager _manager;
+        private readonly ICustomerManager _manager;
         private readonly IMapper _mapper;
-        public CustomerController(CustomerManager manager, IMapper mapper)
+        public CustomerController(ICustomerManager manager, IMapper mapper)
         {
             _manager = manager;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllCustomer()
+        public async Task<IActionResult> GetAllCustomers()
         {
             var customers = await _manager.GetAllAsync();
             return Ok(customers);
@@ -35,7 +35,7 @@ namespace PromocodeFactoryApi.Controllers
         public async Task<IActionResult> CreateCustomer([FromBody] CreateCustomerCommand customerBody)
         {
             var customer =  _mapper.Map<CustomerDTO>(customerBody);
-            await _manager.CreateAsync(customer,customerBody.PreferenceIds);
+            await _manager.CreateAsync(customer,customerBody.PreferenceIds, customerBody.PromoCodeIds);
             return Ok();
         }
         [HttpPut]
