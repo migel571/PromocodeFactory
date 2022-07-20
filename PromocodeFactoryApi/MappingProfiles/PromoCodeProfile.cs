@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PromocodeFactory.Domain.PromocodeManagement;
 using PromocodeFactory.Service.DTO.PromocodeManagment;
+using PromocodeFactoryApi.Commands;
 
 namespace PromocodeFactoryApi.MappingProfiles
 {

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using PromocodeFactory.Domain.PromocodeManagement;
+using PromocodeFactory.Infrastructure.Interfaces;
 using PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment;
 using PromocodeFactory.Service.DTO.PromocodeManagment;
+using PromocodeFactory.Service.Exceptions;
 using PromocodeFactory.Service.Interfaces;
 
 namespace PromocodeFactory.Service.Manager
@@ -10,10 +12,12 @@ namespace PromocodeFactory.Service.Manager
     {
         private IRepositoryPromoCode _repository;
         private IMapper _mapper;
-        public PromoCodeManager(IRepositoryPromoCode repository, IMapper mapper)
+        private ILoggerManager _logger;
+        public PromoCodeManager(IRepositoryPromoCode repository, IMapper mapper, ILoggerManager logger)
         {
             _repository = repository;
             _mapper = mapper;
+            _logger = logger;
         }
         public async Task<IEnumerable<PromoCodeDTO>> GetAllAsync()
         {
@@ -28,10 +32,17 @@ namespace PromocodeFactory.Service.Manager
 
         public async Task CreateAsync(PromoCodeDTO promocode)
         {
+            
+            if (await _repository.ExistAsync(p=>p.Code == promocode.Code))
+            {
+                _logger.LogInfo($"Promocode already exist.");
+                throw new PromoCodeException($"Promocode already exist.");
+            }
             await _repository.CreateAsync(_mapper.Map<PromoCode>(promocode));
         }
         public async Task UpdateAsync(PromoCodeDTO promocode)
         {
+
             if (await _repository.ExistAsync(filter => filter.Code == promocode.Code))
                 return;
 
@@ -39,9 +50,13 @@ namespace PromocodeFactory.Service.Manager
         }
         public async Task DeleteAsync(Guid promocodeId)
         {
-            if (await _repository.ExistAsync(filter => filter.PromoCodeId == promocodeId))
-                return;
-            await _repository.DeleteAsync(promocodeId);
+            var promoCode = await _repository.FindPromoCodeAsync(promocodeId);
+            if (promoCode == null)
+            {
+                _logger.LogInfo($"Promocode does not exist.");
+                throw new PromoCodeException($"Promocode does not exist.");
+            }
+            await _repository.DeleteAsync(promoCode);
         }
     }
 }

@@ -9,8 +9,9 @@ namespace PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment
         Task<PromoCode> GetAsync(string code);
         Task CreateAsync(PromoCode promoCode);
         Task UpdateAsync(PromoCode promoCode);
-        Task DeleteAsync(Guid promoCodeId);
+        Task DeleteAsync(PromoCode promoCode);
         Task<bool> ExistAsync(Expression<Func<PromoCode, bool>> expression);
         Task<List<PromoCode>> GetPromoCodesByIdsAsync(List<Guid> promocodeIds);
+        Task<PromoCode> FindPromoCodeAsync(Guid promoCodeId);
     }
 }

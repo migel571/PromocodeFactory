@@ -24,9 +24,9 @@ namespace PromocodeFactoryApi.Controllers
             return Ok(promocodes);  
         }
         [HttpGet]
-        public async Task<IActionResult> GetPromoCode(Guid promoCodeId)
+        public async Task<IActionResult> GetPromoCode(string code)
         {
-            var promocode = _mapper.Map<PromoCodeDTO>(await _manager.GetAsync(promoCodeId));
+            var promocode = _mapper.Map<PromoCodeDTO>(await _manager.GetAsync(code));
             return Ok(promocode);
         }
         [HttpPost]

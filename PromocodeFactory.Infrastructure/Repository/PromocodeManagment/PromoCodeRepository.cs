@@ -15,7 +15,7 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
         }
         public async Task<IEnumerable<PromoCode>> GetAllAsync()
         {
-            return await _context.PromoCodes.ToListAsync();
+            return await _context.PromoCodes.AsNoTracking().ToListAsync();
         }
 
         public async Task<PromoCode> GetAsync(string code)
@@ -33,10 +33,8 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
             _context.PromoCodes.Update(promoCode);
             await _context.SaveChangesAsync();
         }
-        public async Task DeleteAsync(Guid promoCodeId)
+        public async Task DeleteAsync(PromoCode promoCode)
         {
-            var promoCode = await _context.PromoCodes.FindAsync(promoCodeId);
-            if (promoCode == null) return;
             _context.PromoCodes.Remove(promoCode);
             await _context.SaveChangesAsync();
         }
@@ -48,6 +46,11 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
         public async Task<List<PromoCode>> GetPromoCodesByIdsAsync(List<Guid> promocodeIds)
         {
             return await _context.PromoCodes.Where(p => promocodeIds.Contains(p.PromoCodeId)).ToListAsync();
+        }
+        public async Task<PromoCode> FindPromoCodeAsync(Guid promoCodeId)
+        {
+            var promoCode = await _context.PromoCodes.FindAsync(promoCodeId);
+            return promoCode;
         }
     }
 }
