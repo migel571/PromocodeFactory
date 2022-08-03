@@ -10,11 +10,11 @@ namespace PromocodeFactory.Service.Manager
 {
     public class EmployeeManager : IEmployeeManager
     {
-        private IRepositoryEmployee _repository;
+        private IEmployeeRepository _repository;
         private readonly ILoggerManager _logger;
         private IMapper _mapper;
 
-        public EmployeeManager(IRepositoryEmployee repository, ILoggerManager logger, IMapper mapper)
+        public EmployeeManager(IEmployeeRepository repository, ILoggerManager logger, IMapper mapper)
         {
             _repository = repository;
             _logger = logger;

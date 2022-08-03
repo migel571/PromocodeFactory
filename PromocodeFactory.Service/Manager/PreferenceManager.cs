@@ -10,13 +10,13 @@ namespace PromocodeFactory.Service.Manager
 {
     public class PreferenceManager: IPreferenceManager
     {
-        private IRepositoryPreference _repository;
-        private IRepositoryCustomer _repositoryCustomer;
-        private IRepositoryPromoCode _repositoryPromo;
+        private IPreferenceRepository _repository;
+        private ICustomerRepository _repositoryCustomer;
+        private IPromoCodeRepository _repositoryPromo;
         private IMapper _mapper;
         private ILoggerManager _logger;
        
-        public PreferenceManager(IRepositoryPreference repository, IRepositoryCustomer repositoryCustomer, IRepositoryPromoCode repositoryPromo, IMapper mapper, ILoggerManager logger)
+        public PreferenceManager(IPreferenceRepository repository, ICustomerRepository repositoryCustomer, IPromoCodeRepository repositoryPromo, IMapper mapper, ILoggerManager logger)
         {
             _repository = repository;
             _repositoryCustomer = repositoryCustomer;

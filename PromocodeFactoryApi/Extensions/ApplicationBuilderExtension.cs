@@ -1,6 +1,14 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Newtonsoft.Json;
+using PromocodeFactory.Infrastructure.Interfaces;
+using PromocodeFactory.Infrastructure.Interfaces.AdministrationRep;
+using PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment;
+using PromocodeFactory.Infrastructure.Repository.Administration;
+using PromocodeFactory.Infrastructure.Repository.PromocodeManagment;
+using PromocodeFactory.Service;
 using PromocodeFactory.Service.Exceptions;
+using PromocodeFactory.Service.Interfaces;
+using PromocodeFactory.Service.Manager;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace PromocodeFactoryApi.Extensions
@@ -28,6 +36,26 @@ namespace PromocodeFactoryApi.Extensions
               }
 
                 ));
+        }
+        public static void AddAllManagersAndRepositories(this IServiceCollection collection)
+        {
+            collection.AddSingleton<ILoggerManager, LoggerManager>();
+
+            collection.AddScoped<IRoleRepository, RoleRepository>();
+            collection.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            collection.AddScoped<ICustomerRepository, CustomerRepository>();
+            collection.AddScoped<IPreferenceRepository, PreferenceRepository>();
+            collection.AddScoped<IPromoCodeRepository, PromoCodeRepository>();
+            collection.AddScoped<IPartnerRepository, PartnerRepository>();
+                        
+            collection.AddScoped<IRoleManager, RoleManager>();
+            collection.AddScoped<IEmployeeManager, EmployeeManager>();
+            collection.AddScoped<ICustomerManager, CustomerManager>();
+            collection.AddScoped<IPreferenceManager, PreferenceManager>();
+            collection.AddScoped<IPromoCodeManager, PromoCodeManager>();
+            collection.AddScoped<IPartnerManager, PartnerManager>();
+
+
         }
     }
 }

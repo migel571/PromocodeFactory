@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment
 {
-    public interface IRepositoryPartner
+    public interface IPartnerRepository
     {
         Task<IEnumerable<Partner>> GetAllAsync();
         Task<Partner> GetAsync(string name);

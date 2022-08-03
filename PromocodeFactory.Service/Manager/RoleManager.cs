@@ -10,11 +10,11 @@ namespace PromocodeFactory.Service.Manager
 {
     public class RoleManager : IRoleManager
     {
-        private IRepositoryRole _repository;
+        private IRoleRepository _repository;
         private readonly ILoggerManager _logger;
         private IMapper _mapper;
 
-        public RoleManager(IRepositoryRole repository, ILoggerManager logger, IMapper mapper)
+        public RoleManager(IRoleRepository repository, ILoggerManager logger, IMapper mapper)
         {
             _repository = repository;
             _logger = logger;

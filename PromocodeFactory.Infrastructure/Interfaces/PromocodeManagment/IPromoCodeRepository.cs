@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment
 {
-    public interface IRepositoryPromoCode
+    public interface IPromoCodeRepository
     {
         Task<IEnumerable<PromoCode>> GetAllAsync(); 
         Task<PromoCode> GetAsync(string code);

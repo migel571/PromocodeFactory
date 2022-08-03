@@ -8,9 +8,9 @@ namespace PromocodeFactory.Service.Manager
 {
     public class PartnerManager: IPartnerManager
     {
-        private IRepositoryPartner _repository;
+        private IPartnerRepository _repository;
         private IMapper _mapper;
-        public PartnerManager(IRepositoryPartner repository, IMapper mapper)
+        public PartnerManager(IPartnerRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;

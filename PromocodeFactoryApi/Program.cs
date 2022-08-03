@@ -1,28 +1,44 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using NLog;
 using PromocodeFactory.Infrastructure;
-using PromocodeFactory.Infrastructure.Interfaces;
-using PromocodeFactory.Infrastructure.Interfaces.AdministrationRep;
-using PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment;
-using PromocodeFactory.Infrastructure.Repository.Administration;
-using PromocodeFactory.Infrastructure.Repository.PromocodeManagment;
-using PromocodeFactory.Service;
 using PromocodeFactoryApi.Extensions;
-
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 //Add config log
 LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/NLog.config"));
 // Add services to the container.
 builder.Services.AddDbContext<PromocodeContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("PromocodeFactoryDB")));
-builder.Services.AddSingleton<ILoggerManager, LoggerManager>();
-builder.Services.AddScoped<IRepositoryEmployee, EmployeeRepository>();
-builder.Services.AddScoped<IRepositoryRole, RoleRepository>();
-builder.Services.AddScoped<IRepositoryCustomer, CustomerRepository>();
-builder.Services.AddScoped<IRepositoryPreference, PreferenceRepository>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequiredLength = 6;
+}).AddEntityFrameworkStores<PromocodeContext>().
+AddDefaultTokenProviders();
+builder.Services.AddAuthentication(auth =>
+{
+    auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options=>
+{
+    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+    {
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        RequireExpirationTime = false,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("qazxsw")),
+        ValidateIssuerSigningKey = true
+    };
+});
+
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers();
+builder.Services.AddAllManagersAndRepositories();
 // Добавляем наши методы расширения из Extension
 builder.Services.ConfigureCors();
 builder.Services.ConfigureIISIntegration();
@@ -32,11 +48,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
 //Обработчик ошибок 
 if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 else
     app.UseCustomExceptionHandler();
+app.UseAuthentication();
+app.UseAuthorization();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

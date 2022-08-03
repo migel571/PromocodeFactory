@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace PromocodeFactory.Infrastructure.Interfaces.AdministrationRep
 {
-    public interface IRepositoryEmployee
+    public interface IEmployeeRepository
     {
         Task<IEnumerable<Employee>> GetAllAsync();
         Task<Employee> GetAsync(Guid employeeId);

@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PromocodeFactory.Domain.Administaration;
 using PromocodeFactory.Domain.PromocodeManagement;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
 
 namespace PromocodeFactory.Infrastructure
 {
-    public class PromocodeContext : DbContext
+    public class PromocodeContext : IdentityDbContext
     {
         public PromocodeContext(DbContextOptions<PromocodeContext> options)
             : base(options)

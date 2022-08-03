@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace PromocodeFactory.Infrastructure.Interfaces.AdministrationRep
 {
-    public interface IRepositoryRole
+    public interface IRoleRepository
     {
         Task<IEnumerable<Role>> GetAllAsync();
         Task<Role> GetAsync(string roleName);

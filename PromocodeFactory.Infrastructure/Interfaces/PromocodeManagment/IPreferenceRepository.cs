@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment
 {
-    public interface IRepositoryPreference
+    public interface IPreferenceRepository
     {
         Task<IEnumerable<Preference>> GetAllAsync();
         Task<Preference> GetAsyncById(Guid preferenceId);

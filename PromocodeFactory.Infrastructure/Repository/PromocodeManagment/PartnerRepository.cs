@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
 {
-    public class PartnerRepository : IRepositoryPartner
+    public class PartnerRepository : IPartnerRepository
     {
         private PromocodeContext _context;
         

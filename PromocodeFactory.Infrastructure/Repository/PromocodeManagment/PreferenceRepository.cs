@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
 {
-    public class PreferenceRepository : IRepositoryPreference
+    public class PreferenceRepository : IPreferenceRepository
     {
         private readonly PromocodeContext _context;
 

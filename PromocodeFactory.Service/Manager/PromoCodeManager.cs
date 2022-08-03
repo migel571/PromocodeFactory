@@ -10,10 +10,10 @@ namespace PromocodeFactory.Service.Manager
 {
     public class PromoCodeManager: IPromoCodeManager
     {
-        private IRepositoryPromoCode _repository;
+        private IPromoCodeRepository _repository;
         private IMapper _mapper;
         private ILoggerManager _logger;
-        public PromoCodeManager(IRepositoryPromoCode repository, IMapper mapper, ILoggerManager logger)
+        public PromoCodeManager(IPromoCodeRepository repository, IMapper mapper, ILoggerManager logger)
         {
             _repository = repository;
             _mapper = mapper;
