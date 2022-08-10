@@ -29,6 +29,7 @@ namespace PromocodeFactory.Infrastructure
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             //Конфигурация сущности Employee
             modelBuilder.Entity<Employee>().ToTable("Employee");
             modelBuilder.Entity<Employee>().Property(p => p.Email).HasMaxLength(20);

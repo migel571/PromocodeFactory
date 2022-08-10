@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
@@ -6,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using NLog;
 using PromocodeFactory.Infrastructure;
 using PromocodeFactoryApi.Extensions;
+using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,13 +33,13 @@ builder.Services.AddAuthentication(auth =>
         ValidateIssuer = false,
         ValidateAudience = false,
         RequireExpirationTime = false,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("qazxsw")),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["AuthSettings:Key"])),
         ValidateIssuerSigningKey = true
     };
 });
 
 builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddFluentValidation(f => f.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly())); 
 builder.Services.AddAllManagersAndRepositories();
 // Добавляем наши методы расширения из Extension
 builder.Services.ConfigureCors();
@@ -55,7 +57,7 @@ if (app.Environment.IsDevelopment())
 else
     app.UseCustomExceptionHandler();
 app.UseAuthentication();
-app.UseAuthorization();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

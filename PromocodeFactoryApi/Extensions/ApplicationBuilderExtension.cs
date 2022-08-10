@@ -54,6 +54,7 @@ namespace PromocodeFactoryApi.Extensions
             collection.AddScoped<IPreferenceManager, PreferenceManager>();
             collection.AddScoped<IPromoCodeManager, PromoCodeManager>();
             collection.AddScoped<IPartnerManager, PartnerManager>();
+            collection.AddScoped<IUserManager, UserManager>();
 
 
         }
