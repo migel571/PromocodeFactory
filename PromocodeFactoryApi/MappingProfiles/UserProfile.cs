@@ -9,6 +9,7 @@ namespace PromocodeFactoryApi.MappingProfiles
         public UserProfile()
         {
             CreateMap<UserRegistrationDTO, RegistrationUserCommand>().ReverseMap();
+            CreateMap<UserLoginDTO, LoginUserCommand>().ReverseMap();   
         }
     }
 }

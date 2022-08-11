@@ -10,7 +10,7 @@ namespace PromocodeFactory.Service.Interfaces
     public interface IUserManager
     {
         public Task<UserRegistrationResponseDTO> RegisterUserAsync(UserRegistrationDTO user);
-        //public Task<User>
+        public Task<UserLoginResponseDTO> LoginUserAsync(UserLoginDTO user);
 
     }
 }

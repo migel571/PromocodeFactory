@@ -29,5 +29,16 @@ namespace PromocodeFactoryApi.Controllers
             
             
         }
+        [HttpPost("Login")]
+        public async Task<IActionResult> LoginAsync([FromBody] LoginUserCommand user)
+        {
+
+            var result = await _manager.LoginUserAsync(_mapper.Map<UserLoginDTO>(user));
+            if (result.IsSuccess)
+                return Ok(result);
+            return BadRequest(result);
+
+
+        }
     }
 }
