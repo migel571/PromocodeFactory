@@ -1,10 +1,11 @@
 ﻿using PromocodeFactory.Service.DTO.PromocodeManagment;
+using PromocodeFactory.Infrastructure.Pagging;
 
 namespace PromocodeFactory.Service.Interfaces
 {
     public interface IPromoCodeManager
     {
-        Task<IEnumerable<PromoCodeDTO>> GetAllAsync();
+        Task<PagedList<PromoCodeDTO>> GetAllAsync(PaggingParameters promocodeParametres);
         Task<PromoCodeDTO> GetAsync(string code);
         Task CreateAsync(PromoCodeDTO promocode);
         Task UpdateAsync(PromoCodeDTO promocode);

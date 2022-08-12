@@ -2,7 +2,8 @@
 using HybridModelBinding;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PromocodeFactory.Infrastructure.Interfaces;
+using Newtonsoft.Json;
+using PromocodeFactory.Infrastructure.Pagging;
 using PromocodeFactory.Service.DTO.Administration;
 using PromocodeFactory.Service.Interfaces;
 using PromocodeFactoryApi.Commands;
@@ -23,9 +24,20 @@ namespace PromocodeFactoryApi.Controllers
 
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllEmployees()
+        public async Task<IActionResult> GetAllEmployees([FromQuery] PaggingParameters employeeParameters)
         {
-            var employees = await _manager.GetAllAsync();
+            var employees = await _manager.GetAllAsync(employeeParameters);
+            var metadata = new
+            {
+                employees.TotalCount,
+                employees.PageSize,
+                employees.CurrentPage,
+                employees.TotalPages,
+                employees.HasNext,
+                employees.HasPrevious
+
+            };
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
             return Ok(employees);
         }
         [HttpGet]

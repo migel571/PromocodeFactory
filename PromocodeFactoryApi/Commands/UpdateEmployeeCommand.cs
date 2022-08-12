@@ -12,11 +12,5 @@ namespace PromocodeFactoryApi.Commands
         
         public string Email { get; set; }
 
-
-        public Guid RoleId { get; set; }
-        
-        public string RoleName { get; set; }
-        
-        public int AppliedPromocodesCount { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using PromocodeFactory.Domain.PromocodeManagement;
 using PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment;
 using System.Linq.Expressions;
+using PromocodeFactory.Infrastructure.Pagging;
 
 namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
 {
@@ -14,14 +15,14 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
             _context = context;
         }
 
-        public async Task<IEnumerable<Partner>> GetAllAsync()
+        public async Task<PagedList<Partner>> GetAllAsync(PaggingParameters partnerParametres)
         {
-            return await _context.Partners.ToListAsync();
+            return await PagedList<Partner>.ToPageListAsync(_context.Partners.AsNoTracking().OrderBy(r => r.Name), partnerParametres.PageNumber, partnerParametres.PageSize);
         }
 
         public async Task<Partner> GetAsync(string name)
         {
-            return await _context.Partners.Include(i => i.PartnerLimits).FirstOrDefaultAsync(f => f.Name == name);
+            return await _context.Partners.FirstOrDefaultAsync(f => f.Name == name);
         }
         public async Task CreateAsync(Partner partner)
         {

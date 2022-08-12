@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PromocodeFactory.Domain.PromocodeManagement;
 using PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment;
+using PromocodeFactory.Infrastructure.Pagging;
 using PromocodeFactory.Service.DTO.PromocodeManagment;
 using PromocodeFactory.Service.Interfaces;
 
@@ -15,10 +16,10 @@ namespace PromocodeFactory.Service.Manager
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<PartnerDTO>> GetAllAsync()
+        public async Task<PagedList<PartnerDTO>> GetAllAsync(PaggingParameters partnerParametres)
         {
-            var partner = await _repository.GetAllAsync();
-            return _mapper.Map<IEnumerable<PartnerDTO>>(partner);
+            var partner = await _repository.GetAllAsync(partnerParametres);
+            return _mapper.Map<PagedList<PartnerDTO>>(partner);
         }
 
         public async Task<PartnerDTO> GetAsync(string name)

@@ -14,12 +14,11 @@ namespace PromocodeFactory.Infrastructure
 
         }
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<Role> Roles { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Preference> Preferences { get; set; }
         public DbSet<PromoCode> PromoCodes { get; set; }
         public DbSet<Partner> Partners { get; set; }
-        public DbSet<PartnerPromoCodeLimit> PartnerPromoCodeLimits { get; set; }
+        
 
         /// <summary>
         /// Fluent API
@@ -35,13 +34,8 @@ namespace PromocodeFactory.Infrastructure
             modelBuilder.Entity<Employee>().Property(p => p.Email).HasMaxLength(20);
             modelBuilder.Entity<Employee>().Property(p => p.FirstName).HasMaxLength(20);
             modelBuilder.Entity<Employee>().Property(p => p.LastName).HasMaxLength(20);
-            modelBuilder.Entity<Employee>().HasOne<Role>(p => p.Role).
-                                            WithMany(p => p.Employees).
-                                            HasForeignKey(p => p.RoleId);
+            
 
-            //Конфигурация сущности Role
-            modelBuilder.Entity<Role>().ToTable("Role");
-            modelBuilder.Entity<Role>().Property(p => p.RoleName).HasMaxLength(15);
 
 
             //Конфигурация сущности Customer
@@ -64,9 +58,9 @@ namespace PromocodeFactory.Infrastructure
             modelBuilder.Entity<PromoCode>().HasOne<Preference>(p => p.Preference).
                                              WithMany(p => p.PromoCodes).
                                              HasForeignKey(p => p.PreferenceId);
-            modelBuilder.Entity<PromoCode>().HasOne<Customer>(p => p.Customer).
-                                             WithMany(p => p.PromoCodes).
-                                             HasForeignKey(p => p.CustomerId);
+            modelBuilder.Entity<PromoCode>().HasMany<Customer>(p => p.Customers).
+                                             WithMany(p => p.PromoCodes);
+                                             
 
             
 
@@ -74,11 +68,7 @@ namespace PromocodeFactory.Infrastructure
             modelBuilder.Entity<Partner>().ToTable("Partner");
             modelBuilder.Entity<Partner>().Property(p=>p.Name).HasMaxLength(20);
 
-            //Конфигурация сущности PartnerPromoCodeLimit
-            modelBuilder.Entity<PartnerPromoCodeLimit>().ToTable("PartnerPromoCodeLimit");
-            modelBuilder.Entity<PartnerPromoCodeLimit>().HasOne<Partner>(p=>p.Partner).
-                                                         WithMany(p=>p.PartnerLimits).
-                                                         HasForeignKey(p=>p.PartnerId);
+           
 
         }
     }

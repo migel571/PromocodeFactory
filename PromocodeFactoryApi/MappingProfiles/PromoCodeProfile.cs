@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PromocodeFactory.Domain.PromocodeManagement;
+using PromocodeFactory.Infrastructure.Pagging;
 using PromocodeFactory.Service.DTO.PromocodeManagment;
 using PromocodeFactoryApi.Commands;
 
@@ -12,6 +13,7 @@ namespace PromocodeFactoryApi.MappingProfiles
             CreateMap<PromoCode, PromoCodeDTO>().ReverseMap();
             CreateMap<PromoCodeDTO, CreatePromoCodeCommand>().ReverseMap();
             CreateMap<PromoCodeDTO, UpdatePromoCodeCommand>().ReverseMap();
+            CreateMap(typeof(PagedList<>), typeof(PagedList<>)).ConvertUsing(typeof(PagedListConverter<,>));
 
         }
     }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HybridModelBinding;
 using Microsoft.AspNetCore.Mvc;
+using PromocodeFactory.Infrastructure.Pagging;
 using PromocodeFactory.Service.DTO.PromocodeManagment;
 using PromocodeFactory.Service.Interfaces;
 using PromocodeFactoryApi.Commands;
@@ -20,9 +21,9 @@ namespace PromocodeFactoryApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllCustomers()
+        public async Task<IActionResult> GetAllCustomers([FromQuery]PaggingParameters customerParameters)
         {
-            var customers = await _manager.GetAllAsync();
+            var customers = await _manager.GetAllAsync(customerParameters);
             return Ok(customers);
         }
         [HttpGet]

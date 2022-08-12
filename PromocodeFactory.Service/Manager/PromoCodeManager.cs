@@ -5,6 +5,7 @@ using PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment;
 using PromocodeFactory.Service.DTO.PromocodeManagment;
 using PromocodeFactory.Service.Exceptions;
 using PromocodeFactory.Service.Interfaces;
+using PromocodeFactory.Infrastructure.Pagging;
 
 namespace PromocodeFactory.Service.Manager
 {
@@ -19,10 +20,10 @@ namespace PromocodeFactory.Service.Manager
             _mapper = mapper;
             _logger = logger;
         }
-        public async Task<IEnumerable<PromoCodeDTO>> GetAllAsync()
+        public async Task<PagedList<PromoCodeDTO>> GetAllAsync(PaggingParameters promocodeParametres)
         {
-            var promocode = await _repository.GetAllAsync();
-            return _mapper.Map<IEnumerable<PromoCodeDTO>>(promocode);
+            var promocode = await _repository.GetAllAsync(promocodeParametres);
+            return _mapper.Map<PagedList<PromoCodeDTO>>(promocode);
         }
 
         public async Task<PromoCodeDTO> GetAsync(string code)

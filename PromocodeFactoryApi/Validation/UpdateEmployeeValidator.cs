@@ -3,14 +3,13 @@ using PromocodeFactoryApi.Commands;
 
 namespace PromocodeFactoryApi.Validation
 {
-    public class CreateEmployeeValidator:AbstractValidator<CreateEmployeeCommand>
+    public class UpdateEmployeeValidator:AbstractValidator<UpdateEmployeeCommand>
     {
-        public CreateEmployeeValidator()
+        public UpdateEmployeeValidator()
         {
             RuleFor(e => e.FirstName).NotNull().NotEmpty();
             RuleFor(e => e.LastName).NotNull().NotEmpty();
             RuleFor(e => e.Email).EmailAddress().NotNull().NotEmpty();
-           
         }
     }
 }

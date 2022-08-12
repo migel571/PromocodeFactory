@@ -23,7 +23,7 @@ namespace PromocodeFactoryApi.Extensions
                   var exception = feature.Error;
                   context.Response.StatusCode = exception switch
                   {
-                      RoleException _ => Status400BadRequest,
+                     
                       EmployeeException _ => Status400BadRequest,
                       CustomerException _ => Status400BadRequest,
                       PreferenceException _ => Status400BadRequest, 
@@ -41,14 +41,14 @@ namespace PromocodeFactoryApi.Extensions
         {
             collection.AddSingleton<ILoggerManager, LoggerManager>();
 
-            collection.AddScoped<IRoleRepository, RoleRepository>();
+            
             collection.AddScoped<IEmployeeRepository, EmployeeRepository>();
             collection.AddScoped<ICustomerRepository, CustomerRepository>();
             collection.AddScoped<IPreferenceRepository, PreferenceRepository>();
             collection.AddScoped<IPromoCodeRepository, PromoCodeRepository>();
             collection.AddScoped<IPartnerRepository, PartnerRepository>();
                         
-            collection.AddScoped<IRoleManager, RoleManager>();
+            
             collection.AddScoped<IEmployeeManager, EmployeeManager>();
             collection.AddScoped<ICustomerManager, CustomerManager>();
             collection.AddScoped<IPreferenceManager, PreferenceManager>();

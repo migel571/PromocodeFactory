@@ -8,7 +8,7 @@
         public string Name { get; set; }
         public int NumberIssuedPromoCode { get; set; }
         public bool IsActive { get; set; }
-        public List<PartnerPromoCodeLimit> PartnerLimits { get; set; }
+        
 
     }
 

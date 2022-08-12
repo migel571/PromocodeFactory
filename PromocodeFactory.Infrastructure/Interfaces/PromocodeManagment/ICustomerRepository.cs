@@ -1,11 +1,12 @@
 ﻿using PromocodeFactory.Domain.PromocodeManagement;
+using PromocodeFactory.Infrastructure.Pagging;
 using System.Linq.Expressions;
 
 namespace PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment
 {
     public interface ICustomerRepository
     {
-        Task<IEnumerable<Customer>> GetAllAsync();
+        Task<PagedList<Customer>> GetAllAsync(PaggingParameters customerParameters);
         Task<Customer> GetAsync(Guid customerId);
         Task CreateAsync(Customer customer);
         Task UpdateAsync(Customer customer);

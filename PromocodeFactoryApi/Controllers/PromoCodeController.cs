@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PromocodeFactory.Service.DTO.PromocodeManagment;
 using PromocodeFactory.Service.Interfaces;
 using PromocodeFactoryApi.Commands;
+using PromocodeFactory.Infrastructure.Pagging;
 
 namespace PromocodeFactoryApi.Controllers
 {
@@ -18,15 +19,15 @@ namespace PromocodeFactoryApi.Controllers
             _mapper = mapper;   
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllPromoCodes()
+        public async Task<IActionResult> GetAllPromoCodes([FromQuery]PaggingParameters promocodeParametres)
         {
-            var promocodes = _mapper.Map<PromoCodeDTO>(await _manager.GetAllAsync());
+            var promocodes = await _manager.GetAllAsync(promocodeParametres);
             return Ok(promocodes);  
         }
         [HttpGet]
         public async Task<IActionResult> GetPromoCode(string code)
         {
-            var promocode = _mapper.Map<PromoCodeDTO>(await _manager.GetAsync(code));
+            var promocode = await _manager.GetAsync(code);
             return Ok(promocode);
         }
         [HttpPost]
