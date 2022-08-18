@@ -17,5 +17,6 @@ namespace PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment
         Task UpdateAsync(Partner partner);
         Task DeleteAsync(Guid partnerId);
         Task<bool> ExistAsync(Expression<Func<Partner, bool>> expression);
+        
     }
 }

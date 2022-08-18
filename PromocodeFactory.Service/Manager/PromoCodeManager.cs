@@ -9,14 +9,16 @@ using PromocodeFactory.Infrastructure.Pagging;
 
 namespace PromocodeFactory.Service.Manager
 {
-    public class PromoCodeManager: IPromoCodeManager
+    public class PromoCodeManager : IPromoCodeManager
     {
         private IPromoCodeRepository _repository;
+        private IPreferenceRepository _repositoryPreference;
         private IMapper _mapper;
         private ILoggerManager _logger;
-        public PromoCodeManager(IPromoCodeRepository repository, IMapper mapper, ILoggerManager logger)
+        public PromoCodeManager(IPromoCodeRepository repository, IPreferenceRepository repositoryPreference, IMapper mapper, ILoggerManager logger)
         {
             _repository = repository;
+            _repositoryPreference = repositoryPreference;
             _mapper = mapper;
             _logger = logger;
         }
@@ -31,15 +33,22 @@ namespace PromocodeFactory.Service.Manager
             return _mapper.Map<PromoCodeDTO>(await _repository.GetAsync(code));
         }
 
-        public async Task CreateAsync(PromoCodeDTO promocode)
+        public async Task CreateAsync(PromoCodeDTO promocode, Guid preferenceId)
         {
-            
-            if (await _repository.ExistAsync(p=>p.Code == promocode.Code))
+            var promocodeNew = _mapper.Map<PromoCode>(promocode);
+            if (await _repository.ExistAsync(p => p.Code == promocode.Code))
             {
                 _logger.LogInfo($"Promocode already exist.");
                 throw new PromoCodeException($"Promocode already exist.");
             }
-            await _repository.CreateAsync(_mapper.Map<PromoCode>(promocode));
+            var preference = await _repositoryPreference.FindPreferenceAsync(preferenceId);
+            if (preference == null)
+            {
+                _logger.LogInfo($"Preferences does not exist.");
+                throw new PromoCodeException($"Preferences does not exist.");
+            }
+            promocodeNew.Preference = preference;
+            await _repository.CreateAsync(promocodeNew);
         }
         public async Task UpdateAsync(PromoCodeDTO promocode)
         {

@@ -26,7 +26,9 @@ namespace PromocodeFactoryApi.Extensions
                      
                       EmployeeException _ => Status400BadRequest,
                       CustomerException _ => Status400BadRequest,
-                      PreferenceException _ => Status400BadRequest, 
+                      PreferenceException _ => Status400BadRequest,
+                      PromoCodeException _ => Status400BadRequest,
+                      PartnerException _ => Status400BadRequest,
                       _ => context.Response.StatusCode
                   };
                   var result = JsonConvert.SerializeObject(new { error = exception.Message });

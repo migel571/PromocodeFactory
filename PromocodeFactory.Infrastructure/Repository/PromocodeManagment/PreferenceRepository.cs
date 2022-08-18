@@ -21,11 +21,11 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
 
         public async Task<Preference> GetAsyncById(Guid preferenceId)
         {
-            return await _context.Preferences.Include(p => p.Customers).Include(p => p.PromoCodes).FirstOrDefaultAsync(p => p.PreferenceId == preferenceId);
+            return await _context.Preferences.FirstOrDefaultAsync(p => p.PreferenceId == preferenceId);
         }
         public async Task<Preference> GetAsyncByName(string name)
         {
-            return await _context.Preferences.Include(p => p.Customers).Include(p => p.PromoCodes).FirstOrDefaultAsync(p => p.Name == name);
+            return await _context.Preferences.FirstOrDefaultAsync(p => p.Name == name);
         }
 
         public async Task CreateAsync(Preference preference)

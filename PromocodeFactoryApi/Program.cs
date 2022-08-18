@@ -39,7 +39,8 @@ builder.Services.AddAuthentication(auth =>
 });
 
 builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddControllers().AddFluentValidation(f => f.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly())); 
+builder.Services.AddControllers().AddFluentValidation(f => { f.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()); f.ValidatorOptions.CascadeMode = FluentValidation.CascadeMode.Stop; }) ;
+//builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddAllManagersAndRepositories();
 // Добавляем наши методы расширения из Extension
 builder.Services.ConfigureCors();

@@ -11,8 +11,5 @@
 
         public Guid PreferenceId { get; set; }
         
-
-        public Guid CustomerId { get; set; }
-        
     }
 }

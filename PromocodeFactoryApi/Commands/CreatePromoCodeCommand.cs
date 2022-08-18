@@ -10,9 +10,7 @@
         public string PartnerName { get; set; }
 
         public Guid PreferenceId { get; set; }
-       
-
-        public Guid CustomerId { get; set; }
+        
        
     }
 }

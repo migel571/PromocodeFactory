@@ -13,16 +13,14 @@ namespace PromocodeFactory.Service.Manager
     {
         private ICustomerRepository _repository;
         private IPreferenceRepository _repositoryPreference;
-        private IPromoCodeRepository _repositoryPromo;
         private ILoggerManager _logger;
         private IMapper _mapper;
 
-        public CustomerManager(ICustomerRepository repository, IPreferenceRepository repositoryPreference,IPromoCodeRepository repositoryPromo, IMapper mapper, ILoggerManager logger)
+        public CustomerManager(ICustomerRepository repository, IPreferenceRepository repositoryPreference, IMapper mapper, ILoggerManager logger)
         {
             _repository = repository;
             _repositoryPreference = repositoryPreference;
-            _repositoryPromo = repositoryPromo;
-            _logger = logger;
+           _logger = logger;
             _mapper = mapper;
         }
         public async Task<PagedList<CustomerDTO>> GetAllAsync(PaggingParameters customerParameters)
@@ -37,16 +35,11 @@ namespace PromocodeFactory.Service.Manager
             return _mapper.Map<CustomerDTO>(customer);
         }
 
-        public async Task CreateAsync(CustomerDTO customer, List<Guid> preferensIds, List<Guid> promoCodeIds)
+        public async Task CreateAsync(CustomerDTO customer, List<Guid> preferensIds)
         {
             var customerCreate = _mapper.Map<Customer>(customer);
 
-            var promocodes = await _repositoryPromo.GetPromoCodesByIdsAsync(promoCodeIds);
-            if (!promocodes.Any())
-            {
-                _logger.LogInfo($"Promocodes does not exist.");
-                throw new CustomerException($"Promocodes does not exist.");
-            }
+            
             var preferences = await _repositoryPreference.GetPreferencesByIdsAsync(preferensIds);
             if (!preferences.Any())
             {
@@ -58,11 +51,11 @@ namespace PromocodeFactory.Service.Manager
                 _logger.LogInfo($"Customer with email={customerCreate.Email} and LastName={customerCreate.LastName} already exist.");
                 throw new CustomerException($"Customer already exist.");
             }
-            customerCreate.PromoCodes = promocodes;
+            
             customerCreate.Preferences = preferences;
             await _repository.CreateAsync(customerCreate);
         }
-        public async Task UpdateAsync(CustomerDTO customer, List<Guid> preferensIds, List<Guid> promoCodeIds)
+        public async Task UpdateAsync(CustomerDTO customer, List<Guid> preferensIds)
         {
             var customerMap = _mapper.Map<Customer>(customer);
             var customerBd = await _repository.GetAsync(customer.CustomerId);
@@ -75,13 +68,6 @@ namespace PromocodeFactory.Service.Manager
             customerBd.LastName = customerMap.LastName;
             customerBd.Email = customerMap.Email;
             
-            var promocodes = await _repositoryPromo.GetPromoCodesByIdsAsync(promoCodeIds);
-            if (!promocodes.Any())
-            {
-                _logger.LogInfo($"Promocodes does not exist.");
-                throw new CustomerException($"Promocodes does not exist.");
-            }
-            customerBd.PromoCodes = promocodes;
             var preferences = await _repositoryPreference.GetPreferencesByIdsAsync(preferensIds);
             if (!preferences.Any())
             {
@@ -89,7 +75,7 @@ namespace PromocodeFactory.Service.Manager
                 throw new CustomerException($"Preferences does not exist.");
             }
             customerBd.Preferences = preferences;
-            // проверка на существование зачем ?
+           
             await _repository.UpdateAsync(customerBd);
         }
         public async Task DeleteAsync(Guid customerId)

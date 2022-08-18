@@ -29,7 +29,11 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
             await _context.Partners.AddAsync(partner);
             await _context.SaveChangesAsync();
         }
-
+        public async Task UpdateAsync(Partner partner)
+        {
+            _context.Partners.Update(partner);
+            await _context.SaveChangesAsync();
+        }
         public async Task DeleteAsync(Guid partnerId)
         {
             var partner = await _context.Partners.FindAsync(partnerId);
@@ -38,14 +42,11 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Partner partner)
-        {
-            _context.Partners.Update(partner);
-            await _context.SaveChangesAsync();
-        }
+        
         public async Task<bool> ExistAsync(Expression<Func<Partner, bool>> expression)
         {
             return await _context.Partners.AnyAsync(expression);
         }
+        
     }
 }

@@ -7,8 +7,8 @@ namespace PromocodeFactory.Service.Interfaces
     {
         Task<PagedList<CustomerDTO>> GetAllAsync(PaggingParameters customerParameters);
         Task<CustomerDTO> GetAsync(Guid customerId);
-        Task CreateAsync(CustomerDTO customer, List<Guid> preferensIds, List<Guid> promoCodeIds);
-        Task UpdateAsync(CustomerDTO customer, List<Guid> preferensIds, List<Guid> promoCodeIds);
+        Task CreateAsync(CustomerDTO customer, List<Guid> preferensIds);
+        Task UpdateAsync(CustomerDTO customer, List<Guid> preferensIds);
         Task DeleteAsync(Guid customerId);
     }
 }

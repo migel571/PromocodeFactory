@@ -21,13 +21,13 @@ namespace PromocodeFactoryApi.Controllers
             _mapper = mapper;   
         }
 
-        [HttpGet]
+        [HttpGet("GetAllPreference")]
         public async Task<IActionResult> GetAllPreferences()
         {
             var preferences = await _manager.GetAllAsync();
             return Ok(preferences);
         }
-        [HttpGet]
+        [HttpGet("GetPreference")]
         public async Task<IActionResult> GetPreference(string name)
         {
             var preference = await _manager.GetAsync(name);
@@ -37,21 +37,21 @@ namespace PromocodeFactoryApi.Controllers
         public async Task<IActionResult> CreatePreference([FromBody] CreatePreferenceCommand preferenceBody)
         {
             var preference = _mapper.Map<PreferenceDTO>(preferenceBody);
-            await _manager.CreateAsync(preference, preferenceBody.CustomerIds, preferenceBody.PromoCodeIds);
-            return NoContent(); 
+            await _manager.CreateAsync(preference);
+            return Ok(preference);
         }
         [HttpPut]
         public async Task<IActionResult> UpdatePreference([FromHybrid] UpdatePreferenceCommand preferenceBody)
         {
             var preference = _mapper.Map<PreferenceDTO>(preferenceBody);
-            await _manager.UpdateAsync(preference, preferenceBody.CustomerIds, preferenceBody.PromoCodeIds);
-            return NoContent();
+            await _manager.UpdateAsync(preference);
+            return Ok(preference);
         }
         [HttpDelete]
         public async Task<IActionResult> DeletePreference(Guid preferenceId)
         {
             await _manager.DeleteAsync(preferenceId);
-            return NoContent();
+            return Ok();
         }
     }
 }

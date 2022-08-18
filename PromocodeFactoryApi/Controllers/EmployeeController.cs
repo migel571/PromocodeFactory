@@ -23,7 +23,7 @@ namespace PromocodeFactoryApi.Controllers
             _mapper = mapper;
 
         }
-        [HttpGet]
+        [HttpGet("GetAllEmployees")]
         public async Task<IActionResult> GetAllEmployees([FromQuery] PaggingParameters employeeParameters)
         {
             var employees = await _manager.GetAllAsync(employeeParameters);
@@ -40,7 +40,7 @@ namespace PromocodeFactoryApi.Controllers
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
             return Ok(employees);
         }
-        [HttpGet]
+        [HttpGet("GetEmployee")]
         public async Task<IActionResult> GetEmployee(Guid employeeId)
         {
             var employee = await _manager.GetAsync(employeeId);
@@ -52,7 +52,7 @@ namespace PromocodeFactoryApi.Controllers
         {
             var employee = _mapper.Map<EmployeeDTO>(employeeBody);
             await _manager.CreateAsync(employee);
-            return NoContent();    
+            return Ok(employee);    
 
         }
         [HttpPut]
@@ -60,13 +60,13 @@ namespace PromocodeFactoryApi.Controllers
         {
             var employee = _mapper.Map<EmployeeDTO>(employeeBody);
             await _manager.UpdateAsync(employee);
-            return NoContent();
+            return Ok(employee);
         }
         [HttpDelete]
         public async Task<IActionResult> DeleteEmployee(Guid employeeId)
         {
             await _manager.DeleteAsync(employeeId);
-            return NoContent();
+            return Ok();
         }
     }
 }

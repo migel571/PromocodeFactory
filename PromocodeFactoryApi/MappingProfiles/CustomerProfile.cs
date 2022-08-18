@@ -10,7 +10,7 @@ namespace PromocodeFactoryApi.MappingProfiles
     {
         public CustomerProfile()
         {
-            CreateMap<Customer, CustomerDTO>().ReverseMap();
+            CreateMap<CustomerDTO, Customer>().ReverseMap();
             CreateMap<CustomerDTO, CreateCustomerCommand>().ReverseMap();
             CreateMap<CustomerDTO, UpdateCustomerCommand>().ReverseMap();
             CreateMap(typeof(PagedList<>), typeof(PagedList<>)).ConvertUsing(typeof(PagedListConverter<,>));

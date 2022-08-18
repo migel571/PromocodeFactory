@@ -6,13 +6,13 @@ using PromocodeFactoryApi.Commands;
 
 namespace PromocodeFactoryApi.MappingProfiles
 {
-    public class PromoCodeProfile:Profile
+    public class PromoCodeProfile : Profile
     {
         public PromoCodeProfile()
         {
-            CreateMap<PromoCode, PromoCodeDTO>().ReverseMap();
-            CreateMap<PromoCodeDTO, CreatePromoCodeCommand>().ReverseMap();
-            CreateMap<PromoCodeDTO, UpdatePromoCodeCommand>().ReverseMap();
+            CreateMap<PromoCodeDTO, PromoCode>().ForMember(c => c.Preference, opt => opt.MapFrom(o => new Preference { PreferenceId = o.PreferenceId})).ReverseMap();
+            CreateMap<CreatePromoCodeCommand, PromoCodeDTO>().ReverseMap();
+            CreateMap<UpdatePromoCodeCommand, PromoCodeDTO>().ReverseMap();
             CreateMap(typeof(PagedList<>), typeof(PagedList<>)).ConvertUsing(typeof(PagedListConverter<,>));
 
         }

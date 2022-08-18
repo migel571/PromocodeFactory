@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using PromocodeFactory.Domain.PromocodeManagement;
+using PromocodeFactory.Infrastructure.Interfaces;
 using PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment;
 using PromocodeFactory.Infrastructure.Pagging;
 using PromocodeFactory.Service.DTO.PromocodeManagment;
+using PromocodeFactory.Service.Exceptions;
 using PromocodeFactory.Service.Interfaces;
 
 namespace PromocodeFactory.Service.Manager
@@ -11,10 +13,12 @@ namespace PromocodeFactory.Service.Manager
     {
         private IPartnerRepository _repository;
         private IMapper _mapper;
-        public PartnerManager(IPartnerRepository repository, IMapper mapper)
+        private ILoggerManager _logger;
+        public PartnerManager(IPartnerRepository repository, IMapper mapper, ILoggerManager logger)
         {
             _repository = repository;
             _mapper = mapper;
+            _logger = logger;
         }
         public async Task<PagedList<PartnerDTO>> GetAllAsync(PaggingParameters partnerParametres)
         {
@@ -29,19 +33,31 @@ namespace PromocodeFactory.Service.Manager
 
         public async Task CreateAsync(PartnerDTO partner)
         {
+            
+            if (await _repository.ExistAsync(filter => filter.Name == partner.Name))
+            {
+                _logger.LogInfo($"Partner with already exist.");
+                throw new PartnerException($"Partner already exist.");
+            }
             await _repository.CreateAsync(_mapper.Map<Partner>(partner));
         }
         public async Task UpdateAsync(PartnerDTO partner)
         {
-            if (await _repository.ExistAsync(filter => filter.Name == partner.Name))
-                return;
-
-            await _repository.UpdateAsync(_mapper.Map<Partner>(partner));
+            
+            if (!await _repository.ExistAsync(f=>f.PartnerId == partner.PartnerId))
+            {
+                _logger.LogInfo($"Partner does not exist.");
+                throw new PartnerException($"Partner does not exist.");
+            }
+           await _repository.UpdateAsync(_mapper.Map<Partner>(partner));
         }
         public async Task DeleteAsync(Guid partnerId)
         {
-            if (await _repository.ExistAsync(filter => filter.PartnerId == partnerId))
-                return;
+            if (!await _repository.ExistAsync(f => f.PartnerId == partnerId))
+            {
+                _logger.LogInfo($"Partner does not exist.");
+                throw new PartnerException($"Partner does not exist.");
+            }
             await _repository.DeleteAsync(partnerId);
         }
     }

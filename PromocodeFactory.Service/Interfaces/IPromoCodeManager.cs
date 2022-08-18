@@ -7,7 +7,7 @@ namespace PromocodeFactory.Service.Interfaces
     {
         Task<PagedList<PromoCodeDTO>> GetAllAsync(PaggingParameters promocodeParametres);
         Task<PromoCodeDTO> GetAsync(string code);
-        Task CreateAsync(PromoCodeDTO promocode);
+        Task CreateAsync(PromoCodeDTO promocode, Guid preferenceId);
         Task UpdateAsync(PromoCodeDTO promocode);
         Task DeleteAsync(Guid promocodeId);
     }

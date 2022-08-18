@@ -36,7 +36,7 @@ namespace PromocodeFactory.Service.Manager
         {
             if (await _repository.ExistAsync(filter => filter.Email == employee.Email && filter.LastName == employee.LastName))
             {
-                _logger.LogInfo($"Employee with email={employee.Email} and LastName={employee.LastName} already exist.");
+                _logger.LogInfo($"Employee  already exist.");
                 throw new EmployeeException($"Employee already exist.");
             }
             await _repository.CreateAsync(_mapper.Map<Employee>(employee));

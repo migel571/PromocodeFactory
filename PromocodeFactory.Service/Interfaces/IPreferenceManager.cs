@@ -6,8 +6,8 @@ namespace PromocodeFactory.Service.Interfaces
     {
         Task<IEnumerable<PreferenceDTO>> GetAllAsync();
         Task<PreferenceDTO> GetAsync(string name);
-        Task CreateAsync(PreferenceDTO preference,List<Guid> customersIds, List<Guid> promoCodeIds);
-        Task UpdateAsync(PreferenceDTO preference,List<Guid> customersIds, List<Guid> promoCodeIds);
+        Task CreateAsync(PreferenceDTO preference);
+        Task UpdateAsync(PreferenceDTO preference);
         Task DeleteAsync(Guid preferenceId);
     }
 }
