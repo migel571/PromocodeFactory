@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using PromocodeFactory.Service.DTO.Identity;
-using PromocodeFactoryApi.Commands;
+using PromocodeFactory.Api.Commands;
 
-namespace PromocodeFactoryApi.MappingProfiles
+namespace PromocodeFactory.Api.MappingProfiles
 {
     public class UserProfile : Profile
     {

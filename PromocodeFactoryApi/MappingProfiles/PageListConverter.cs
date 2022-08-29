@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using PromocodeFactory.Infrastructure.Pagging;
+using PromocodeFactory.Infrastructure.Paging;
 
-namespace PromocodeFactoryApi.MappingProfiles
+namespace PromocodeFactory.Api.MappingProfiles
 {
     public class PagedListConverter<TSource, TDestination> : ITypeConverter<PagedList<TSource>, PagedList<TDestination>> where TSource : class where TDestination : class
     {
@@ -9,7 +9,7 @@ namespace PromocodeFactoryApi.MappingProfiles
         {
             var collection = context.Mapper.Map<IEnumerable<TSource>, IEnumerable<TDestination>>(source).ToList();
 
-            return new PagedList<TDestination>(collection, source.TotalCount, source.CurrentPage, source.PageSize);
+            return new PagedList<TDestination>(collection, source.MetaData.TotalCount, source.MetaData.CurrentPage, source.MetaData.PageSize);
         }
     }
 }

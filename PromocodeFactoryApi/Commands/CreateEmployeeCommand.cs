@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace PromocodeFactoryApi.Commands
+﻿namespace PromocodeFactory.Api.Commands
 {
     public class CreateEmployeeCommand
     {

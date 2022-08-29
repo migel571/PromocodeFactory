@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using PromocodeFactory.Service.DTO.PromocodeManagment;
 using PromocodeFactory.Service.Interfaces;
-using PromocodeFactoryApi.Commands;
-using PromocodeFactory.Infrastructure.Pagging;
+using PromocodeFactory.Api.Commands;
+using PromocodeFactory.Infrastructure.Paging;
 using Newtonsoft.Json;
 
-namespace PromocodeFactoryApi.Controllers
+namespace PromocodeFactory.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -16,25 +16,15 @@ namespace PromocodeFactoryApi.Controllers
         private readonly IMapper _mapper;
         public PromoCodeController(IPromoCodeManager manager, IMapper mapper)
         {
-            _manager = manager; 
-            _mapper = mapper;   
+            _manager = manager;
+            _mapper = mapper;
         }
         [HttpGet("GetAllPromocodes")]
-        public async Task<IActionResult> GetAllPromoCodes([FromQuery]PaggingParameters promocodeParametres)
+        public async Task<IActionResult> GetAllPromoCodes([FromQuery] PagingParameters promocodeParametres)
         {
             var promocodes = await _manager.GetAllAsync(promocodeParametres);
-            var metadata = new
-            {
-                promocodes.TotalCount,
-                promocodes.PageSize,
-                promocodes.CurrentPage,
-                promocodes.TotalPages,
-                promocodes.HasNext,
-                promocodes.HasPrevious
-
-            };
-            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
-            return Ok(promocodes);  
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(promocodes.MetaData));
+            return Ok(promocodes);
         }
         [HttpGet("GetPromocode")]
         public async Task<IActionResult> GetPromoCode(string code)
@@ -45,7 +35,7 @@ namespace PromocodeFactoryApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreatePromoCode([FromBody] CreatePromoCodeCommand promoCodeBody)
         {
-            var promocode = _mapper.Map<PromoCodeDTO>(promoCodeBody);   
+            var promocode = _mapper.Map<PromoCodeDTO>(promoCodeBody);
             await _manager.CreateAsync(promocode, promocode.PreferenceId);
             return Ok(promocode);
         }

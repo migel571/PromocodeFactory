@@ -1,4 +1,4 @@
-﻿namespace PromocodeFactoryApi.Response
+﻿namespace PromocodeFactory.Api.Response
 {
     public class LoginUserResponse
     {

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using NLog;
 using PromocodeFactory.Infrastructure;
-using PromocodeFactoryApi.Extensions;
+using PromocodeFactory.Api.Extensions;
 using System.Reflection;
 using System.Text;
 

@@ -1,5 +1,5 @@
 ﻿using PromocodeFactory.Domain.PromocodeManagement;
-using PromocodeFactory.Infrastructure.Pagging;
+using PromocodeFactory.Infrastructure.Paging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment
 {
     public interface IPartnerRepository
     {
-        Task<PagedList<Partner>> GetAllAsync(PaggingParameters partnerParametres);
+        Task<PagedList<Partner>> GetAllAsync(PagingParameters partnerParametres);
         Task<Partner> GetAsync(string name);
         Task CreateAsync(Partner partner);
         Task UpdateAsync(Partner partner);

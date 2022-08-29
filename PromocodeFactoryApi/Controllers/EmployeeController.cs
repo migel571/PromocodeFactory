@@ -1,16 +1,15 @@
 ﻿using AutoMapper;
 using HybridModelBinding;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using PromocodeFactory.Infrastructure.Pagging;
+using PromocodeFactory.Infrastructure.Paging;
 using PromocodeFactory.Service.DTO.Administration;
 using PromocodeFactory.Service.Interfaces;
-using PromocodeFactoryApi.Commands;
+using PromocodeFactory.Api.Commands;
 
-namespace PromocodeFactoryApi.Controllers
+namespace PromocodeFactory.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/employees")]
     [ApiController]
     public class EmployeeController : ControllerBase
     {
@@ -23,24 +22,14 @@ namespace PromocodeFactoryApi.Controllers
             _mapper = mapper;
 
         }
-        [HttpGet("GetAllEmployees")]
-        public async Task<IActionResult> GetAllEmployees([FromQuery] PaggingParameters employeeParameters)
+        [HttpGet]
+        public async Task<IActionResult> GetAllEmployees([FromQuery] PagingParameters employeeParameters)
         {
             var employees = await _manager.GetAllAsync(employeeParameters);
-            var metadata = new
-            {
-                employees.TotalCount,
-                employees.PageSize,
-                employees.CurrentPage,
-                employees.TotalPages,
-                employees.HasNext,
-                employees.HasPrevious
-
-            };
-            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(employees.MetaData));
             return Ok(employees);
         }
-        [HttpGet("GetEmployee")]
+        [HttpGet("{employeeId:Guid}")]
         public async Task<IActionResult> GetEmployee(Guid employeeId)
         {
             var employee = await _manager.GetAsync(employeeId);

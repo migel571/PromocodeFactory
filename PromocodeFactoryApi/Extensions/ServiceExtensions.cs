@@ -1,4 +1,4 @@
-﻿namespace PromocodeFactoryApi.Extensions
+﻿namespace PromocodeFactory.Api.Extensions
 {
     public static  class ServiceExtensions
     {
@@ -7,7 +7,7 @@
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy", builder => builder.AllowAnyMethod().AllowAnyHeader());
+                options.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().WithExposedHeaders("X-Pagination"));
             });
 
         }

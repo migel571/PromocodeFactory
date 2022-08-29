@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PromocodeFactory.Service.DTO.Identity;
 using PromocodeFactory.Service.Interfaces;
-using PromocodeFactoryApi.Commands;
+using PromocodeFactory.Api.Commands;
 
-namespace PromocodeFactoryApi.Controllers
+namespace PromocodeFactory.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

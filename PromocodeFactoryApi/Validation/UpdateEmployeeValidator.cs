@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using PromocodeFactoryApi.Commands;
+using PromocodeFactory.Api.Commands;
 
-namespace PromocodeFactoryApi.Validation
+namespace PromocodeFactory.Api.Validation
 {
     public class UpdateEmployeeValidator:AbstractValidator<UpdateEmployeeCommand>
     {

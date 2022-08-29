@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PromocodeFactory.Domain.Administaration;
 using PromocodeFactory.Infrastructure.Interfaces.AdministrationRep;
-using PromocodeFactory.Infrastructure.Pagging;
+using PromocodeFactory.Infrastructure.Paging;
 
 using System.Linq.Expressions;
 
@@ -18,7 +18,7 @@ namespace PromocodeFactory.Infrastructure.Repository.Administration
         }
 
 
-        public async Task<PagedList<Employee>> GetAllAsync(PaggingParameters employeeParametres)
+        public async Task<PagedList<Employee>> GetAllAsync(PagingParameters employeeParametres)
         {
             return await PagedList<Employee>.ToPageListAsync(_context.Employees.AsNoTracking().OrderBy(r => r.FirstName), employeeParametres.PageNumber, employeeParametres.PageSize);
         }

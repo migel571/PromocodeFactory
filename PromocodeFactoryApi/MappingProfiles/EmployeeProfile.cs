@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using PromocodeFactory.Domain.Administaration;
-using PromocodeFactory.Infrastructure.Pagging;
+using PromocodeFactory.Infrastructure.Paging;
 using PromocodeFactory.Service.DTO.Administration;
-using PromocodeFactoryApi.Commands;
+using PromocodeFactory.Api.Commands;
 
-namespace PromocodeFactoryApi.MappingProfiles
+namespace PromocodeFactory.Api.MappingProfiles
 {
     public class EmployeeProfile:Profile
     {

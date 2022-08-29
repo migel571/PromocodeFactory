@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using PromocodeFactory.Infrastructure.Pagging;
+using PromocodeFactory.Infrastructure.Paging;
 using PromocodeFactory.Service.DTO.PromocodeManagment;
 using PromocodeFactory.Service.Interfaces;
-using PromocodeFactoryApi.Commands;
+using PromocodeFactory.Api.Commands;
 
-namespace PromocodeFactoryApi.Controllers
+namespace PromocodeFactory.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -27,20 +27,10 @@ namespace PromocodeFactoryApi.Controllers
             return Ok(partner);
         }
         [HttpGet("GetAllPartners")]
-        public async Task<IActionResult> GetAllPartners([FromQuery] PaggingParameters partnerParametres)
+        public async Task<IActionResult> GetAllPartners([FromQuery] PagingParameters partnerParametres)
         {
             var partners = await _manager.GetAllAsync(partnerParametres);
-            var metadata = new
-            {
-                partners.TotalCount,
-                partners.PageSize,
-                partners.CurrentPage,
-                partners.TotalPages,
-                partners.HasNext,
-                partners.HasPrevious
-
-            };
-            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(partners.MetaData));
             return Ok(partners);
         }
         [HttpPost]

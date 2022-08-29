@@ -2,12 +2,12 @@
 using HybridModelBinding;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using PromocodeFactory.Infrastructure.Pagging;
+using PromocodeFactory.Infrastructure.Paging;
 using PromocodeFactory.Service.DTO.PromocodeManagment;
 using PromocodeFactory.Service.Interfaces;
-using PromocodeFactoryApi.Commands;
+using PromocodeFactory.Api.Commands;
 
-namespace PromocodeFactoryApi.Controllers
+namespace PromocodeFactory.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -22,20 +22,10 @@ namespace PromocodeFactoryApi.Controllers
         }
 
         [HttpGet("GetAllCustomers")]
-        public async Task<IActionResult> GetAllCustomers([FromQuery]PaggingParameters customerParameters)
+        public async Task<IActionResult> GetAllCustomers([FromQuery]PagingParameters customerParameters)
         {
             var customers = await _manager.GetAllAsync(customerParameters);
-            var metadata = new
-            {
-                customers.TotalCount,
-                customers.PageSize,
-                customers.CurrentPage,
-                customers.TotalPages,
-                customers.HasNext,
-                customers.HasPrevious
-
-            };
-            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(customers.MetaData));
             return Ok(customers);
         }
         [HttpGet("GetCustomer")]

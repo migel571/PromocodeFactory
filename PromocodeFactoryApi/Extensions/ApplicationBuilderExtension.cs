@@ -11,7 +11,7 @@ using PromocodeFactory.Service.Interfaces;
 using PromocodeFactory.Service.Manager;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
-namespace PromocodeFactoryApi.Extensions
+namespace PromocodeFactory.Api.Extensions
 {
     public static class ApplicationBuilderExtension
     {

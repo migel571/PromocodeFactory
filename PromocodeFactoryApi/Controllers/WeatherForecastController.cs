@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PromocodeFactory.Infrastructure.Interfaces;
 
-namespace PromocodeFactoryApi.Controllers
+namespace PromocodeFactory.Api.Controllers
 {
 
     [ApiController]

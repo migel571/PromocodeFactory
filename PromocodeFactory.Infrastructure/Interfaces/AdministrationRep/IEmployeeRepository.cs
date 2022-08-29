@@ -1,12 +1,12 @@
 ﻿using PromocodeFactory.Domain.Administaration;
 using System.Linq.Expressions;
-using PromocodeFactory.Infrastructure.Pagging;
+using PromocodeFactory.Infrastructure.Paging;
 
 namespace PromocodeFactory.Infrastructure.Interfaces.AdministrationRep
 {
     public interface IEmployeeRepository
     {
-        Task<PagedList<Employee>> GetAllAsync(PaggingParameters employeeParametres);
+        Task<PagedList<Employee>> GetAllAsync(PagingParameters employeeParametres);
         Task<Employee> GetAsync(Guid employeeId);
         Task UpdateAsync(Employee employee);
         Task CreateAsync(Employee employee);

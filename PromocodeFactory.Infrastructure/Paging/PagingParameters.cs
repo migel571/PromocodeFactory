@@ -1,7 +1,7 @@
 ﻿
-namespace PromocodeFactory.Infrastructure.Pagging
+namespace PromocodeFactory.Infrastructure.Paging
 {
-    public class PaggingParameters
+    public class PagingParameters
     {
         const int maxPageSize = 50;
         public int PageNumber { get; set; } = 1;

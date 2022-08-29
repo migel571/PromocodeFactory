@@ -2,7 +2,7 @@
 using PromocodeFactory.Domain.Administaration;
 using PromocodeFactory.Infrastructure.Interfaces;
 using PromocodeFactory.Infrastructure.Interfaces.AdministrationRep;
-using PromocodeFactory.Infrastructure.Pagging;
+using PromocodeFactory.Infrastructure.Paging;
 using PromocodeFactory.Service.DTO.Administration;
 using PromocodeFactory.Service.Exceptions;
 using PromocodeFactory.Service.Interfaces;
@@ -21,7 +21,7 @@ namespace PromocodeFactory.Service.Manager
             _logger = logger;
             _mapper = mapper;
         }
-        public async Task<PagedList<EmployeeDTO>> GetAllAsync(PaggingParameters employeeParameters)
+        public async Task<PagedList<EmployeeDTO>> GetAllAsync(PagingParameters employeeParameters)
         {
             var employees = await _repository.GetAllAsync(employeeParameters);
             return _mapper.Map<PagedList<EmployeeDTO>>(employees);
