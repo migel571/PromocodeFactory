@@ -7,8 +7,8 @@ namespace PromocodeFactory.UI.Interfaces
     {
         Task<PagingResponse<EmployeeModel>> GetAllAsync(PagingParameters employeeParameters);
         Task<EmployeeModel> GetAsync(Guid employeeId);
-        //Task UpdateAsync(EmployeeModel employee);
-        //Task CreateAsync(EmployeeModel employee);
-        //Task DeleteAsync(EmployeeModel employee);
+        Task UpdateAsync(EmployeeModel employee);
+        Task CreateAsync(CreateEmployeeModel employee);
+        Task DeleteAsync(Guid employeeId);
     }
 }

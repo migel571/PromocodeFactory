@@ -33,7 +33,12 @@ namespace PromocodeFactory.UI.Pages
             _employeeParameters.PageNumber = page;
             await GetEmployees();
         }
-
+        private async Task DeleteEmployee(Guid id)
+        {
+            await EmployeeRepo.DeleteAsync(id);
+            _employeeParameters.PageNumber = 1;
+            await GetEmployees();
+        }
 
     }
 }

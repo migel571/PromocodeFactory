@@ -9,7 +9,9 @@ namespace PromocodeFactory.UI.Pages
         [Parameter]
         public string Id { get; set; }
         [Inject]
-        IEmployeeRepository employeeRepo { get; set; }
+        IEmployeeRepository EmployeeRepo { get; set; }
+        [Parameter]
+        public NavigationManager Navigation { get; set; }
 
         EmployeeModel employee = new EmployeeModel();
         protected async override Task OnInitializedAsync()
@@ -19,7 +21,12 @@ namespace PromocodeFactory.UI.Pages
         }
         private async Task GetEmployeeAsync()
         {
-            employee = await employeeRepo.GetAsync(Guid.Parse(Id));
+            employee = await EmployeeRepo.GetAsync(Guid.Parse(Id));
+        }
+        private async Task DeleteEmployee(Guid id)
+        {
+            await EmployeeRepo.DeleteAsync(id);
+            Navigation.NavigateTo("/getEmployee");
         }
     }
 }

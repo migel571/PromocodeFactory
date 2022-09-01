@@ -1,17 +1,14 @@
-﻿@page "/getemployee"
+﻿@page "/getEmployee"
 
 <h3>Найти сотрудника по Id</h3>
-<input @bind-value="@Id" />
-@*<InputText id="name"  @bind-Value="Id"></InputText>*@
-<button class="btn btn-primary" @onclick="(()=>ShowEmployee())">Найти</button>
-@code {
-    [Parameter]
-    public string Id{ get; set; }
-    [Inject]
-    public NavigationManager Navigation { get; set; }
+<div class="row">
+    <div class="col-md-10">
+        <input @bind-value="@Id" />
+    </div>
+    <div class="col-md-2">
+       <button class="btn btn-primary" @onclick="(()=>ShowEmployee())">Найти</button>
+    </div>
+</div>
 
-    void ShowEmployee()
-    {
-        Navigation.NavigateTo($"employee/{Id}");
-    }
-}
+
+

@@ -1,4 +1,4 @@
-﻿@if (employee != null)
+﻿@if (Employee != null)
 {
     <table class="table">
         <thead>
@@ -15,22 +15,22 @@
 
             <tr>
                 <td class="align-middle">
-                    @employee.EmployeeId
+                    @Employee.EmployeeId
                 </td>
                 <td class="align-middle">
-                    @employee.FirstName
+                    @Employee.FirstName
                 </td>
                 <td class="align-middle">
-                    @employee.LastName
+                    @Employee.LastName
                 </td>
                 <td class="align-middle">
-                    @employee.Email
+                    @Employee.Email
                 </td>
                 <td class="align-middle">
-                    <button type="button" class="btn btn-info">Обновить</button>
+                    <button type="button" class="btn btn-info" @onclick="()=>UpdateEmployee(Employee.EmployeeId)">Обновить</button>
                 </td>
                 <td class="align-middle">
-                    <button type="button" class="btn btn-danger">Удалить</button>
+                    <button type="button" class="btn btn-danger" @onclick="()=>Delete(Employee.EmployeeId)">Удалить</button>
                 </td>
             </tr>
 

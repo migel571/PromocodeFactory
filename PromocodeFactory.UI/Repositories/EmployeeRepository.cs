@@ -2,6 +2,7 @@
 using PromocodeFactory.UI.Features;
 using PromocodeFactory.UI.Interfaces;
 using PromocodeFactory.UI.Models;
+using System.Text;
 using System.Text.Json;
 
 namespace PromocodeFactory.UI.Repositories
@@ -10,12 +11,13 @@ namespace PromocodeFactory.UI.Repositories
     {
         private readonly HttpClient _client;
         private JsonSerializerOptions _options;
-        
+
         public EmployeeRepository(IHttpClientFactory factory)
         {
             _client = factory.CreateClient("api");
-           _options =  new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         }
+
 
         public async Task<PagingResponse<EmployeeModel>> GetAllAsync(PagingParameters employeeParameters)
         {
@@ -39,9 +41,51 @@ namespace PromocodeFactory.UI.Repositories
             return pagingResponse;
         }
 
-        public Task<EmployeeModel> GetAsync(Guid employeeId)
+        public async Task<EmployeeModel> GetAsync(Guid employeeId)
         {
-            throw new NotImplementedException();
+            var response = await _client.GetAsync($"employees/{employeeId}");
+            var content = await response.Content.ReadAsStringAsync();
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new ApplicationException(content);
+            }
+            return JsonSerializer.Deserialize<EmployeeModel>(content, _options);
+        }
+        public async Task CreateAsync(CreateEmployeeModel employee)
+        {
+            var content = JsonSerializer.Serialize(employee);
+            var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+            var postResult = await _client.PostAsync("employee", bodyContent);
+            var postContent = await postResult.Content.ReadAsStringAsync();
+            if (!postResult.IsSuccessStatusCode)
+            {
+                throw new ApplicationException(postContent);
+            }
+        }
+
+        public async Task UpdateAsync(EmployeeModel employee)
+        {
+            var content = JsonSerializer.Serialize(employee);
+            var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+            
+            var putResult = await _client.PutAsync("employee",bodyContent);
+            var putContent = await putResult.Content.ReadAsStringAsync();
+            if (!putResult.IsSuccessStatusCode)
+            {
+                throw new ApplicationException(putContent);
+            }
+                       
+        }
+
+        public async Task DeleteAsync(Guid employeeId)
+        {
+            var deleteResult = await _client.DeleteAsync($"employee/{employeeId}");
+            var deleteContent = await deleteResult.Content.ReadAsStringAsync();
+            if (!deleteResult.IsSuccessStatusCode)
+            {
+                throw new ApplicationException(deleteContent);
+            }
+            
         }
     }
 }

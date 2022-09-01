@@ -1,0 +1,35 @@
+﻿@page "/createEmployee"
+
+<h3>Создать нового сотрудника:</h3>
+
+<EditForm Model="_employee" OnValidSubmit="Create" class="card card-body bg-light mt-5">
+    <DataAnnotationsValidator />
+    <div class="mb-3 row">
+        <label for="firstname" class="col-md-2 col-form-label">Имя:</label>
+        <div class="col-md-10">
+            <InputText id="name" class="form-control" @bind-Value="_employee.FirstName" />
+            <ValidationMessage For="@(()=> _employee.FirstName)" />
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="lastname" class="col-md-2 col-form-label">Фамилия:</label>
+        <div class="col-md-10">
+            <InputText id="supplier" class="form-control" @bind-Value="_employee.FirstName" />
+            <ValidationMessage For="@(()=> _employee.LastName)" />
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="email" class="col-md-2 col-form-label">Email:</label>
+        <div class="col-md-10">
+            <InputText id="email" class="form-control" @bind-Value="_employee.Email" />
+            <ValidationMessage For="@(()=> _employee.Email)" />
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button type="submit" class="btn btn-success">Создать</button>
+        </div>
+    </div>
+</EditForm>
+<SuccessNotification @ref="_notification"/>

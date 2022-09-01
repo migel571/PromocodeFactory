@@ -15,19 +15,28 @@
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="employees">
-                <span class="oi oi-plus" aria-hidden="true"></span>Сотрудники
+            <NavLink class="nav-link" @onclick="()=> employeeSubNav = !employeeSubNav">
+                <span class="oi oi-list-rich" aria-hidden="true"></span>Сотрудники
             </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="getemployee">
-                <span class="oi oi-list-rich" aria-hidden="true"></span>Поиск сотрудника
-            </NavLink>
+            @if (employeeSubNav)
+            {
+                <NavLink class="expand-menu" href="employees">
+                    <span>Все сотрудники</span>
+                </NavLink>
+                <NavLink class="" href="getEmployee">
+                    <span>Поиск сотрудника</span>
+                </NavLink>
+                <NavLink class="" href="createEmployee">
+                    <span>Создать сотрудника</span>
+                </NavLink>
+            }
         </div>
     </nav>
 </div>
 
 @code {
+    private bool employeeSubNav;
+    
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;

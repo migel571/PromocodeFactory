@@ -2,11 +2,9 @@
 
 namespace PromocodeFactory.UI.Models
 {
-    public class EmployeeModel
+    public class CreateEmployeeModel
     {
-        [Required]
-        public Guid EmployeeId { get; set; }
-        [Required(ErrorMessage = "Поле Имя обязательное")]
+        [Required(ErrorMessage="Поле Имя обязательное")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Поле Фамилия обязательное")]
@@ -14,7 +12,7 @@ namespace PromocodeFactory.UI.Models
 
         [Required(ErrorMessage = "Поле Email обязательное")]
         [DataType(DataType.EmailAddress)]
-        [EmailAddress(ErrorMessage = "Введите правильно Email адрес")]
+        [EmailAddress(ErrorMessage ="Введите правильно Email адрес")]
         public string Email { get; set; }
     }
 }

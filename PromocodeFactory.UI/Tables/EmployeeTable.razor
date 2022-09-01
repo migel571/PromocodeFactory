@@ -30,10 +30,10 @@
                         <button type="button" class="btn btn-info" @onclick="(()=>GetEmployee(employee.EmployeeId))">Посмотреть</button>
                     </td>
                     <td class="align-middle">
-                        <button type="button" class="btn btn-info">Обновить</button>
+                        <button type="button" class="btn btn-info" @onclick="()=>UpdateEmployee(employee.EmployeeId)">Обновить</button>
                     </td>
                     <td class="align-middle">
-                        <button type="button" class="btn btn-danger">Удалить</button>
+                        <button type="button" class="btn btn-danger" @onclick="()=>Delete(employee.EmployeeId)">Удалить</button>
                     </td>
                 </tr>
              }
