@@ -6,7 +6,7 @@ namespace PromocodeFactory.Service.Interfaces
     public interface IPartnerManager
     {
         Task<PagedList<PartnerDTO>> GetAllAsync(PagingParameters partnerParametres);
-        Task<PartnerDTO> GetAsync(string Name);
+        Task<PartnerDTO> GetAsync(Guid partnerId);
         Task CreateAsync(PartnerDTO partner);
         Task UpdateAsync(PartnerDTO partner);
         Task DeleteAsync(Guid partnerId);

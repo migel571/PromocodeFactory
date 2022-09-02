@@ -1,8 +1,8 @@
-﻿@page "/employees"
+﻿@page "/partners"
 @using PromocodeFactory.UI.Tables
 @using PromocodeFactory.UI.Components
 
-<h3>Сотрудники</h3>
+<h3>Партнеры</h3>
 
 <div class="row">
     <div class="col-md-10">
@@ -14,7 +14,7 @@
 </div>
 <div class="row">
     <div class="col">
-        <EmployeeTable Employees="EmployeesList" OnDelete="DeleteEmployee"></EmployeeTable>
+        <PartnerTable Partners="PartnersList" OnDelete="DeletePartner"></PartnerTable>
     </div>
 </div>
 <div class="row">
@@ -22,4 +22,3 @@
         <Pagination MetaData ="MetaData" Spread ="2" SelectedPage="SelectedPage"></Pagination>
     </div>
 </div>
-

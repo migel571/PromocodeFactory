@@ -12,7 +12,7 @@ namespace PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment
     public interface IPartnerRepository
     {
         Task<PagedList<Partner>> GetAllAsync(PagingParameters partnerParametres);
-        Task<Partner> GetAsync(string name);
+        Task<Partner> GetAsync(Guid partnerId);
         Task CreateAsync(Partner partner);
         Task UpdateAsync(Partner partner);
         Task DeleteAsync(Guid partnerId);

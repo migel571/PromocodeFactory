@@ -20,9 +20,9 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
             return await PagedList<Partner>.ToPageListAsync(_context.Partners.AsNoTracking().OrderBy(r => r.Name), partnerParametres.PageNumber, partnerParametres.PageSize);
         }
 
-        public async Task<Partner> GetAsync(string name)
+        public async Task<Partner> GetAsync(Guid partnerId)
         {
-            return await _context.Partners.FirstOrDefaultAsync(f => f.Name == name);
+            return await _context.Partners.AsNoTracking().FirstOrDefaultAsync(f => f.PartnerId == partnerId);
         }
         public async Task CreateAsync(Partner partner)
         {

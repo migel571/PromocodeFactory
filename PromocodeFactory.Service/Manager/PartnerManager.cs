@@ -26,9 +26,9 @@ namespace PromocodeFactory.Service.Manager
             return _mapper.Map<PagedList<PartnerDTO>>(partner);
         }
 
-        public async Task<PartnerDTO> GetAsync(string name)
+        public async Task<PartnerDTO> GetAsync(Guid partnerId)
         {
-            return _mapper.Map<PartnerDTO>(await _repository.GetAsync(name));
+            return _mapper.Map<PartnerDTO>(await _repository.GetAsync(partnerId));
         }
 
         public async Task CreateAsync(PartnerDTO partner)

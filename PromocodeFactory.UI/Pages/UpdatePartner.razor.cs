@@ -5,22 +5,22 @@ using PromocodeFactory.UI.Shared;
 
 namespace PromocodeFactory.UI.Pages
 {
-    public partial class UpdateEmployee
+    public partial class UpdatePartner
     {
-        private EmployeeModel _employee;
+        private PartnerModel _partner;
         private SuccessNotification _notification;
         [Parameter]
-        public string EmployeeId { get; set; }
+        public string PartnerId { get; set; }
         [Inject]
-        IEmployeeRepository EmployeeRepo { get; set; }
+        IPartnerRepository PartnerRepo { get; set; }
 
-        protected  async override Task OnInitializedAsync()
+        protected async override Task OnInitializedAsync()
         {
-            _employee = await EmployeeRepo.GetAsync(Guid.Parse(EmployeeId));
+            _partner = await PartnerRepo.GetAsync(Guid.Parse(PartnerId));
         }
         private async Task Update()
         {
-            await EmployeeRepo.UpdateAsync(_employee);
+            await PartnerRepo.UpdateAsync(_partner);
             _notification.Show();
         }
     }

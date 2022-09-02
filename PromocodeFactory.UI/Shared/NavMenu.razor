@@ -31,11 +31,29 @@
                 </NavLink>
             }
         </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" @onclick="()=> partnerSubNav = !partnerSubNav">
+                <span class="oi oi-list-rich" aria-hidden="true"></span>Партнеры
+            </NavLink>
+            @if (partnerSubNav)
+            {
+                <NavLink class="expand-menu" href="employees">
+                    <span>Все партнеры</span>
+                </NavLink>
+                <NavLink class="" href="getEmployee">
+                    <span>Поиск партнера</span>
+                </NavLink>
+                <NavLink class="" href="createEmployee">
+                    <span>Создать партнера</span>
+                </NavLink>
+            }
+        </div>
     </nav>
 </div>
 
 @code {
     private bool employeeSubNav;
+    private bool partnerSubNav;
     
     private bool collapseNavMenu = true;
 

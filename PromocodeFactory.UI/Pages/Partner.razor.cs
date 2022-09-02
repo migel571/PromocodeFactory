@@ -4,29 +4,29 @@ using PromocodeFactory.UI.Models;
 
 namespace PromocodeFactory.UI.Pages
 {
-    public partial class Employee
+    public partial class Partner
     {
         [Parameter]
         public string Id { get; set; }
         [Inject]
-        IEmployeeRepository EmployeeRepo { get; set; }
+        IPartnerRepository PartnerRepo { get; set; }
         [Parameter]
         public NavigationManager Navigation { get; set; }
-
-        public EmployeeModel EmployeeMod { get; set; }
+        [Parameter]
+        public PartnerModel PartnerMod { get; set; } 
         protected async override Task OnInitializedAsync()
         {
-            await GetEmployeeAsync();
+            await GetPartnerAsync();
             await base.OnInitializedAsync();
         }
-        private async Task GetEmployeeAsync()
+        private async Task GetPartnerAsync()
         {
-            EmployeeMod = await EmployeeRepo.GetAsync(Guid.Parse(Id));
+            PartnerMod = await PartnerRepo.GetAsync(Guid.Parse(Id));
         }
-        private async Task DeleteEmployee(Guid id)
+        private async Task DeletePartner(Guid id)
         {
-            await EmployeeRepo.DeleteAsync(id);
-            Navigation.NavigateTo("/getEmployee");
+            await PartnerRepo.DeleteAsync(id);
+            Navigation.NavigateTo("/getPartner");
         }
     }
 }
