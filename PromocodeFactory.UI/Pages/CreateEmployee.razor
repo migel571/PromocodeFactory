@@ -5,21 +5,21 @@
 <EditForm Model="_employee" OnValidSubmit="Create" class="card card-body bg-light mt-5">
     <DataAnnotationsValidator />
     <div class="mb-3 row">
-        <label for="firstname" class="col-md-2 col-form-label">Имя:</label>
+        <label for="FirstName" class="col-md-2 col-form-label">Имя:</label>
         <div class="col-md-10">
-            <InputText id="name" class="form-control" @bind-Value="_employee.FirstName" />
+            <InputText id="firstname" class="form-control" @bind-Value="_employee.FirstName" />
             <ValidationMessage For="@(()=> _employee.FirstName)" />
         </div>
     </div>
     <div class="mb-3 row">
-        <label for="lastname" class="col-md-2 col-form-label">Фамилия:</label>
+        <label for="LastName" class="col-md-2 col-form-label">Фамилия:</label>
         <div class="col-md-10">
-            <InputText id="lastname" class="form-control" @bind-Value="_employee.FirstName" />
+            <InputText id="lastname" class="form-control" @bind-Value="_employee.LastName" />
             <ValidationMessage For="@(()=> _employee.LastName)" />
         </div>
     </div>
     <div class="mb-3 row">
-        <label for="email" class="col-md-2 col-form-label">Email:</label>
+        <label for="Email" class="col-md-2 col-form-label">Email:</label>
         <div class="col-md-10">
             <InputText id="email" class="form-control" @bind-Value="_employee.Email" />
             <ValidationMessage For="@(()=> _employee.Email)" />

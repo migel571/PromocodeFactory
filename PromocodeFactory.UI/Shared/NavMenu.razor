@@ -37,14 +37,65 @@
             </NavLink>
             @if (partnerSubNav)
             {
-                <NavLink class="expand-menu" href="employees">
+                <NavLink class="expand-menu" href="partners">
                     <span>Все партнеры</span>
                 </NavLink>
-                <NavLink class="" href="getEmployee">
+                <NavLink class="" href="getPartner">
                     <span>Поиск партнера</span>
                 </NavLink>
-                <NavLink class="" href="createEmployee">
+                <NavLink class="" href="createPartner">
                     <span>Создать партнера</span>
+                </NavLink>
+            }
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" @onclick="()=> preferenceSubNav = !preferenceSubNav">
+                <span class="oi oi-list-rich" aria-hidden="true"></span>Предпочтения
+            </NavLink>
+            @if (partnerSubNav)
+            {
+                <NavLink class="expand-menu" href="preferences">
+                    <span>Все предпочтения</span>
+                </NavLink>
+                <NavLink class="" href="getPreference">
+                    <span>Поиск предпочтений</span>
+                </NavLink>
+                <NavLink class="" href="createPreference">
+                    <span>Создать предпочтение</span>
+                </NavLink>
+            }
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" @onclick="()=> customerSubNav = !customerSubNav">
+                <span class="oi oi-list-rich" aria-hidden="true"></span>Сотрудники
+            </NavLink>
+            @if (customerSubNav)
+            {
+                <NavLink class="expand-menu" href="customers">
+                    <span>Все сотрудники</span>
+                </NavLink>
+                <NavLink class="" href="getPreference">
+                    <span>Поиск сотрудника</span>
+                </NavLink>
+                <NavLink class="" href="createPreference">
+                    <span>Создать сотрудника</span>
+                </NavLink>
+            }
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" @onclick="()=> promocodeSubNav = !promocodeSubNav">
+                <span class="oi oi-list-rich" aria-hidden="true"></span>Промокоды
+            </NavLink>
+            @if (promocodeSubNav)
+            {
+                <NavLink class="expand-menu" href="promocodes">
+                    <span>Все промокоды</span>
+                </NavLink>
+                <NavLink class="" href="getPromocode">
+                    <span>Поиск промокода</span>
+                </NavLink>
+                <NavLink class="" href="createPromocode">
+                    <span>Создать промокод</span>
                 </NavLink>
             }
         </div>
@@ -54,7 +105,10 @@
 @code {
     private bool employeeSubNav;
     private bool partnerSubNav;
-    
+    private bool preferenceSubNav;
+    private bool customerSubNav;
+    private bool promocodeSubNav;
+
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;

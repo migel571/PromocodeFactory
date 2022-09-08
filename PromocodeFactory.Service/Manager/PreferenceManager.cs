@@ -2,6 +2,7 @@
 using PromocodeFactory.Domain.PromocodeManagement;
 using PromocodeFactory.Infrastructure.Interfaces;
 using PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment;
+using PromocodeFactory.Infrastructure.Paging;
 using PromocodeFactory.Service.DTO.PromocodeManagment;
 using PromocodeFactory.Service.Exceptions;
 using PromocodeFactory.Service.Interfaces;
@@ -20,15 +21,15 @@ namespace PromocodeFactory.Service.Manager
             _mapper = mapper;
             _logger = logger;        
         }
-        public async Task<IEnumerable<PreferenceDTO>> GetAllAsync()
+        public async Task<PagedList<PreferenceDTO>> GetAllAsync(PagingParameters preferenceParameters)
         {
-            var preference = await _repository.GetAllAsync();
-            return _mapper.Map<IEnumerable<PreferenceDTO>>(preference);
+            var preference = await _repository.GetAllAsync(preferenceParameters);
+            return _mapper.Map<PagedList<PreferenceDTO>>(preference);
         }
 
-        public async Task<PreferenceDTO> GetAsync(string name)
+        public async Task<PreferenceDTO> GetAsync(Guid preferenceId)
         {
-            return _mapper.Map<PreferenceDTO>(await _repository.GetAsyncByName(name));
+            return _mapper.Map<PreferenceDTO>(await _repository.GetAsyncById(preferenceId));
         }
 
         public async Task CreateAsync(PreferenceDTO preference)
@@ -67,6 +68,11 @@ namespace PromocodeFactory.Service.Manager
             }
             await _repository.DeleteAsync(preference);
         }
-       
+
+        public async Task<List<PreferenceDTO>> GetPreferencesByCustomerIdAsync(Guid preferenceIds)
+        {
+            var preferences = await _repository.FindPreferenceByIdCustomerAsync(preferenceIds);
+            return _mapper.Map<List<PreferenceDTO>>(preferences);
+        }
     }
 }

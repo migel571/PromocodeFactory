@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PromocodeFactory.Infrastruc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PromocodeFactory.Service", "PromocodeFactory.Service\PromocodeFactory.Service.csproj", "{265B80BE-5DC5-4817-9BE3-4C8163BE1FB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PromocodeFactory.UI", "PromocodeFactory.UI\PromocodeFactory.UI.csproj", "{A580DB3D-0EFF-4CB7-AFAE-FBDC528787B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PromocodeFactory.UI", "PromocodeFactory.UI\PromocodeFactory.UI.csproj", "{A580DB3D-0EFF-4CB7-AFAE-FBDC528787B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace PromocodeFactory.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/promocodes")]
     [ApiController]
     public class PromoCodeController : ControllerBase
     {
@@ -19,14 +19,14 @@ namespace PromocodeFactory.Api.Controllers
             _manager = manager;
             _mapper = mapper;
         }
-        [HttpGet("GetAllPromocodes")]
+        [HttpGet]
         public async Task<IActionResult> GetAllPromoCodes([FromQuery] PagingParameters promocodeParametres)
         {
             var promocodes = await _manager.GetAllAsync(promocodeParametres);
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(promocodes.MetaData));
             return Ok(promocodes);
         }
-        [HttpGet("GetPromocode")]
+        [HttpGet("{promoCodeId:Guid}")]
         public async Task<IActionResult> GetPromoCode(string code)
         {
             var promocode = await _manager.GetAsync(code);

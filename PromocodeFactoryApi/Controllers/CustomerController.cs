@@ -9,7 +9,7 @@ using PromocodeFactory.Api.Commands;
 
 namespace PromocodeFactory.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/customers")]
     [ApiController]
     public class CustomerController : ControllerBase
     {
@@ -21,14 +21,14 @@ namespace PromocodeFactory.Api.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("GetAllCustomers")]
+        [HttpGet]
         public async Task<IActionResult> GetAllCustomers([FromQuery]PagingParameters customerParameters)
         {
             var customers = await _manager.GetAllAsync(customerParameters);
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(customers.MetaData));
             return Ok(customers);
         }
-        [HttpGet("GetCustomer")]
+        [HttpGet("{customerId:Guid}")]
         public async Task<IActionResult> GetCustomer(Guid customerId)
         {
             var customer = await _manager.GetAsync(customerId);

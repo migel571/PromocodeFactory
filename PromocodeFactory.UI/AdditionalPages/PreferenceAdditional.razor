@@ -1,0 +1,37 @@
+﻿@if (Preference != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Название</th>
+                <th scope="col">Действия</th>
+                <th scope="col">Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td class="align-middle">
+                    @Preference.PreferenceId
+                </td>
+                <td class="align-middle">
+                    @Preference.Name
+                </td>
+                <td class="align-middle">
+                    <button type="button" class="btn btn-info" @onclick="()=>UpdatePreference(Preference.PreferenceId)">Обновить</button>
+                </td>
+                <td class="align-middle">
+                    <button type="button" class="btn btn-danger" @onclick="()=>Delete(Preference.PreferenceId)">Удалить</button>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+}
+else
+{
+    <span>
+        Идет загрузка предпочтения...
+    </span>
+}

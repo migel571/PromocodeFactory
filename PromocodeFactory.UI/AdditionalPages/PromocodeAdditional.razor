@@ -1,0 +1,52 @@
+﻿@if (Promocode != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Код</th>
+                <th scope="col">Информация</th>
+                <th scope="col">Начало действия</th>
+                <th scope="col">Конец действия</th>
+                <th scope="col">Название партнера</th>
+                <th scope="col">Действия</th>
+                <th scope="col">Действия</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td class="align-middle">
+                    @Promocode.Code
+                </td>
+                <td class="align-middle">
+                    @Promocode.ServiceInfo
+                </td>
+                <td class="align-middle">
+                    @Promocode.BeginDate
+                </td>
+                <td class="align-middle">
+                    @Promocode.EndDate
+                </td>
+                <td class="align-middle">
+                    @Promocode.PartnerName
+                </td>
+                <td class="align-middle">
+                    <button type="button" class="btn btn-info" @onclick="()=>UpdatePromocode(Promocode.PromocodeId)">Обновить</button>
+                </td>
+                <td class="align-middle">
+                    <button type="button" class="btn btn-danger" @onclick="()=>Delete(Promocode.PromocodeId)">Удалить</button>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+}
+else
+{
+    <span>
+        Идет загрузка промокодa...
+    </span>
+}
+
+

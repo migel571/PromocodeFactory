@@ -5,21 +5,21 @@
 <EditForm Model="_partner" OnValidSubmit="Create" class="card card-body bg-light mt-5">
     <DataAnnotationsValidator />
     <div class="mb-3 row">
-        <label for="firstname" class="col-md-2 col-form-label">Имя:</label>
+        <label for="Name" class="col-md-2 col-form-label">Имя:</label>
         <div class="col-md-10">
             <InputText id="firstname" class="form-control" @bind-Value="_partner.Name" />
             <ValidationMessage For="@(()=> _partner.Name)" />
         </div>
     </div>
     <div class="mb-3 row">
-        <label for="numberissuedpromocode" class="col-md-2 col-form-label">Кол-во промокодов:</label>
+        <label for="NumberIssuedPromoCode" class="col-md-2 col-form-label">Кол-во промокодов:</label>
         <div class="col-md-10">
             <InputNumber id="numberissuedpromocode" class="form-control" @bind-Value="_partner.NumberIssuedPromoCode" />
             <ValidationMessage For="@(()=> _partner.NumberIssuedPromoCode)" />
         </div>
     </div>
     <div class="mb-3 row">
-        <label for="isactive" class="col-md-2 col-form-label">Действующий:</label>
+        <label for="IsActive" class="col-md-2 col-form-label">Действующий:</label>
         <div class="col-md-10">
             <InputRadio id="isactive" class="form-control" @bind-Value="_partner.IsActive" />
             

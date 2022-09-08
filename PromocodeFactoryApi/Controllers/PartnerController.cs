@@ -20,7 +20,7 @@ namespace PromocodeFactory.Api.Controllers
             _mapper = mapper;
 
         }
-        [HttpGet("partnerId:Guid")]
+        [HttpGet("{partnerId:Guid}")]
         public async Task<IActionResult> GetPartner(Guid partnerId)
         {
             var partner = await _manager.GetAsync(partnerId);

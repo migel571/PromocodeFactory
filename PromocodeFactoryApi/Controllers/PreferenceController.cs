@@ -5,10 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using PromocodeFactory.Service.DTO.PromocodeManagment;
 using PromocodeFactory.Service.Interfaces;
 using PromocodeFactory.Api.Commands;
+using PromocodeFactory.Infrastructure.Paging;
+using Newtonsoft.Json;
 
 namespace PromocodeFactory.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/preferences")]
     [ApiController]
     public class PreferenceController : ControllerBase
     {
@@ -21,17 +23,24 @@ namespace PromocodeFactory.Api.Controllers
             _mapper = mapper;   
         }
 
-        [HttpGet("GetAllPreference")]
-        public async Task<IActionResult> GetAllPreferences()
+        [HttpGet]
+        public async Task<IActionResult> GetAllPreferences([FromQuery] PagingParameters preferenceParametres)
         {
-            var preferences = await _manager.GetAllAsync();
+            var preferences = await _manager.GetAllAsync(preferenceParametres);
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(preferences.MetaData));
             return Ok(preferences);
         }
-        [HttpGet("GetPreference")]
-        public async Task<IActionResult> GetPreference(string name)
+        [HttpGet("{preferenceId:Guid}")]
+        public async Task<IActionResult> GetPreference(Guid preferenceId)
         {
-            var preference = await _manager.GetAsync(name);
+            var preference = await _manager.GetAsync(preferenceId);
             return Ok(preference);
+        }
+        [HttpGet("customer/{customerId:Guid}")]
+        public async Task<IActionResult> GetAllPreferencesByCustomerId(Guid customerId)
+        {
+            var preferences = await _manager.GetPreferencesByCustomerIdAsync(customerId);
+            return Ok(preferences);
         }
         [HttpPost]
         public async Task<IActionResult> CreatePreference([FromBody] CreatePreferenceCommand preferenceBody)

@@ -10,11 +10,11 @@ namespace PromocodeFactory.UI.Pages
         private CreateEmployeeModel _employee = new CreateEmployeeModel();
         private SuccessNotification _notification;
         [Inject]
-        IEmployeeRepository _employeeRepo { get; set; }
+        public IEmployeeRepository EmployeeRepo { get; set; }
 
         private async Task Create()
         {
-            await _employeeRepo.CreateAsync(_employee);
+            await EmployeeRepo.CreateAsync(_employee);
             _notification.Show();
         }
     }

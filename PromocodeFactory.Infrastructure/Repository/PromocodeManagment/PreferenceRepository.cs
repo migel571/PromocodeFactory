@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PromocodeFactory.Domain.PromocodeManagement;
 using PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment;
+using PromocodeFactory.Infrastructure.Paging;
 using System.Linq.Expressions;
 
 
@@ -14,9 +15,9 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
         {
             _context = context;
         }
-        public async Task<IEnumerable<Preference>> GetAllAsync()
+        public async Task<PagedList<Preference>> GetAllAsync(PagingParameters employeeParametres)
         {
-            return await _context.Preferences.AsNoTracking().ToListAsync();
+            return await PagedList<Preference>.ToPageListAsync(_context.Preferences.AsNoTracking().OrderBy(r => r.Name), employeeParametres.PageNumber, employeeParametres.PageSize);
         }
 
         public async Task<Preference> GetAsyncById(Guid preferenceId)
@@ -58,5 +59,10 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
 
         }
 
+        public async Task<List<Preference>> FindPreferenceByIdCustomerAsync(Guid customerId)
+        {
+            var preferences = await _context.Customers.Where(x => x.CustomerId == customerId).Include(x=>x.Preferences).Select(x => x.Preferences).FirstAsync();
+            return preferences.ToList();
+        }
     }
 }

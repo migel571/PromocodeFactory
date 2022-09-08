@@ -1,0 +1,14 @@
+﻿@page "/getPreference"
+
+<h3>Найти предпочтнение по Id</h3>
+<div class="row">
+    <div class="col-md-10">
+        <input @bind-value="@Id" />
+    </div>
+    <div class="col-md-2">
+       <button class="btn btn-primary" @onclick="(()=>ShowPreference())">Найти</button>
+    </div>
+</div>
+
+
+

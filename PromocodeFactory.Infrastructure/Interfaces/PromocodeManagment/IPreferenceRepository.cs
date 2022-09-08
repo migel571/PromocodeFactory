@@ -1,11 +1,12 @@
 ﻿using PromocodeFactory.Domain.PromocodeManagement;
+using PromocodeFactory.Infrastructure.Paging;
 using System.Linq.Expressions;
 
 namespace PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment
 {
     public interface IPreferenceRepository
     {
-        Task<IEnumerable<Preference>> GetAllAsync();
+        Task<PagedList<Preference>> GetAllAsync(PagingParameters employeeParametres);
         Task<Preference> GetAsyncById(Guid preferenceId);
         Task<Preference> GetAsyncByName(string name);
         Task CreateAsync(Preference preference);
@@ -14,5 +15,6 @@ namespace PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment
         Task<bool> ExistAsync(Expression<Func<Preference, bool>> expression);
         Task<List<Preference>> GetPreferencesByIdsAsync(List<Guid> preferenceIds);
         Task<Preference> FindPreferenceAsync(Guid preferenceId);
+        Task<List<Preference>> FindPreferenceByIdCustomerAsync(Guid customerId);
     }
 }

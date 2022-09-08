@@ -23,6 +23,7 @@ namespace PromocodeFactory.UI.Pages
 
         private async Task GetEmployees()
         {
+            
             var pagingResponse = await EmployeeRepo.GetAllAsync(_employeeParameters);
             EmployeesList = pagingResponse.Items;
             MetaData = pagingResponse.MetaData;
