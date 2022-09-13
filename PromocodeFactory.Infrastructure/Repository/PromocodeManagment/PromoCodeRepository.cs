@@ -21,7 +21,7 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
 
         public async Task<PromoCode> GetAsync(string code)
         {
-            return await _context.PromoCodes.FirstOrDefaultAsync(t=>t.Code == code);
+            return await _context.PromoCodes.Include(x=>x.PreferenceId).FirstOrDefaultAsync(t=>t.Code == code);
         }
 
         public async Task CreateAsync(PromoCode promoCode)

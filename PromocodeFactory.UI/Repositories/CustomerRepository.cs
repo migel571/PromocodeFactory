@@ -51,7 +51,7 @@ namespace PromocodeFactory.UI.Repositories
             }
             return JsonSerializer.Deserialize<CustomerModel>(content, _options);
         }
-        public async Task CreateAsync(CreateCustomerModel customer)
+        public async Task CreateAsync(CreateOrUpdateCustomerModel customer)
         {
             var content = JsonSerializer.Serialize(customer);
             var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
@@ -63,7 +63,7 @@ namespace PromocodeFactory.UI.Repositories
             }
         }
 
-        public async Task UpdateAsync(CustomerModel customer)
+        public async Task UpdateAsync(CreateOrUpdateCustomerModel customer)
         {
             var content = JsonSerializer.Serialize(customer);
             var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");

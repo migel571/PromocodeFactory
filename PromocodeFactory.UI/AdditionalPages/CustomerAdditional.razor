@@ -7,6 +7,7 @@
                 <th scope="col">Имя</th>
                 <th scope="col">Фамилия</th>
                 <th scope="col">Email</th>
+                <th scope="col">Предпочтения</th>
                 <th scope="col">Действия</th>
                 <th scope="col">Действия</th>
             </tr>
@@ -25,6 +26,12 @@
                 </td>
                 <td class="align-middle">
                     @Customer.Email
+                </td>
+                 <td class="align-middle">
+                    @foreach (var preference in Preference)
+                    {
+                        @(preference.Name + ", ");
+                    }
                 </td>
                 <td class="align-middle">
                     <button type="button" class="btn btn-info" @onclick="()=>UpdateCustomer(Customer.CustomerId)">Обновить</button>

@@ -48,6 +48,17 @@ namespace PromocodeFactory.UI.Repositories
             }
             return JsonSerializer.Deserialize<PreferenceModel>(content, _options);
         }
+        public async Task<List<PreferenceModel>> GetPreferenceByCustomerIdAsync (Guid customerId)
+        {
+            var response = await _client.GetAsync($"preferences/customer/{customerId}");
+            var content = await response.Content.ReadAsStringAsync();
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new ApplicationException(content);
+            }
+            return JsonSerializer.Deserialize<List<PreferenceModel>>(content, _options);
+        }
+        
         public async Task CreateAsync(CreatePreferenceModel preference)
         {
             var content = JsonSerializer.Serialize(preference);

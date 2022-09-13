@@ -8,6 +8,7 @@
                 <th scope="col">Начало действия</th>
                 <th scope="col">Конец действия</th>
                 <th scope="col">Название партнера</th>
+                <th scope="col">Категория</th>
                 <th scope="col">Действия</th>
                 <th scope="col">Действия</th>
 
@@ -30,6 +31,9 @@
                 </td>
                 <td class="align-middle">
                     @Promocode.PartnerName
+                </td>
+                 <td class="align-middle">
+                    @PreferenceName
                 </td>
                 <td class="align-middle">
                     <button type="button" class="btn btn-info" @onclick="()=>UpdatePromocode(Promocode.PromocodeId)">Обновить</button>

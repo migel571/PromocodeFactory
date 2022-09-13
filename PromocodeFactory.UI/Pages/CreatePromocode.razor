@@ -21,14 +21,14 @@
     <div class="mb-3 row">
         <label for="BeginDate" class="col-md-2 col-form-label">Начало действия:</label>
         <div class="col-md-10">
-            <InputText id="begindate" class="form-control" @bind-Value="_promocode.BeginDate" />
+            <InputDate id="begindate" class="form-control"  @bind-Value="_promocode.BeginDate" />
             <ValidationMessage For="@(()=> _promocode.BeginDate)" />
         </div>
     </div>
     <div class="mb-3 row">
         <label for="EndDate" class="col-md-2 col-form-label">Конец действия:</label>
         <div class="col-md-10">
-            <InputText id="enddate" class="form-control" @bind-Value="_promocode.EndDate" />
+            <InputDate id="enddate" class="form-control"  @bind-Value="_promocode.EndDate" />
             <ValidationMessage For="@(()=> _promocode.EndDate)" />
         </div>
     </div>
@@ -37,6 +37,20 @@
         <div class="col-md-10">
             <InputText id="partnername" class="form-control" @bind-Value="_promocode.PartnerName" />
             <ValidationMessage For="@(()=> _promocode.PartnerName)" />
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="preferences" class="col-md-2 col-form-label">Предпочтения:</label>
+        <div class="col-md-10">
+            <InputSelect id="preferenceids" class="form-control" @bind-Value="_promocode.PreferenceId">
+                @foreach(var preference in PreferencesList)
+                {
+                    <option value="@preference.PreferenceId">@preference.Name</option>
+                }
+            </InputSelect>
+            <ValidationMessage For="@(()=> _promocode.PreferenceId)" />
+            
+
         </div>
     </div>
     

@@ -4,8 +4,7 @@ namespace PromocodeFactory.UI.Models
 {
     public class CreatePromocodeModel
     {
-        [Required]
-        public Guid PromocodeId { get; set; }
+       
         [Required(ErrorMessage = "Поле код обязательное")]
         public string Code { get; set; }
         [Required(ErrorMessage = "Поле информация обязательное")]
@@ -16,5 +15,8 @@ namespace PromocodeFactory.UI.Models
         public DateTime EndDate { get; set; }
         [Required(ErrorMessage = "Поле название партнера обязательное")]
         public string PartnerName { get; set; }
+        [Required(ErrorMessage = "Выберите одно предпочтение")]
+        
+        public Guid PreferenceId { get; set; }
     }
 }

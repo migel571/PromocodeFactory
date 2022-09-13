@@ -23,7 +23,7 @@ namespace PromocodeFactory.UI.Shared
             _modalClass = "";
             _showBackdrop = false;
             StateHasChanged();
-            Navigation.NavigateTo("/getemployee");
+            Navigation.NavigateTo("/");
         }
     }
 

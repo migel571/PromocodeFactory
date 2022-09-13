@@ -10,7 +10,7 @@ namespace PromocodeFactory.UI.Interfaces
         Task CreateAsync(CreatePreferenceModel preference);
         Task UpdateAsync(PreferenceModel preference);
         Task DeleteAsync(Guid preferenceId);
-
+        Task<List<PreferenceModel>> GetPreferenceByCustomerIdAsync(Guid customerId);
         //Task<List<PreferenceModel>> GetListPreference();
     }
 }

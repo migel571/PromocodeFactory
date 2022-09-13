@@ -7,8 +7,8 @@ namespace PromocodeFactory.UI.Interfaces
     {
         Task<PagingResponse<CustomerModel>> GetAllAsync(PagingParameters customerParameters);
         Task<CustomerModel> GetAsync(Guid customerId);
-        Task CreateAsync(CreateCustomerModel customer);
-        Task UpdateAsync(CustomerModel customer);
+        Task CreateAsync(CreateOrUpdateCustomerModel customer);
+        Task UpdateAsync(CreateOrUpdateCustomerModel customer);
         Task DeleteAsync(Guid customerId);
        
     }

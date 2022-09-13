@@ -8,15 +8,24 @@ namespace PromocodeFactory.UI.Pages
     {
         [Parameter]
         public string Id { get; set; }
+        
+      
         [Inject]
         IPromocodeRepository PromocodeRepo { get; set; }
+        [Inject]
+        IPreferenceRepository PreferenceRepo { get; set; }
         [Parameter]
         public NavigationManager Navigation { get; set; }
 
         public PromocodeModel PromocodeMod { get; set; }
+        public string PreferenceName { get; set; }
+        
         protected async override Task OnInitializedAsync()
         {
+
             await GetPromocodeAsync();
+            var preference = await PreferenceRepo.GetAsync(PromocodeMod.PreferenceId);
+            PreferenceName = preference.Name;
             await base.OnInitializedAsync();
         }
         private async Task GetPromocodeAsync()

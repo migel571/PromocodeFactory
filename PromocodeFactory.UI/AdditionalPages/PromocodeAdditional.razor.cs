@@ -9,6 +9,8 @@ namespace PromocodeFactory.UI.AdditionalPages
         [Parameter]
         public PromocodeModel Promocode { get; set; }
         [Parameter]
+        public string PreferenceName { get; set; }
+        [Parameter]
         public NavigationManager Navigation { get; set; }
         [Parameter]
         public EventCallback<Guid> OnDelete { get; set; }

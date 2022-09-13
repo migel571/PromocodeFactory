@@ -2,7 +2,7 @@
 
 namespace PromocodeFactory.UI.Models
 {
-    public class CreateCustomerModel
+    public class CreateOrUpdateCustomerModel
     {
         [Required(ErrorMessage = "Поле имя обязательное")]
         public string FirstName { get; set; }

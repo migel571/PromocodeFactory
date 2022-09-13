@@ -16,5 +16,6 @@ namespace PromocodeFactory.UI.Models
         public DateTime EndDate { get; set; }
         [Required(ErrorMessage = "Поле название партнера обязательное")]
         public string PartnerName { get; set; }
+        public Guid PreferenceId { get; set; }
     }
 }
