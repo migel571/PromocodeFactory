@@ -2,6 +2,7 @@
 using PromocodeFactory.Domain.PromocodeManagement;
 using PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment;
 using PromocodeFactory.Infrastructure.Paging;
+using PromocodeFactory.Infrastructure.Repository.RepositoryExtensions;
 using System.Linq.Expressions;
 
 
@@ -15,9 +16,10 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
         {
             _context = context;
         }
-        public async Task<PagedList<Preference>> GetAllAsync(PagingParameters employeeParametres)
+        public async Task<PagedList<Preference>> GetAllAsync(PagingParameters preferenceParametres)
         {
-            return await PagedList<Preference>.ToPageListAsync(_context.Preferences.AsNoTracking().OrderBy(r => r.Name), employeeParametres.PageNumber, employeeParametres.PageSize);
+            var preference = await _context.Preferences.Search(preferenceParametres.SearchTerm).AsNoTracking().OrderBy(r => r.Name).ToListAsync();
+            return await PagedList<Preference>.ToPageListAsync(preference, preferenceParametres.PageNumber, preferenceParametres.PageSize);
         }
 
         public async Task<Preference> GetAsyncById(Guid preferenceId)

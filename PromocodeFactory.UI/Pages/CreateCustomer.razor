@@ -6,9 +6,9 @@
 <EditForm Model="_customer" OnValidSubmit="Create" class="card card-body bg-light mt-5">
     <DataAnnotationsValidator />
     <div class="mb-3 row">
-        <label for="firstname" class="col-md-2 col-form-label">Имя:</label>
+        <label for="FirstName" class="col-md-2 col-form-label">Имя:</label>
         <div class="col-md-10">
-            <InputText id="FirstName" class="form-control" @bind-Value="_customer.FirstName" />
+            <InputText id="firstname" class="form-control" @bind-Value="_customer.FirstName" />
             <ValidationMessage For="@(()=> _customer.FirstName)" />
         </div>
     </div>
@@ -27,28 +27,10 @@
         </div>
     </div>
      <div class="mb-3 row">
-         <label for="preferences" class="col-md-2 col-form-label">Предпочтения:</label>
+         <label for="Preferences" class="col-md-2 col-form-label">Предпочтения:</label>
         <div class="col-md-10">
          <MultipleSelector Selected="Selected" NoSelected="NotSelected"></MultipleSelector>
           </div>
-
-        @*<label for="preferences" class="col-md-2 col-form-label">Предпочтения:</label>
-        <div class="col-md-10">
-            <InputSelect id="preferenceids" class="form-control" @bind-Value="PreferenceIds">
-                @foreach(var preference in PreferencesList)
-                {
-                    <option value="@preference.PreferenceId">@preference.Name</option>
-                }
-            </InputSelect>
-            <ValidationMessage For="@(()=> _customer.PreferenceIds)" />
-            @*<select multiple>
-                @foreach(var preference in PreferencesList)
-                {
-                    <option value="@preference.PreferenceId">@preference.Name</option>
-                }
-            </select>
-
-        </div>*@
     </div>
     <div class="row">
         <div class="col-md-12 text-right">

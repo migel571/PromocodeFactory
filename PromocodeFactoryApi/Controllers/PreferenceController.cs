@@ -50,13 +50,13 @@ namespace PromocodeFactory.Api.Controllers
             return Ok(preference);
         }
         [HttpPut]
-        public async Task<IActionResult> UpdatePreference([FromHybrid] UpdatePreferenceCommand preferenceBody)
+        public async Task<IActionResult> UpdatePreference([FromBody] UpdatePreferenceCommand preferenceBody)
         {
             var preference = _mapper.Map<PreferenceDTO>(preferenceBody);
             await _manager.UpdateAsync(preference);
             return Ok(preference);
         }
-        [HttpDelete]
+        [HttpDelete("{preferenceId:Guid}")]
         public async Task<IActionResult> DeletePreference(Guid preferenceId)
         {
             await _manager.DeleteAsync(preferenceId);

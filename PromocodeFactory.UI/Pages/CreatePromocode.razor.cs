@@ -8,7 +8,7 @@ namespace PromocodeFactory.UI.Pages
 {
     public partial class CreatePromocode
     {
-        private CreatePromocodeModel _promocode = new CreatePromocodeModel() { BeginDate = DateTime.Now.Date, EndDate = DateTime.Now.Date };
+        private CreatePromocodeModel _promocode = new CreatePromocodeModel() { BeginDate = DateTime.UtcNow, EndDate = DateTime.UtcNow };
         private PagingParameters _preferenceParameters = new PagingParameters();
         public List<PreferenceModel> PreferencesList { get; set; } = new List<PreferenceModel>();
         private SuccessNotification _notification;

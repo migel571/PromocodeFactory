@@ -11,5 +11,8 @@ namespace PromocodeFactory.UI.Features
             get { return _pageSize; }
             set { _pageSize = (value > maxPageSize) ? _pageSize : value; }
         }
+
+        public string SearchTerm { get; set; }
     }
+   
 }

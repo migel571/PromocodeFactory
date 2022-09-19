@@ -27,9 +27,15 @@ namespace PromocodeFactory.Api.Controllers
             return Ok(promocodes);
         }
         [HttpGet("{promoCodeId:Guid}")]
-        public async Task<IActionResult> GetPromoCode(string code)
+        public async Task<IActionResult> GetPromoCode(Guid promoCodeId)
         {
-            var promocode = await _manager.GetAsync(code);
+            var promocode = await _manager.GetAsync(promoCodeId);
+            return Ok(promocode);
+        }
+        [HttpGet("customer/{customerId:Guid}")]
+        public async Task<IActionResult> GetPromoCodeByCustomerId(Guid customerId)
+        {
+            var promocode = await _manager.GetPromocodeByCustomerIdAsync(customerId);
             return Ok(promocode);
         }
         [HttpPost]
@@ -46,7 +52,7 @@ namespace PromocodeFactory.Api.Controllers
         //    await _manager.UpdateAsync(promocode);
         //    return Ok(promocode);
         //}
-        [HttpDelete]
+        [HttpDelete("{promoCodeId:Guid}")]
         public async Task<IActionResult> DeletePromoCode(Guid promoCodeId)
         {
             _manager.DeleteAsync(promoCodeId);

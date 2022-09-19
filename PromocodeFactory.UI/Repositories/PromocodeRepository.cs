@@ -19,11 +19,12 @@ namespace PromocodeFactory.UI.Repositories
         }
 
 
-        public async Task<PagingResponse<PromocodeModel>> GetAllAsync(PagingParameters employeeParameters)
+        public async Task<PagingResponse<PromocodeModel>> GetAllAsync(PagingParameters promocodeParameters)
         {
             var queryParam = new Dictionary<string, string>
             {
-                ["pageNumber"] = employeeParameters.PageNumber.ToString()
+                ["pageNumber"] = promocodeParameters.PageNumber.ToString(),
+                ["searchTerm"] = promocodeParameters.SearchTerm == null ? "" : promocodeParameters.SearchTerm
             };
             var response = await _client.GetAsync(QueryHelpers.AddQueryString("promocodes", queryParam));
             var content = await response.Content.ReadAsStringAsync();
@@ -71,6 +72,17 @@ namespace PromocodeFactory.UI.Repositories
                 throw new ApplicationException(deleteContent);
             }
 
+        }
+
+        public async Task<List<PromocodeModel>> GetPromocodeByCustomerIdAsync(Guid customerId)
+        {
+            var response = await _client.GetAsync($"promocodes/customer/{customerId}");
+            var content = await response.Content.ReadAsStringAsync();
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new ApplicationException(content);
+            }
+            return JsonSerializer.Deserialize<List<PromocodeModel>>(content, _options);
         }
     }
 }

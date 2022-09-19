@@ -13,7 +13,7 @@ namespace PromocodeFactory.UI.Repositories
         private JsonSerializerOptions _options;
         public PartnerRepository(IHttpClientFactory factory)
         {
-            _client = factory.CreateClient();
+            _client = factory.CreateClient("api");
             _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         }
 
@@ -21,7 +21,8 @@ namespace PromocodeFactory.UI.Repositories
         {
             var queryParam = new Dictionary<string, string>
             {
-                ["pageNumber"] = partnerParametres.PageNumber.ToString()
+                ["pageNumber"] = partnerParametres.PageNumber.ToString(),
+                ["searchTerm"] = partnerParametres.SearchTerm == null ? "" : partnerParametres.SearchTerm
             };
             var response = await _client.GetAsync(QueryHelpers.AddQueryString("partners", queryParam));
             var content = await response.Content.ReadAsStringAsync();

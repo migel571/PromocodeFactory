@@ -40,6 +40,13 @@ namespace PromocodeFactory.UI.Pages
             _promocodeParameters.PageNumber = 1;
             await GetPromocodes();
         }
+        private async Task SearchChanged(string searchTerm)
+        {
+
+            _promocodeParameters.PageNumber = 1;
+            _promocodeParameters.SearchTerm = searchTerm;
+            await GetPromocodes();
+        }
 
     }
 }

@@ -8,6 +8,8 @@
                 <th scope="col">Фамилия</th>
                 <th scope="col">Email</th>
                 <th scope="col">Предпочтения</th>
+                <th scope="col">Промокоды</th>
+                <th scope="col">Партнер промокода</th>
                 <th scope="col">Действия</th>
                 <th scope="col">Действия</th>
             </tr>
@@ -34,7 +36,19 @@
                     }
                 </td>
                 <td class="align-middle">
-                    <button type="button" class="btn btn-info" @onclick="()=>UpdateCustomer(Customer.CustomerId)">Обновить</button>
+                     @foreach (var promocode in Promocode)
+                    {
+                        @(promocode.Code + ", ");
+                    }
+                </td>
+                <td class="align-middle">
+                     @foreach (var promocode in Promocode)
+                    {
+                        @(promocode.PartnerName + ", ");
+                    }
+                </td>
+                <td class="align-middle">
+                    <button type="button" class="btn btn-info" @onclick="()=>UpdateCustomer(Customer.CustomerId)">Редактировать</button>
                 </td>
                 <td class="align-middle">
                     <button type="button" class="btn btn-danger" @onclick="()=>Delete(Customer.CustomerId)">Удалить</button>

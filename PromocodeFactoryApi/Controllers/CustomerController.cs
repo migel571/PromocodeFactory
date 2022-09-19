@@ -42,13 +42,13 @@ namespace PromocodeFactory.Api.Controllers
             return Ok(customer);
         }
         [HttpPut]
-        public async Task<IActionResult> UpdateCustomer([FromHybrid] UpdateCustomerCommand customerBody)
+        public async Task<IActionResult> UpdateCustomer([FromBody] UpdateCustomerCommand customerBody)
         {
             var customer = _mapper.Map<CustomerDTO>(customerBody);
             await _manager.UpdateAsync(customer, customerBody.PreferenceIds);
             return Ok(customer);
         }
-        [HttpDelete]
+        [HttpDelete("{customerId:Guid}")]
         public async Task<IActionResult> DeleteCustomer(Guid CustomerId)
         {
             await _manager.DeleteAsync(CustomerId);

@@ -13,7 +13,7 @@ namespace PromocodeFactory.UI.Repositories
         private JsonSerializerOptions _options;
         public PreferenceRepository(IHttpClientFactory factory)
         {
-            _client = factory.CreateClient();
+            _client = factory.CreateClient("api");
             _options = new JsonSerializerOptions() { PropertyNameCaseInsensitive = true};
         }
 
@@ -21,7 +21,8 @@ namespace PromocodeFactory.UI.Repositories
         {
             var queryParam = new Dictionary<string, string>
             {
-                ["pageNumber"] = preferenceParametres.PageNumber.ToString()
+                ["pageNumber"] = preferenceParametres.PageNumber.ToString(),
+                ["searchTerm"] = preferenceParametres.SearchTerm == null ? "" : preferenceParametres.SearchTerm
             };
             var response = await _client.GetAsync(QueryHelpers.AddQueryString("preferences", queryParam));
             var content = await response.Content.ReadAsStringAsync();
@@ -84,7 +85,7 @@ namespace PromocodeFactory.UI.Repositories
 
         public async Task DeleteAsync(Guid preferenceId)
         {
-            var deleteResult = await _client.DeleteAsync($"partners/{preferenceId}");
+            var deleteResult = await _client.DeleteAsync($"preferences/{preferenceId}");
             var deleteContent = await deleteResult.Content.ReadAsStringAsync();
             if (!deleteResult.IsSuccessStatusCode)
             {

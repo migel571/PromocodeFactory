@@ -3,6 +3,7 @@ using PromocodeFactory.Domain.PromocodeManagement;
 using PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment;
 using System.Linq.Expressions;
 using PromocodeFactory.Infrastructure.Paging;
+using PromocodeFactory.Infrastructure.Repository.RepositoryExtensions;
 
 namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
 {
@@ -17,7 +18,8 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
 
         public async Task<PagedList<Partner>> GetAllAsync(PagingParameters partnerParametres)
         {
-            return await PagedList<Partner>.ToPageListAsync(_context.Partners.AsNoTracking().OrderBy(r => r.Name), partnerParametres.PageNumber, partnerParametres.PageSize);
+            var partners = await _context.Partners.Search(partnerParametres.SearchTerm).AsNoTracking().OrderBy(r => r.Name).ToListAsync();
+            return await PagedList<Partner>.ToPageListAsync(partners, partnerParametres.PageNumber, partnerParametres.PageSize);
         }
 
         public async Task<Partner> GetAsync(Guid partnerId)

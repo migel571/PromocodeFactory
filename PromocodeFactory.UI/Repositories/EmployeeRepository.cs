@@ -23,7 +23,8 @@ namespace PromocodeFactory.UI.Repositories
         {
             var queryParam = new Dictionary<string, string>
             {
-                ["pageNumber"] = employeeParameters.PageNumber.ToString()
+                ["pageNumber"] = employeeParameters.PageNumber.ToString(),
+                ["searchTerm"] = employeeParameters.SearchTerm == null ? "" : employeeParameters.SearchTerm
             };
             var response = await _client.GetAsync(QueryHelpers.AddQueryString("employees", queryParam));
             var content = await response.Content.ReadAsStringAsync();
@@ -55,7 +56,7 @@ namespace PromocodeFactory.UI.Repositories
         {
             var content = JsonSerializer.Serialize(employee);
             var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
-            var postResult = await _client.PostAsync("employee", bodyContent);
+            var postResult = await _client.PostAsync("employees", bodyContent);
             var postContent = await postResult.Content.ReadAsStringAsync();
             if (!postResult.IsSuccessStatusCode)
             {
@@ -68,7 +69,7 @@ namespace PromocodeFactory.UI.Repositories
             var content = JsonSerializer.Serialize(employee);
             var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
             
-            var putResult = await _client.PutAsync("employee",bodyContent);
+            var putResult = await _client.PutAsync("employees",bodyContent);
             var putContent = await putResult.Content.ReadAsStringAsync();
             if (!putResult.IsSuccessStatusCode)
             {
@@ -79,7 +80,7 @@ namespace PromocodeFactory.UI.Repositories
 
         public async Task DeleteAsync(Guid employeeId)
         {
-            var deleteResult = await _client.DeleteAsync($"employee/{employeeId}");
+            var deleteResult = await _client.DeleteAsync($"employees/{employeeId}");
             var deleteContent = await deleteResult.Content.ReadAsStringAsync();
             if (!deleteResult.IsSuccessStatusCode)
             {

@@ -25,5 +25,10 @@ builder.Services.AddCors(policy =>
 builder.Services.AddScoped(
     sp => sp.GetService<IHttpClientFactory>().CreateClient("api"));
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IPreferenceRepository, PreferenceRepository>();
+builder.Services.AddScoped<IPartnerRepository, PartnerRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IPromocodeRepository, PromocodeRepository>();
+
 
 await builder.Build().RunAsync();

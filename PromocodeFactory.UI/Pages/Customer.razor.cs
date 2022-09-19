@@ -12,20 +12,28 @@ namespace PromocodeFactory.UI.Pages
         ICustomerRepository CustomerRepo { get; set; }
         [Inject]
         IPreferenceRepository PreferenceRepo { get; set; }
+        [Inject]
+        IPromocodeRepository PromocodeRepo { get; set; }
         [Parameter]
         public NavigationManager Navigation { get; set; }
 
         public CustomerModel CustomerMod { get; set; }
+        public List<PromocodeModel> PromocodeMod { get; set; }
         public List<PreferenceModel> PreferenceMod { get; set; }
         protected async override Task OnInitializedAsync()
         {
             await GetCustomerAsync();
             await GetPreferenceAsync();
+            await GetPromocodeAsync();
             await base.OnInitializedAsync();
         }
         private async Task GetCustomerAsync()
         {
             CustomerMod = await CustomerRepo.GetAsync(Guid.Parse(Id));
+        }
+        private async Task GetPromocodeAsync()
+        {
+            PromocodeMod = await PromocodeRepo.GetPromocodeByCustomerIdAsync(Guid.Parse(Id));
         }
         private async Task GetPreferenceAsync()
         {

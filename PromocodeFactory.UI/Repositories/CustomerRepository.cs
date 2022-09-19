@@ -23,7 +23,8 @@ namespace PromocodeFactory.UI.Repositories
         {
             var queryParam = new Dictionary<string, string>
             {
-                ["pageNumber"] = customerParameters.PageNumber.ToString()
+                ["pageNumber"] = customerParameters.PageNumber.ToString(),
+                ["searchTerm"] = customerParameters.SearchTerm == null ? "" : customerParameters.SearchTerm
             };
             var response = await _client.GetAsync(QueryHelpers.AddQueryString("customers", queryParam));
             var content = await response.Content.ReadAsStringAsync();
@@ -51,7 +52,7 @@ namespace PromocodeFactory.UI.Repositories
             }
             return JsonSerializer.Deserialize<CustomerModel>(content, _options);
         }
-        public async Task CreateAsync(CreateOrUpdateCustomerModel customer)
+        public async Task CreateAsync(CreateCustomerModel customer)
         {
             var content = JsonSerializer.Serialize(customer);
             var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
@@ -63,7 +64,7 @@ namespace PromocodeFactory.UI.Repositories
             }
         }
 
-        public async Task UpdateAsync(CreateOrUpdateCustomerModel customer)
+        public async Task UpdateAsync(UpdateCustomerModel customer)
         {
             var content = JsonSerializer.Serialize(customer);
             var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");

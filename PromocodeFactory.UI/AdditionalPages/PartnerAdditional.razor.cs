@@ -8,7 +8,7 @@ namespace PromocodeFactory.UI.AdditionalPages
     {
         [Parameter]
         public PartnerModel Partner { get; set; }
-        [Parameter]
+        [Inject]
         public NavigationManager Navigation { get; set; }
         [Parameter]
         public EventCallback<Guid> OnDelete { get; set; }

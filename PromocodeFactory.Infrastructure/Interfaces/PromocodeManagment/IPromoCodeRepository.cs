@@ -7,7 +7,8 @@ namespace PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment
     public interface IPromoCodeRepository
     {
         Task<PagedList<PromoCode>> GetAllAsync(PagingParameters promocodeParametres); 
-        Task<PromoCode> GetAsync(string code);
+        Task<PromoCode> GetAsync(Guid promoCodeId);
+        Task<List<PromoCode>> GetPromocodeByCustomerIdAsync(Guid customerId);
         Task CreateAsync(PromoCode promoCode);
         Task UpdateAsync(PromoCode promoCode);
         Task DeleteAsync(PromoCode promoCode);

@@ -3,6 +3,7 @@ using PromocodeFactory.Domain.PromocodeManagement;
 using PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment;
 using System.Linq.Expressions;
 using PromocodeFactory.Infrastructure.Paging;
+using PromocodeFactory.Infrastructure.Repository.RepositoryExtensions;
 
 namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
 {
@@ -16,16 +17,23 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
         }
         public async Task<PagedList<PromoCode>> GetAllAsync(PagingParameters promocodeParametres)
         {
-            return await PagedList<PromoCode>.ToPageListAsync(_context.PromoCodes.AsNoTracking().OrderBy(r => r.BeginDate), promocodeParametres.PageNumber, promocodeParametres.PageSize);
+            var promoCodes = await _context.PromoCodes.Search(promocodeParametres.SearchTerm).AsNoTracking().OrderBy(r => r.BeginDate).ToListAsync();
+            return await PagedList<PromoCode>.ToPageListAsync(promoCodes, promocodeParametres.PageNumber, promocodeParametres.PageSize);
         }
 
-        public async Task<PromoCode> GetAsync(string code)
+        public async Task<PromoCode> GetAsync(Guid promoCodeId)
         {
-            return await _context.PromoCodes.Include(x=>x.PreferenceId).FirstOrDefaultAsync(t=>t.Code == code);
+            return await _context.PromoCodes.Include(x=>x.PreferenceId).FirstOrDefaultAsync(t=>t.PromoCodeId == promoCodeId);
         }
-
+        public async Task<List<PromoCode>> GetPromocodeByCustomerIdAsync(Guid customerId)
+        {
+            return await _context.Customers.Where(x=>x.CustomerId == customerId).Select(x=>x.PromoCodes.ToList()).FirstOrDefaultAsync();
+        }
         public async Task CreateAsync(PromoCode promoCode)
         {
+            
+            var customers = await  _context.Preferences.Where(p => p.PreferenceId == promoCode.PreferenceId).Select(x => x.Customers).FirstAsync();
+            promoCode.Customers = customers;
             await _context.PromoCodes.AddAsync(promoCode);
             await _context.SaveChangesAsync();
         }

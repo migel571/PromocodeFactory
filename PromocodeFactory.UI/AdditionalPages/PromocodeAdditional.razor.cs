@@ -10,7 +10,7 @@ namespace PromocodeFactory.UI.AdditionalPages
         public PromocodeModel Promocode { get; set; }
         [Parameter]
         public string PreferenceName { get; set; }
-        [Parameter]
+        [Inject]
         public NavigationManager Navigation { get; set; }
         [Parameter]
         public EventCallback<Guid> OnDelete { get; set; }

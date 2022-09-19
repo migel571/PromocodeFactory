@@ -11,6 +11,8 @@ namespace PromocodeFactory.UI.AdditionalPages
         [Parameter]
         public List<PreferenceModel> Preference { get; set; }
         [Parameter]
+        public List<PromocodeModel> Promocode { get; set; }
+        [Inject]
         public NavigationManager Navigation { get; set; }
         [Parameter]
         public EventCallback<Guid> OnDelete { get; set; }

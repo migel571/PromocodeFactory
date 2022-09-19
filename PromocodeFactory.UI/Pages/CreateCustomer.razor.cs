@@ -9,7 +9,7 @@ namespace PromocodeFactory.UI.Pages
     public partial class CreateCustomer
     {
         [Parameter]
-        public List<PreferenceModel> SelectedPreference { get; set; }
+        public List<PreferenceModel> SelectedPreference { get; set; } 
         [Parameter]
         public List<PreferenceModel> NotSelectedPreference { get; set; }
         private List<MultipleSelectorModel> Selected = new List<MultipleSelectorModel>();
@@ -17,20 +17,20 @@ namespace PromocodeFactory.UI.Pages
 
 
 
-        private CreateOrUpdateCustomerModel _customer = new CreateOrUpdateCustomerModel();
+        private CreateCustomerModel _customer = new CreateCustomerModel();
         private SuccessNotification _notification;
         private PagingParameters _preferenceParameters = new PagingParameters();
-        //public List<PreferenceModel> PreferencesList { get; set; } = new List<PreferenceModel>();
+       
         [Inject]
         public ICustomerRepository CustomerRepo { get; set; }
         [Inject]
         public IPreferenceRepository PreferenceRepo { get; set; }
-        //private List<Guid> PreferenceIds = new(); 
        
         protected async override Task OnInitializedAsync()
         {
             var pagingResponse = await PreferenceRepo.GetAllAsync(_preferenceParameters);
             NotSelectedPreference = pagingResponse.Items;
+            SelectedPreference  = new();
             Selected = SelectedPreference.Select(x => new MultipleSelectorModel(x.PreferenceId.ToString(), x.Name)).ToList();
             NotSelected = NotSelectedPreference.Select(x => new MultipleSelectorModel(x.PreferenceId.ToString(), x.Name)).ToList();
             

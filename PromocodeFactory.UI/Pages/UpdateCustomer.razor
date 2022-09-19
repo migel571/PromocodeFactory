@@ -1,14 +1,16 @@
-﻿@page "/updateCustomer"
+﻿@page "/updateCustomer/{customerId}"
 @using PromocodeFactory.UI.Tables
 
 <h3>Создать нового клиента:</h3>
 
-<EditForm Model="_customer" OnValidSubmit="Update" class="card card-body bg-light mt-5">
+@if (_customer != null)
+{
+    <EditForm Model="_customer" OnValidSubmit="Update" class="card card-body bg-light mt-5">
     <DataAnnotationsValidator />
     <div class="mb-3 row">
-        <label for="firstname" class="col-md-2 col-form-label">Имя:</label>
+        <label for="FirstName" class="col-md-2 col-form-label">Имя:</label>
         <div class="col-md-10">
-            <InputText id="FirstName" class="form-control" @bind-Value="_customer.FirstName" />
+            <InputText id="firstname" class="form-control" @bind-Value="_customer.FirstName" />
             <ValidationMessage For="@(()=> _customer.FirstName)" />
         </div>
     </div>
@@ -27,15 +29,16 @@
         </div>
     </div>
      <div class="mb-3 row">
-        <label for="preferences" class="col-md-2 col-form-label">Предпочтения:</label>
+        <label for="Preferences" class="col-md-2 col-form-label">Предпочтения:</label>
         <div class="col-md-10">
            <MultipleSelector Selected="Selected" NoSelected="NotSelected"></MultipleSelector>
           </div>
     </div>
     <div class="row">
         <div class="col-md-12 text-right">
-            <button type="submit" class="btn btn-success">Обновить</button>
+            <button type="submit" class="btn btn-success">Редактировать</button>
         </div>
     </div>
 </EditForm>
 <SuccessNotification @ref="_notification"/>
+}

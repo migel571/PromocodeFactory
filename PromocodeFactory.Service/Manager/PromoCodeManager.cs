@@ -28,9 +28,9 @@ namespace PromocodeFactory.Service.Manager
             return _mapper.Map<PagedList<PromoCodeDTO>>(promocode);
         }
 
-        public async Task<PromoCodeDTO> GetAsync(string code)
+        public async Task<PromoCodeDTO> GetAsync(Guid promoCodeId)
         {
-            return _mapper.Map<PromoCodeDTO>(await _repository.GetAsync(code));
+            return _mapper.Map<PromoCodeDTO>(await _repository.GetAsync(promoCodeId));
         }
 
         public async Task CreateAsync(PromoCodeDTO promocode, Guid preferenceId)
@@ -67,6 +67,12 @@ namespace PromocodeFactory.Service.Manager
                 throw new PromoCodeException($"Promocode does not exist.");
             }
             await _repository.DeleteAsync(promoCode);
+        }
+
+        public async Task<List<PromoCodeDTO>> GetPromocodeByCustomerIdAsync(Guid customerId)
+        {
+           var promocode = await _repository.GetPromocodeByCustomerIdAsync(customerId);
+           return _mapper.Map<List<PromoCodeDTO>>(promocode);
         }
     }
 }

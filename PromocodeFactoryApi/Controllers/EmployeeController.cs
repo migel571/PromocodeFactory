@@ -51,7 +51,7 @@ namespace PromocodeFactory.Api.Controllers
             await _manager.UpdateAsync(employee);
             return Ok(employee);
         }
-        [HttpDelete("employeeId:Guid")]
+        [HttpDelete("{employeeId:Guid}")]
         public async Task<IActionResult> DeleteEmployee(Guid employeeId)
         {
             await _manager.DeleteAsync(employeeId);
