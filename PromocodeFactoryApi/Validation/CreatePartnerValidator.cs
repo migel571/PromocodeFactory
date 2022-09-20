@@ -8,7 +8,7 @@ namespace PromocodeFactory.Api.Validation
         public CreatePartnerValidator()
         {
             RuleFor(r => r.Name).NotEmpty().NotNull();
-            RuleFor(r => r.IsActive).NotEmpty().NotNull();
+            RuleFor(r => r.IsActive).Must(x => x == false || x == true);
             RuleFor(r => r.NumberIssuedPromoCode).NotEmpty().NotNull();
         }
     }

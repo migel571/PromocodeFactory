@@ -10,16 +10,12 @@ namespace PromocodeFactory.UI.AdditionalPages
         public PromocodeModel Promocode { get; set; }
         [Parameter]
         public string PreferenceName { get; set; }
-        [Inject]
-        public NavigationManager Navigation { get; set; }
+       
         [Parameter]
         public EventCallback<Guid> OnDelete { get; set; }
         [Inject]
         public IJSRuntime Js { get; set; }
-        public void UpdatePromocode(Guid id)
-        {
-            Navigation.NavigateTo($"updatePromocode/{id}");
-        }
+        
         private async Task Delete(Guid id)
         {
 

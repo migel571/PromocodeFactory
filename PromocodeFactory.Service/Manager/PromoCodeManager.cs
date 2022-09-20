@@ -35,6 +35,11 @@ namespace PromocodeFactory.Service.Manager
 
         public async Task CreateAsync(PromoCodeDTO promocode, Guid preferenceId)
         {
+            if (promocode.BeginDate > promocode.EndDate)
+            {
+                _logger.LogInfo($"Date is not correct.");
+                throw new PromoCodeException($"Date is not correct.");
+            }
             var promocodeNew = _mapper.Map<PromoCode>(promocode);
             if (await _repository.ExistAsync(p => p.Code == promocode.Code))
             {

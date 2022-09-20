@@ -24,7 +24,14 @@
                         @partner.NumberIssuedPromoCode
                     </td>
                     <td class="align-middle">
-                        @partner.IsActive
+                        @if (partner.IsActive)
+                    {
+                        <p>Действующий</p>
+                    }
+                    else
+                    {
+                        <p style="color:red">Не действующий</p>
+                    }
                     </td>
                     <td class="align-middle">
                         <button type="button" class="btn btn-info" @onclick="(()=>GetPartner(partner.PartnerId))">Посмотреть</button>

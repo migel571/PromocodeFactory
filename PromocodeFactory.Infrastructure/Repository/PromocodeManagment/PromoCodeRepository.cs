@@ -23,7 +23,7 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
 
         public async Task<PromoCode> GetAsync(Guid promoCodeId)
         {
-            return await _context.PromoCodes.Include(x=>x.PreferenceId).FirstOrDefaultAsync(t=>t.PromoCodeId == promoCodeId);
+            return await _context.PromoCodes.FirstOrDefaultAsync(t=>t.PromoCodeId == promoCodeId);
         }
         public async Task<List<PromoCode>> GetPromocodeByCustomerIdAsync(Guid customerId)
         {

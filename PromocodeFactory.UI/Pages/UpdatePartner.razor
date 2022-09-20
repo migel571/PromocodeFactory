@@ -20,13 +20,13 @@
             <ValidationMessage For="@(()=> _partner.NumberIssuedPromoCode)" />
         </div>
     </div>
-    <div class="mb-3 row">
-        <label for="IsActive" class="col-md-2 col-form-label">Действующий:</label>
-        <div class="col-md-10">
-            <InputRadio id="isactive" class="form-control" @bind-Value="_partner.IsActive" />
-            
+   <div class="mb-3 row">
+       <label for="NumberIssuedPromoCode" class="col-md-2 col-form-label">Активный?</label>
+        <div class="col-md-10 form-check" style="padding-left:35px;">
+            <InputCheckbox id="isactive" class="form-check-input" @bind-Value="_partner.IsActive" />
             <ValidationMessage For="@(()=> _partner.IsActive)" />
         </div>
+        
     </div>
     
     <div class="row">

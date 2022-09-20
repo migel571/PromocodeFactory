@@ -55,7 +55,7 @@ namespace PromocodeFactory.Api.Controllers
         [HttpDelete("{promoCodeId:Guid}")]
         public async Task<IActionResult> DeletePromoCode(Guid promoCodeId)
         {
-            _manager.DeleteAsync(promoCodeId);
+            await _manager.DeleteAsync(promoCodeId);
             return Ok();
         }
 

@@ -3,6 +3,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th scope="col">Id</th>
                 <th scope="col">Имя</th>
                 <th scope="col">Кол-во промокодов</th>
                 <th scope="col">Действующий</th>
@@ -24,7 +25,14 @@
                     @Partner.NumberIssuedPromoCode
                 </td>
                 <td class="align-middle">
-                    @Partner.IsActive
+                    @if (Partner.IsActive)
+                    {
+                        <p>Действующий</p>
+                    }
+                    else
+                    {
+                        <p style="color:red">Не действующий</p>
+                    }
                 </td>
                 <td class="align-middle">
                     <button type="button" class="btn btn-info" @onclick="()=>UpdatePartner(Partner.PartnerId)">Редактировать</button>
