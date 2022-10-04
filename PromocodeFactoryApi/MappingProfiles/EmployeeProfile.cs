@@ -14,6 +14,7 @@ namespace PromocodeFactory.Api.MappingProfiles
             CreateMap<EmployeeDTO, CreateEmployeeCommand>().ReverseMap();
             CreateMap<EmployeeDTO, UpdateEmployeeCommand>().ReverseMap();
             CreateMap(typeof(PagedList<>), typeof(PagedList<>)).ConvertUsing(typeof(PagedListConverter<,>));
+            
         }
     }
 }

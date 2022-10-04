@@ -10,7 +10,7 @@ namespace PromocodeFactory.UI.Pages
         public string Id { get; set; }
         [Inject]
         IPartnerRepository PartnerRepo { get; set; }
-        [Parameter]
+        [Inject]
         public NavigationManager Navigation { get; set; }
         [Parameter]
         public PartnerModel PartnerMod { get; set; } 

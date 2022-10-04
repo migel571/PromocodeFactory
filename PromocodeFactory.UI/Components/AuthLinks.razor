@@ -1,0 +1,11 @@
+﻿<AuthorizeView>
+    <Authorized>
+         Привет, @context.User.Claims.First(x=>x.Type == ClaimTypes.Email).Value 
+         <a href="Logout">Log out</a>
+        </Authorized>
+    <NotAuthorized>
+        <a href="Registration">Регистрация</a>
+       <a href="Login">Вход</a>
+    </NotAuthorized>
+    
+</AuthorizeView>

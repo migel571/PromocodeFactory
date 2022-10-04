@@ -58,6 +58,11 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
             var customers = await _context.Customers.Where(c=>customersIds.Contains(c.CustomerId)).ToListAsync();
             return customers;
         }
-
+        public async Task<Customer> GetCustomerByEmailAsync(string email)
+        {
+            var customer = await _context.Customers.Where(c => c.Email == email).FirstAsync();
+            return customer;
+        }
+        
     }
 }

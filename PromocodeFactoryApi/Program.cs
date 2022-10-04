@@ -9,6 +9,7 @@ using PromocodeFactory.Infrastructure;
 using PromocodeFactory.Api.Extensions;
 using System.Reflection;
 using System.Text;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 //Add config log
@@ -37,14 +38,22 @@ builder.Services.AddAuthentication(auth =>
         ValidateIssuerSigningKey = true
     };
 });
+builder.Services.AddAuthorizationCore(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireClaim(ClaimTypes.Role, "Admin"));
+    options.AddPolicy("EmployeeOnly", policy => policy.RequireClaim(ClaimTypes.Role, "Employee", "Admin"));
+    options.AddPolicy("PartnerOnly", policy => policy.RequireClaim(ClaimTypes.Role, "Partner", "Admin"));
+    options.AddPolicy("All", policy => policy.RequireClaim(ClaimTypes.Role, "Employee", "Partner", "Admin"));
+    options.AddPolicy("CustomerOnly", policy => policy.RequireClaim(ClaimTypes.Role, "Employee", "Customer", "Admin"));
 
+});
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers().AddFluentValidation(f => { f.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()); f.ValidatorOptions.CascadeMode = FluentValidation.CascadeMode.Stop; }) ;
 //builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddAllManagersAndRepositories();
 // Добавляем наши методы расширения из Extension
 builder.Services.ConfigureCors();
-builder.Services.ConfigureIISIntegration();
+//builder.Services.ConfigureIISIntegration();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -68,6 +77,7 @@ if (app.Environment.IsDevelopment())
 // Добавляем свои компоненты в конвейер 
 app.UseCors("CorsPolicy");
 app.UseStaticFiles();
+
 // Для прокси серверов 
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
@@ -75,6 +85,7 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 });
 
 // Компоненты при создании шаблона
+app.UseHsts();
 app.UseHttpsRedirection();
   
 app.UseAuthorization();

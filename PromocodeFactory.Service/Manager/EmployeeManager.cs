@@ -49,6 +49,11 @@ namespace PromocodeFactory.Service.Manager
                 _logger.LogInfo($"Employee does not exist.");
                 throw new EmployeeException($"Employee does not exist.");
             }
+            if (await _repository.ExistAsync(filter => filter.Email == employee.Email && filter.LastName == employee.LastName))
+            {
+                _logger.LogInfo($"Employee  already exist.");
+                throw new EmployeeException($"Employee already exist.");
+            }
             await _repository.UpdateAsync(_mapper.Map<Employee>(employee));
         }
         public async Task DeleteAsync(Guid employeeId)

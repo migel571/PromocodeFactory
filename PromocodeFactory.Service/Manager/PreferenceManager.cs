@@ -48,6 +48,11 @@ namespace PromocodeFactory.Service.Manager
         public async Task UpdateAsync(PreferenceDTO preference)
         {
             var preferenceMap = _mapper.Map<Preference>(preference);
+            if (await _repository.ExistAsync(c => c.Name == preference.Name))
+            {
+                _logger.LogInfo($"Preference already exist.");
+                throw new PreferenceException($"Preference already exist.");
+            }
             var preferenceBd = await _repository.GetAsyncById(preference.PreferenceId);
             if (preferenceBd == null)
             {

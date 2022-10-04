@@ -12,9 +12,9 @@ namespace PromocodeFactory.UI.Repositories
         private readonly HttpClient _client;
         private JsonSerializerOptions _options;
 
-        public PromocodeRepository(IHttpClientFactory factory)
+        public PromocodeRepository(HttpClient client)
         {
-            _client = factory.CreateClient("api");
+            _client = client;
             _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         }
 

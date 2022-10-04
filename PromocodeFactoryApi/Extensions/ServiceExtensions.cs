@@ -12,9 +12,9 @@
 
         }
         // Метод расширения для IIS
-        public static void ConfigureIISIntegration(this IServiceCollection services)
-        {
-            services.Configure<IISOptions>(options =>{});
-        }
+        //public static void ConfigureIISIntegration(this IServiceCollection services)
+        //{
+        //    services.Configure<IISOptions>(options =>{});
+        //}
     }
 }

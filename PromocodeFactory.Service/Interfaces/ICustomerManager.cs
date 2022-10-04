@@ -10,5 +10,6 @@ namespace PromocodeFactory.Service.Interfaces
         Task CreateAsync(CustomerDTO customer, List<Guid> preferensIds);
         Task UpdateAsync(CustomerDTO customer, List<Guid> preferensIds);
         Task DeleteAsync(Guid customerId);
+        Task<CustomerDTO> GetCustomerByEmailAsync(string email);
     }
 }

@@ -10,7 +10,7 @@ namespace PromocodeFactory.UI.Pages
         public string Id { get; set; }
         [Inject]
         IEmployeeRepository EmployeeRepo { get; set; }
-        [Parameter]
+        [Inject]
         public NavigationManager Navigation { get; set; }
 
         public EmployeeModel EmployeeMod { get; set; }

@@ -12,9 +12,9 @@ namespace PromocodeFactory.UI.Repositories
         private readonly HttpClient _client;
         private JsonSerializerOptions _options;
 
-        public CustomerRepository(IHttpClientFactory factory)
+        public CustomerRepository(HttpClient client)
         {
-            _client = factory.CreateClient("api");
+            _client = client;
             _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         }
 
@@ -52,7 +52,7 @@ namespace PromocodeFactory.UI.Repositories
             }
             return JsonSerializer.Deserialize<CustomerModel>(content, _options);
         }
-        public async Task CreateAsync(CreateCustomerModel customer)
+        public async Task<CustomerModel> CreateAsync(CreateCustomerModel customer)
         {
             var content = JsonSerializer.Serialize(customer);
             var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
@@ -62,6 +62,7 @@ namespace PromocodeFactory.UI.Repositories
             {
                 throw new ApplicationException(postContent);
             }
+            return JsonSerializer.Deserialize<CustomerModel>(postContent, _options);
         }
 
         public async Task UpdateAsync(UpdateCustomerModel customer)

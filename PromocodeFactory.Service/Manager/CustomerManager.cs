@@ -20,7 +20,7 @@ namespace PromocodeFactory.Service.Manager
         {
             _repository = repository;
             _repositoryPreference = repositoryPreference;
-           _logger = logger;
+            _logger = logger;
             _mapper = mapper;
         }
         public async Task<PagedList<CustomerDTO>> GetAllAsync(PagingParameters customerParameters)
@@ -39,7 +39,7 @@ namespace PromocodeFactory.Service.Manager
         {
             var customerCreate = _mapper.Map<Customer>(customer);
 
-            
+
             var preferences = await _repositoryPreference.GetPreferencesByIdsAsync(preferensIds);
             if (!preferences.Any())
             {
@@ -51,13 +51,18 @@ namespace PromocodeFactory.Service.Manager
                 _logger.LogInfo($"Customer with email={customerCreate.Email} and LastName={customerCreate.LastName} already exist.");
                 throw new CustomerException($"Customer already exist.");
             }
-            
+
             customerCreate.Preferences = preferences;
             await _repository.CreateAsync(customerCreate);
         }
         public async Task UpdateAsync(CustomerDTO customer, List<Guid> preferensIds)
         {
             var customerMap = _mapper.Map<Customer>(customer);
+            if (await _repository.ExistAsync(c => c.LastName == customer.LastName && c.Email == customer.Email))
+            {
+                _logger.LogInfo($"Customer already exist.");
+                throw new CustomerException($"Customer already exist.");
+            }
             var customerBd = await _repository.GetAsync(customer.CustomerId);
             if (customerBd == null)
             {
@@ -67,7 +72,7 @@ namespace PromocodeFactory.Service.Manager
             customerBd.FirstName = customerMap.FirstName;
             customerBd.LastName = customerMap.LastName;
             customerBd.Email = customerMap.Email;
-            
+
             var preferences = await _repositoryPreference.GetPreferencesByIdsAsync(preferensIds);
             if (!preferences.Any())
             {
@@ -75,7 +80,7 @@ namespace PromocodeFactory.Service.Manager
                 throw new CustomerException($"Preferences does not exist.");
             }
             customerBd.Preferences = preferences;
-           
+
             await _repository.UpdateAsync(customerBd);
         }
         public async Task DeleteAsync(Guid customerId)
@@ -87,6 +92,16 @@ namespace PromocodeFactory.Service.Manager
                 throw new CustomerException($"Failed to delete customer.");
             }
             await _repository.DeleteAsync(customerId);
+        }
+        public async Task<CustomerDTO> GetCustomerByEmailAsync(string email)
+        {
+            var customer = await _repository.GetCustomerByEmailAsync(email);
+            if (customer == null)
+            {
+                _logger.LogInfo($"Customer with email={email}  does not exist.");
+                throw new CustomerException($"Customer does not exist.");
+            }
+            return _mapper.Map<CustomerDTO>(customer);
         }
 
 

@@ -10,7 +10,7 @@ namespace PromocodeFactory.UI.Pages
         public string Id { get; set; }
         [Inject]
         IPreferenceRepository PreferenceRepo { get; set; }
-        [Parameter]
+        [Inject]
         public NavigationManager Navigation { get; set; }
 
         public PreferenceModel PreferenceMod { get; set; }
@@ -26,7 +26,7 @@ namespace PromocodeFactory.UI.Pages
         private async Task DeletePreference(Guid id)
         {
             await PreferenceRepo.DeleteAsync(id);
-            Navigation.NavigateTo("/getEmployee");
+            Navigation.NavigateTo("/getPreference");
         }
     }
 }

@@ -5,11 +5,13 @@ using PromocodeFactory.Infrastructure.Paging;
 using PromocodeFactory.Service.DTO.PromocodeManagment;
 using PromocodeFactory.Service.Interfaces;
 using PromocodeFactory.Api.Commands;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PromocodeFactory.Api.Controllers
 {
     [Route("api/partners")]
     [ApiController]
+    [Authorize(Policy = "EmployeeOnly")]
     public class PartnerController : ControllerBase
     {
         private readonly IPartnerManager _manager;
@@ -20,6 +22,7 @@ namespace PromocodeFactory.Api.Controllers
             _mapper = mapper;
 
         }
+
         [HttpGet("{partnerId:Guid}")]
         public async Task<IActionResult> GetPartner(Guid partnerId)
         {

@@ -14,100 +14,114 @@
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" @onclick="()=> employeeSubNav = !employeeSubNav">
-                <span class="oi oi-list-rich" aria-hidden="true"></span>Сотрудники
-            </NavLink>
-            @if (employeeSubNav)
-            {
-                <NavLink class="expand-menu" href="employees">
-                    <span>Все сотрудники</span>
+        <AuthorizeView Policy="EmployeeOnly">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" @onclick="()=> employeeSubNav = !employeeSubNav">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span>Сотрудникам
                 </NavLink>
-                <NavLink class="" href="getEmployee">
-                    <span>Поиск сотрудника</span>
+                @if (employeeSubNav)
+                {
+
+                    
+                    <NavLink class="expand-menu" href="partners">
+                        <span>Все партнеры</span>
+                    </NavLink>
+                    <NavLink class="" href="getPartner">
+                        <span>Поиск партнера</span>
+                    </NavLink>
+                    <NavLink class="" href="createPartner">
+                        <span>Создать партнера</span>
+                    </NavLink>
+                    <NavLink class="expand-menu" href="customers">
+                        <span>Все клиенты</span>
+                    </NavLink>
+                    <NavLink class="" href="getCustomer">
+                        <span>Поиск клиента</span>
+                    </NavLink>
+                    <NavLink class="expand-menu" href="preferences">
+                        <span>Все предпочтения</span>
+                    </NavLink>
+                    <NavLink class="" href="getPreference">
+                        <span>Поиск предпочтений</span>
+                    </NavLink>
+                    <NavLink class="" href="createPreference">
+                        <span>Создать предпочтение</span>
+                    </NavLink>
+                    <NavLink class="expand-menu" href="promocodes">
+                        <span>Все промокоды</span>
+                    </NavLink>
+                    <NavLink class="" href="getPromocode">
+                        <span>Поиск промокода</span>
+                    </NavLink>
+                }
+            </div>
+        </AuthorizeView>
+
+        <AuthorizeView Policy="PartnerOnly">
+
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" @onclick="()=> partnerSubNav = !partnerSubNav">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span>Партнерам
                 </NavLink>
-                <NavLink class="" href="createEmployee">
-                    <span>Создать сотрудника</span>
+                @if (partnerSubNav)
+                {
+                    <NavLink class="" href="createPromocode">
+                        <span>Создать промокод</span>
+                    </NavLink>
+
+                }
+            </div>
+        </AuthorizeView>
+
+        <AuthorizeView Policy="AdminOnly">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" @onclick="()=> AdminSubNav = !AdminSubNav">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span>Администратору
                 </NavLink>
-            }
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" @onclick="()=> partnerSubNav = !partnerSubNav">
-                <span class="oi oi-list-rich" aria-hidden="true"></span>Партнеры
-            </NavLink>
-            @if (partnerSubNav)
-            {
-                <NavLink class="expand-menu" href="partners">
-                    <span>Все партнеры</span>
-                </NavLink>
-                <NavLink class="" href="getPartner">
-                    <span>Поиск партнера</span>
-                </NavLink>
-                <NavLink class="" href="createPartner">
-                    <span>Создать партнера</span>
-                </NavLink>
-            }
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" @onclick="()=> preferenceSubNav = !preferenceSubNav">
-                <span class="oi oi-list-rich" aria-hidden="true"></span>Предпочтения
-            </NavLink>
-            @if (preferenceSubNav)
-            {
-                <NavLink class="expand-menu" href="preferences">
-                    <span>Все предпочтения</span>
-                </NavLink>
-                <NavLink class="" href="getPreference">
-                    <span>Поиск предпочтений</span>
-                </NavLink>
-                <NavLink class="" href="createPreference">
-                    <span>Создать предпочтение</span>
-                </NavLink>
-            }
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" @onclick="()=> customerSubNav = !customerSubNav">
-                <span class="oi oi-list-rich" aria-hidden="true"></span>Клиенты
-            </NavLink>
-            @if (customerSubNav)
-            {
-                <NavLink class="expand-menu" href="customers">
-                    <span>Все клиенты</span>
-                </NavLink>
-                <NavLink class="" href="getCustomer">
-                    <span>Поиск клиента</span>
-                </NavLink>
-                <NavLink class="" href="createCustomer">
+                @if (AdminSubNav)
+                {
+                    <NavLink class="expand-menu" href="Registration">
+                        <span>Регистрация</span>
+                    </NavLink>
+                     <NavLink class="expand-menu" href="employees">
+                        <span>Все сотрудники</span>
+                    </NavLink>
+                    <NavLink class="" href="getEmployee">
+                        <span>Поиск сотрудника</span>
+                    </NavLink>
+                    <NavLink class="" href="createEmployee">
+                        <span>Создать сотрудника</span>
+                    </NavLink>
+                     <NavLink class="" href="createCustomer">
                     <span>Создать клиента</span>
                 </NavLink>
-            }
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" @onclick="()=> promocodeSubNav = !promocodeSubNav">
-                <span class="oi oi-list-rich" aria-hidden="true"></span>Промокоды
-            </NavLink>
-            @if (promocodeSubNav)
-            {
-                <NavLink class="expand-menu" href="promocodes">
-                    <span>Все промокоды</span>
+
+                }
+            </div>
+        </AuthorizeView>
+
+        <AuthorizeView Policy="CustomerOnly">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" @onclick="()=> customerIdentitySubNav = !customerIdentitySubNav">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span>Клиенту
                 </NavLink>
-                <NavLink class="" href="getPromocode">
-                    <span>Поиск промокода</span>
-                </NavLink>
-                <NavLink class="" href="createPromocode">
-                    <span>Создать промокод</span>
-                </NavLink>
-            }
-        </div>
+                @if (customerIdentitySubNav)
+                {
+                    <NavLink class="" href="getCustomer">
+                        <span>Поиск себя</span>
+                    </NavLink>
+
+                }
+            </div>
+        </AuthorizeView>
     </nav>
 </div>
 
 @code {
     private bool employeeSubNav;
     private bool partnerSubNav;
-    private bool preferenceSubNav;
-    private bool customerSubNav;
-    private bool promocodeSubNav;
+    private bool AdminSubNav;
+    private bool customerIdentitySubNav;
 
     private bool collapseNavMenu = true;
 

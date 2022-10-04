@@ -29,22 +29,25 @@
                 <td class="align-middle">
                     @Customer.Email
                 </td>
-                 <td class="align-middle">
+                <td class="align-middle">
                     @foreach (var preference in Preference)
                     {
-                        @(preference.Name + ", ");
+                        @(preference.Name + ", ")
+                        ;
                     }
                 </td>
                 <td class="align-middle">
-                     @foreach (var promocode in Promocode)
+                    @foreach (var promocode in Promocode)
                     {
-                        @(promocode.Code + ", ");
+                        @(promocode.Code + ", ")
+                        ;
                     }
                 </td>
                 <td class="align-middle">
-                     @foreach (var promocode in Promocode)
+                    @foreach (var promocode in Promocode)
                     {
-                        @(promocode.PartnerName + ", ");
+                        @(promocode.PartnerName + ", ")
+                        ;
                     }
                 </td>
                 <td class="align-middle">
@@ -53,6 +56,7 @@
                 <td class="align-middle">
                     <button type="button" class="btn btn-danger" @onclick="()=>Delete(Customer.CustomerId)">Удалить</button>
                 </td>
+
             </tr>
 
         </tbody>

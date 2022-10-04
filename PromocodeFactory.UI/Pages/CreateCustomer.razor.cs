@@ -18,7 +18,7 @@ namespace PromocodeFactory.UI.Pages
 
 
         private CreateCustomerModel _customer = new CreateCustomerModel();
-        private SuccessNotification _notification;
+        private SuccessCreateCustomer _notification;
         private PagingParameters _preferenceParameters = new PagingParameters();
        
         [Inject]
@@ -37,9 +37,9 @@ namespace PromocodeFactory.UI.Pages
         }
         private async Task Create()
         {
-            _customer.PreferenceIds = Selected.Select(x=>Guid.Parse(x.Key)).ToList(); 
-            await CustomerRepo.CreateAsync(_customer);
-            _notification.Show();
+            _customer.PreferenceIds = Selected.Select(x=>Guid.Parse(x.Key)).ToList();
+            var customer = await CustomerRepo.CreateAsync(_customer);
+            _notification.Show(customer.CustomerId.ToString());
         }
     }
 }

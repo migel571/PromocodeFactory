@@ -49,7 +49,12 @@ namespace PromocodeFactory.Service.Manager
                 _logger.LogInfo($"Partner does not exist.");
                 throw new PartnerException($"Partner does not exist.");
             }
-           await _repository.UpdateAsync(_mapper.Map<Partner>(partner));
+            if (await _repository.ExistAsync(filter => filter.Name == partner.Name))
+            {
+                _logger.LogInfo($"Partner with already exist.");
+                throw new PartnerException($"Partner already exist.");
+            }
+            await _repository.UpdateAsync(_mapper.Map<Partner>(partner));
         }
         public async Task DeleteAsync(Guid partnerId)
         {

@@ -11,6 +11,7 @@ namespace PromocodeFactory.Api.Validation
             RuleFor(r=>r.Email).EmailAddress().NotNull().NotEmpty();
             RuleFor(r=>r.Password).MinimumLength(6).NotNull().NotEmpty();
             RuleFor(r => r.ConfirmPassword).MinimumLength(6).NotNull().NotEmpty();
+            RuleFor(r => r.Role).Must(x => x == "Admin" || x == "Employee" || x=="Partner" || x=="Customer" ); 
         }
     }
 }

@@ -7,11 +7,13 @@ using PromocodeFactory.Service.Interfaces;
 using PromocodeFactory.Api.Commands;
 using PromocodeFactory.Infrastructure.Paging;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PromocodeFactory.Api.Controllers
 {
     [Route("api/preferences")]
     [ApiController]
+    
     public class PreferenceController : ControllerBase
     {
         private readonly IPreferenceManager _manager;
@@ -22,7 +24,7 @@ namespace PromocodeFactory.Api.Controllers
             _manager = manager;
             _mapper = mapper;   
         }
-
+        
         [HttpGet]
         public async Task<IActionResult> GetAllPreferences([FromQuery] PagingParameters preferenceParametres)
         {
@@ -36,12 +38,14 @@ namespace PromocodeFactory.Api.Controllers
             var preference = await _manager.GetAsync(preferenceId);
             return Ok(preference);
         }
+        [Authorize(Policy = "CustomerOnly")]
         [HttpGet("customer/{customerId:Guid}")]
         public async Task<IActionResult> GetAllPreferencesByCustomerId(Guid customerId)
         {
             var preferences = await _manager.GetPreferencesByCustomerIdAsync(customerId);
             return Ok(preferences);
         }
+        [Authorize(Policy = "EmployeeOnly")]
         [HttpPost]
         public async Task<IActionResult> CreatePreference([FromBody] CreatePreferenceCommand preferenceBody)
         {
@@ -49,6 +53,7 @@ namespace PromocodeFactory.Api.Controllers
             await _manager.CreateAsync(preference);
             return Ok(preference);
         }
+        [Authorize(Policy = "EmployeeOnly")]
         [HttpPut]
         public async Task<IActionResult> UpdatePreference([FromBody] UpdatePreferenceCommand preferenceBody)
         {
@@ -56,6 +61,7 @@ namespace PromocodeFactory.Api.Controllers
             await _manager.UpdateAsync(preference);
             return Ok(preference);
         }
+        [Authorize(Policy = "EmployeeOnly")]
         [HttpDelete("{preferenceId:Guid}")]
         public async Task<IActionResult> DeletePreference(Guid preferenceId)
         {

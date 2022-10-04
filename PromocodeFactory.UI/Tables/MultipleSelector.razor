@@ -1,18 +1,18 @@
-﻿<div class="multiple-selector">
-    <ul class="selectable-ul">
+﻿<div class="multiple-selector" style="display: flex;">
+    <ul class="selectable-ul" style="height: 200px; overflow-y: auto; list-style-type: none; width: 170px; padding: 0; border-radius: 3px; border: 1px solid #ccc;">
         @foreach(var item in NoSelected)
         {
-            <li @onclick="(()=>Select(item))">@item.Value</li>
+            <li @onclick="(()=>Select(item))" style ="cursor: pointer; border-bottom: 1px #eee solid;  padding: 2px 10px;  font-size: 14px;">@item.Value</li>
         }
     </ul>
-    <div class="multiple-selector-buttons">
-        <button type="button" @onclick="(()=>SelectAll())">>></button>
-        <button type="button" @onclick="(()=>DeselectAll())">@removeAll</button>
+    <div class="multiple-selector-buttons" style="display: flex; flex-direction: column;  justify-content: center;  padding: 5px;">
+        <button style="margin: 5px;" type="button" @onclick="(()=>SelectAll())">>></button>
+        <button style="margin: 5px;" type="button" @onclick="(()=>DeselectAll())">@removeAll</button>
     </div>
-    <ul class = "selectabla-ul">
+    <ul class = "selectabla-ul" style="height: 200px; overflow-y: auto; list-style-type: none; width: 170px; padding: 0; border-radius: 3px; border: 1px solid #ccc;">
         @foreach (var item in Selected)
        {
-           <li @onclick="(()=>Deselect(item))">@item.Value</li>
+           <li @onclick="(()=>Deselect(item))" style ="cursor: pointer; border-bottom: 1px #eee solid;  padding: 2px 10px;  font-size: 14px;">@item.Value</li>
        }
 </ul>
 </div>

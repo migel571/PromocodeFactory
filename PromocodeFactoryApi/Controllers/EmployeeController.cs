@@ -6,11 +6,13 @@ using PromocodeFactory.Infrastructure.Paging;
 using PromocodeFactory.Service.DTO.Administration;
 using PromocodeFactory.Service.Interfaces;
 using PromocodeFactory.Api.Commands;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PromocodeFactory.Api.Controllers
 {
     [Route("api/employees")]
     [ApiController]
+   
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeManager _manager;
@@ -22,6 +24,7 @@ namespace PromocodeFactory.Api.Controllers
             _mapper = mapper;
 
         }
+        [Authorize(Policy = "AdminOnly")]
         [HttpGet]
         public async Task<IActionResult> GetAllEmployees([FromQuery] PagingParameters employeeParameters)
         {
@@ -29,13 +32,14 @@ namespace PromocodeFactory.Api.Controllers
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(employees.MetaData));
             return Ok(employees);
         }
+        [Authorize(Policy = "EmployeeOnly")]
         [HttpGet("{employeeId:Guid}")]
         public async Task<IActionResult> GetEmployee(Guid employeeId)
         {
             var employee = await _manager.GetAsync(employeeId);
             return Ok(employee);
         }
-
+        [Authorize(Policy = "AdminOnly")]
         [HttpPost]
         public async Task<IActionResult> CreateEmployee([FromBody] CreateEmployeeCommand employeeBody)
         {
@@ -44,6 +48,7 @@ namespace PromocodeFactory.Api.Controllers
             return Ok(employee);    
 
         }
+        [Authorize(Policy = "AdminOnly")]
         [HttpPut]
         public async Task<IActionResult> UpdateEmployee([FromBody] UpdateEmployeeCommand employeeBody)
         {
@@ -51,6 +56,7 @@ namespace PromocodeFactory.Api.Controllers
             await _manager.UpdateAsync(employee);
             return Ok(employee);
         }
+        [Authorize(Policy = "AdminOnly")]
         [HttpDelete("{employeeId:Guid}")]
         public async Task<IActionResult> DeleteEmployee(Guid employeeId)
         {

@@ -14,7 +14,7 @@ namespace PromocodeFactory.UI.Pages
         IPromocodeRepository PromocodeRepo { get; set; }
         [Inject]
         IPreferenceRepository PreferenceRepo { get; set; }
-        [Parameter]
+        [Inject]
         public NavigationManager Navigation { get; set; }
 
         public PromocodeModel PromocodeMod { get; set; }

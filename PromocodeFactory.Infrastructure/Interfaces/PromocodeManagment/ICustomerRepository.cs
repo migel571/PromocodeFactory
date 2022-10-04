@@ -14,5 +14,6 @@ namespace PromocodeFactory.Infrastructure.Interfaces.PromocodeManagment
         Task<bool> ExistAsync(Expression<Func<Customer, bool>> expression);
         Task<Customer> FindCustomerAsync(Guid id);
         Task<List<Customer>> GetCustomersByIdsAsync(List<Guid> customerIds);
+        Task<Customer> GetCustomerByEmailAsync(string email);
     }
 }
