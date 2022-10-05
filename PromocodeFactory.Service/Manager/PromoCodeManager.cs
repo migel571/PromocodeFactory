@@ -13,12 +13,14 @@ namespace PromocodeFactory.Service.Manager
     {
         private IPromoCodeRepository _repository;
         private IPreferenceRepository _repositoryPreference;
+        private IPartnerRepository _repositoryPartner;
         private IMapper _mapper;
         private ILoggerManager _logger;
-        public PromoCodeManager(IPromoCodeRepository repository, IPreferenceRepository repositoryPreference, IMapper mapper, ILoggerManager logger)
+        public PromoCodeManager(IPromoCodeRepository repository, IPreferenceRepository repositoryPreference, IPartnerRepository repositoryPartner, IMapper mapper, ILoggerManager logger)
         {
             _repository = repository;
             _repositoryPreference = repositoryPreference;
+            _repositoryPartner = repositoryPartner;
             _mapper = mapper;
             _logger = logger;
         }
@@ -35,6 +37,7 @@ namespace PromocodeFactory.Service.Manager
 
         public async Task CreateAsync(PromoCodeDTO promocode, Guid preferenceId)
         {
+           
             if (promocode.BeginDate > promocode.EndDate)
             {
                 _logger.LogInfo($"Date is not correct.");
@@ -46,6 +49,16 @@ namespace PromocodeFactory.Service.Manager
                 _logger.LogInfo($"Promocode already exist.");
                 throw new PromoCodeException($"Promocode already exist.");
             }
+            if (!await _repositoryPartner.ExistAsync(x => x.Name.ToLower() == promocode.PartnerName.ToLower()) && await _repositoryPartner.ExistAsync(x => x.IsActive == false))
+            {
+                _logger.LogInfo($"PartnerName is not correct or not active.");
+                throw new PromoCodeException($"PartnerName is not correct or not active.");
+            }
+            if (!await _repositoryPartner.ExistAsync(x => x.NumberIssuedPromoCode > 0))
+            {
+                _logger.LogInfo($"Partner {promocode.PartnerName} have not nubmerPromocode.");
+                throw new PromoCodeException($"Partner {promocode.PartnerName} have not nubmerPromocode.");
+            }
             var preference = await _repositoryPreference.FindPreferenceAsync(preferenceId);
             if (preference == null)
             {
@@ -53,6 +66,7 @@ namespace PromocodeFactory.Service.Manager
                 throw new PromoCodeException($"Preferences does not exist.");
             }
             promocodeNew.Preference = preference;
+            await _repositoryPartner.UpdateNubmberPromoCodeAsync(promocode.PartnerName);
             await _repository.CreateAsync(promocodeNew);
         }
         public async Task UpdateAsync(PromoCodeDTO promocode)

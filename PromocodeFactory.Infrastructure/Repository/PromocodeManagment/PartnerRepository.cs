@@ -10,7 +10,7 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
     public class PartnerRepository : IPartnerRepository
     {
         private PromocodeContext _context;
-        
+
         public PartnerRepository(PromocodeContext context)
         {
             _context = context;
@@ -44,11 +44,17 @@ namespace PromocodeFactory.Infrastructure.Repository.PromocodeManagment
             await _context.SaveChangesAsync();
         }
 
-        
+
         public async Task<bool> ExistAsync(Expression<Func<Partner, bool>> expression)
         {
             return await _context.Partners.AnyAsync(expression);
         }
-        
+        public async Task UpdateNubmberPromoCodeAsync(string partnerName)
+        {
+            var partner = await _context.Partners.Where(x => x.Name.ToLower() == partnerName.ToLower()).FirstAsync();
+            partner.NumberIssuedPromoCode -= 1;
+            await  UpdateAsync(partner);
+        }
+
     }
 }
