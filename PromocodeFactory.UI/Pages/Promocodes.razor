@@ -1,0 +1,25 @@
+﻿@page "/promocodes"
+@using PromocodeFactory.UI.Tables
+@using PromocodeFactory.UI.Components
+
+<h3>Промокоды</h3>
+
+<div class="row">
+    <div class="col-md-10">
+         <Search OnSearchChanged="SearchChanged"/>
+    </div>
+    <div class="col-md-2">
+       
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <PromocodeTable Promocodes="PromocodesList" OnDelete="DeletePromocode"></PromocodeTable>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <Pagination MetaData ="MetaData" Spread ="2" SelectedPage="SelectedPage"></Pagination>
+    </div>
+</div>
+

@@ -1,0 +1,14 @@
+﻿@page "/getPromocode"
+
+<h3>Найти промокод по Id</h3>
+<div class="row">
+    <div class="col-md-10">
+        <input @bind-value="@Id" />
+    </div>
+    <div class="col-md-2">
+       <button class="btn btn-primary" @onclick="(()=>ShowPromocode())">Найти</button>
+    </div>
+</div>
+
+
+

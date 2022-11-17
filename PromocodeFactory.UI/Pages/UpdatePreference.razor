@@ -1,0 +1,23 @@
+﻿@page "/updatePreference/{preferenceId}"
+
+<h3>Обновить предпочтение:</h3>
+
+@if (_preference != null)
+{
+    <EditForm Model="_preference" OnValidSubmit="Update" class="card card-body bg-light mt-5">
+    <DataAnnotationsValidator />
+    <div class="mb-3 row">
+        <label for="Name" class="col-md-2 col-form-label">Название:</label>
+        <div class="col-md-10">
+            <InputText id="name" class="form-control" @bind-Value="_preference.Name" />
+            <ValidationMessage For="@(()=> _preference.Name)" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button type="submit" class="btn btn-success">Редактировать</button>
+        </div>
+    </div>
+</EditForm>
+<SuccessNotification @ref="_notification" />
+}

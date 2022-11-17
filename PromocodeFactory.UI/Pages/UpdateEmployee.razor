@@ -1,0 +1,37 @@
+﻿@page "/updateEmployee/{employeeId}"
+
+<h2>Обновить данные сотрудника</h2>
+@if(_employee != null)
+{
+    <EditForm Model="_employee" OnValidSubmit="Update" class="card card-body bg-light mt-5">
+        <DataAnnotationsValidator />
+        <div class="form-group row">
+            <label for="FirstName" class="col-md-2 col-form-label">Имя:</label>
+            <div class="col-md-10">
+                <InputText id="firstname" class="form-control" @bind-Value="_employee.FirstName" />
+                <ValidationMessage For="@(() => _employee.FirstName)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="LastName" class="col-md-2 col-form-label">Фамилия:</label>
+            <div class="col-md-10">
+                <InputText id="supplier" class="form-control" @bind-Value="_employee.LastName" />
+                <ValidationMessage For="@(() => _employee.LastName)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="Email" class="col-md-2 col-form-label">Email:</label>
+            <div class="col-md-10">
+                <InputText id="email" class="form-control" @bind-Value="_employee.Email" />
+                <ValidationMessage For="@(() => _employee.Email)" />
+            </div>
+        </div>
+         <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="submit" class="btn btn-success">Редактировать</button>
+            </div>
+        </div>
+        
+    </EditForm>
+    <SuccessNotification @ref="_notification" />
+}

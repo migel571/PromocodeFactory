@@ -1,0 +1,56 @@
+﻿@if (Partners.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                
+                <th scope="col">Имя</th>
+                <th scope="col">Кол-во промокодов</th>
+                <th scope="col">Действующий</th>
+                <th scope="col">Действия</th>
+                <th scope="col">Действия</th>
+                <th scope="col">Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var partner in Partners)
+            {
+                <tr>
+                    
+                    <td class="align-middle">
+                        @partner.Name
+                    </td>
+                    <td class="align-middle">
+                        @partner.NumberIssuedPromoCode
+                    </td>
+                    <td class="align-middle">
+                        @if (partner.IsActive)
+                    {
+                        <p>Действующий</p>
+                    }
+                    else
+                    {
+                        <p style="color:red">Не действующий</p>
+                    }
+                    </td>
+                    <td class="align-middle">
+                        <button type="button" class="btn btn-info" @onclick="(()=>GetPartner(partner.PartnerId))">Посмотреть</button>
+                    </td>
+                    <td class="align-middle">
+                        <button type="button" class="btn btn-info" @onclick="()=>UpdatePartner(partner.PartnerId)">Редактировать</button>
+                    </td>
+                    <td class="align-middle">
+                        <button type="button" class="btn btn-danger" @onclick="()=>Delete(partner.PartnerId)">Удалить</button>
+                    </td>
+                </tr>
+             }
+            </tbody>
+    </table>
+}
+else
+{
+    <span>
+        Идет загрузка партнеров...
+    </span>
+}
+

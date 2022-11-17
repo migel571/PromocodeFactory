@@ -1,0 +1,44 @@
+﻿@page "/updateCustomer/{customerId}"
+@using PromocodeFactory.UI.Tables
+
+<h3>Обновить клиента:</h3>
+
+@if (_customer != null)
+{
+    <EditForm Model="_customer" OnValidSubmit="Update" class="card card-body bg-light mt-5">
+    <DataAnnotationsValidator />
+    <div class="mb-3 row">
+        <label for="FirstName" class="col-md-2 col-form-label">Имя:</label>
+        <div class="col-md-10">
+            <InputText id="firstname" class="form-control" @bind-Value="_customer.FirstName" />
+            <ValidationMessage For="@(()=> _customer.FirstName)" />
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="LastName" class="col-md-2 col-form-label">Фамилия:</label>
+        <div class="col-md-10">
+            <InputText id="lastname" class="form-control" @bind-Value="_customer.LastName" />
+            <ValidationMessage For="@(()=> _customer.LastName)" />
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="Email" class="col-md-2 col-form-label">Email:</label>
+        <div class="col-md-10">
+            <InputText id="email" class="form-control" @bind-Value="_customer.Email" />
+            <ValidationMessage For="@(()=> _customer.Email)" />
+        </div>
+    </div>
+     <div class="mb-3 row">
+        <label for="Preferences" class="col-md-2 col-form-label">Предпочтения:</label>
+        <div class="col-md-10">
+           <MultipleSelector Selected="Selected" NoSelected="NotSelected"></MultipleSelector>
+          </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button type="submit" class="btn btn-success">Редактировать</button>
+        </div>
+    </div>
+</EditForm>
+<SuccessNotification @ref="_notification"/>
+}

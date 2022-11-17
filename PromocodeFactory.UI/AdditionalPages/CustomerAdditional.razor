@@ -1,0 +1,70 @@
+﻿@if (Customer != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Фамилия</th>
+                <th scope="col">Email</th>
+                <th scope="col">Предпочтения</th>
+                <th scope="col">Промокоды</th>
+                <th scope="col">Партнер промокода</th>
+                <th scope="col">Действия</th>
+                <th scope="col">Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td class="align-middle">
+                    @Customer.CustomerId
+                </td>
+                <td class="align-middle">
+                    @Customer.FirstName
+                </td>
+                <td class="align-middle">
+                    @Customer.LastName
+                </td>
+                <td class="align-middle">
+                    @Customer.Email
+                </td>
+                <td class="align-middle">
+                    @foreach (var preference in Preference)
+                    {
+                        @(preference.Name + ", ")
+                        ;
+                    }
+                </td>
+                <td class="align-middle">
+                    @foreach (var promocode in Promocode)
+                    {
+                        @(promocode.Code + ", ")
+                        ;
+                    }
+                </td>
+                <td class="align-middle">
+                    @foreach (var promocode in Promocode)
+                    {
+                        @(promocode.PartnerName + ", ")
+                        ;
+                    }
+                </td>
+                <td class="align-middle">
+                    <button type="button" class="btn btn-info" @onclick="()=>UpdateCustomer(Customer.CustomerId)">Редактировать</button>
+                </td>
+                <td class="align-middle">
+                    <button type="button" class="btn btn-danger" @onclick="()=>Delete(Customer.CustomerId)">Удалить</button>
+                </td>
+
+            </tr>
+
+        </tbody>
+    </table>
+}
+else
+{
+    <span>
+        Идет загрузка клиента...
+    </span>
+}

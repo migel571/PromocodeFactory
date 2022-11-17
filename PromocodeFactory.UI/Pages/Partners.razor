@@ -1,0 +1,24 @@
+﻿@page "/partners"
+@using PromocodeFactory.UI.Tables
+@using PromocodeFactory.UI.Components
+
+<h3>Партнеры</h3>
+
+<div class="row">
+    <div class="col-md-10">
+        <Search OnSearchChanged="SearchChanged"/>
+    </div>
+    <div class="col-md-2">
+        <a href="/createPartner">Создать партнера</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <PartnerTable Partners="PartnersList" OnDelete="DeletePartner"></PartnerTable>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <Pagination MetaData ="MetaData" Spread ="2" SelectedPage="SelectedPage"></Pagination>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+﻿@page "/createPromocode"
+
+<h3>Создать новый промокод:</h3>
+
+<EditForm Model="_promocode" OnValidSubmit="Create" class="card card-body bg-light mt-5">
+    <DataAnnotationsValidator />
+    <div class="mb-3 row">
+        <label for="Code" class="col-md-2 col-form-label">Код:</label>
+        <div class="col-md-10">
+            <InputText id="code" class="form-control" @bind-Value="_promocode.Code" />
+            <ValidationMessage For="@(()=> _promocode.Code)" />
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="ServiceInfo" class="col-md-2 col-form-label">Информация:</label>
+        <div class="col-md-10">
+            <InputText id="serviceinfo" class="form-control" @bind-Value="_promocode.ServiceInfo" />
+            <ValidationMessage For="@(()=> _promocode.ServiceInfo)" />
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="BeginDate" class="col-md-2 col-form-label">Начало действия:</label>
+        <div class="col-md-10">
+            <InputDate id="begindate" class="form-control"  @bind-Value="_promocode.BeginDate" />
+            <ValidationMessage For="@(()=> _promocode.BeginDate)" />
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="EndDate" class="col-md-2 col-form-label">Конец действия:</label>
+        <div class="col-md-10">
+            <InputDate id="enddate" class="form-control"  @bind-Value="_promocode.EndDate" />
+            <ValidationMessage For="@(()=> _promocode.EndDate)" />
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="PartnerName" class="col-md-2 col-form-label">Название партнера:</label>
+        <div class="col-md-10">
+            <InputText id="partnername" class="form-control" @bind-Value="_promocode.PartnerName" />
+            <ValidationMessage For="@(()=> _promocode.PartnerName)" />
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="Preferences" class="col-md-2 col-form-label">Предпочтения:</label>
+        <div class="col-md-10">
+            <InputSelect id="preferenceids" class="form-control" @bind-Value="_promocode.PreferenceId">
+                @foreach(var preference in PreferencesList)
+                {
+                    <option value="@preference.PreferenceId">@preference.Name</option>
+                }
+            </InputSelect>
+            <ValidationMessage For="@(()=> _promocode.PreferenceId)" />
+            
+
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button type="submit" class="btn btn-success">Создать</button>
+        </div>
+    </div>
+</EditForm>
+<SuccessNotification @ref="_notification"/>
+
+
